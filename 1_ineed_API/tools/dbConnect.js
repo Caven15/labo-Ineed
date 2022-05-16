@@ -23,7 +23,7 @@ module.exports = {
                 {
                     host: process.env.DB_HOST,
                     dialect: "mysql",
-                    port: 3308,
+                    port: 3306,
                     timezone: "+02:00"
                 })
             dbConnector = {

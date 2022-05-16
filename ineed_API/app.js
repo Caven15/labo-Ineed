@@ -1,10 +1,10 @@
 const express = require("express")
 const app = express()
+const PORT = process.env.PORT || 3000
 const cors = require("cors")
-const PORT = 3000
+const db = require("./tools/dbConnect")
 
-// ici je me  connecte a la base de donnée
-
+db.connect()
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 app.use(function (req, res, next) {

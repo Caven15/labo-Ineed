@@ -3,6 +3,9 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 // login d'un utilisateur
+exports.login = async (req, res, next) => {
+    //...
+}
 
 // register d'un client
 exports.registerClient = async (req, res, next) => {

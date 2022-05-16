@@ -21,7 +21,8 @@ app.use(cors())
     const authRouter = require("./routers/auth.router")
     app.use("/auth", authRouter)
 
-    //...
+    const roleRouter = require("./routers/role.router")
+    app.use("/role", roleRouter)
 
     //...
 

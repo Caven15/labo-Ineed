@@ -11,6 +11,10 @@ const produitModel = (sequelize, DataTypes) => {
         quantite: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        statut: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         }
     },
     {

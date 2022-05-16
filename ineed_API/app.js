@@ -18,7 +18,8 @@ app.use(cors())
 
 // ici j'importe tout mes routeur pour la redirection...
 
-    //...
+    const authRouter = require("./routers/auth.router")
+    app.use("/auth", authRouter)
 
     //...
 

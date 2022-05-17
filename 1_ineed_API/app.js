@@ -24,6 +24,9 @@ app.use(cors())
     const roleRouter = require("./routers/role.router")
     app.use("/role", roleRouter)
 
+    const clientRouter = require("./routers/client.router")
+    app.use("/client", clientRouter) 
+
     //...
 
 // si aucune route n'est trouvée

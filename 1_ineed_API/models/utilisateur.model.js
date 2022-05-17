@@ -36,10 +36,6 @@ const utilisateurModel = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        statutEntrepreneur: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
         }
     },
     {

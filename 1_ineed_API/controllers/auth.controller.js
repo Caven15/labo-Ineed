@@ -32,6 +32,7 @@ exports.registerUtilisateur = async (req, res, next) => {
     try {
         // je férifie si le client n'existe pas déja dans la db
         let utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})
+        console.log(utilisateur)
         if (utilisateur) {
             return res.status(401).json({message: "l'adresse e-mail existe déja dans le système"})
         }
@@ -47,8 +48,7 @@ exports.registerUtilisateur = async (req, res, next) => {
                 codePostal : req.body.codePostal,
                 email : req.body.email,
                 password : bcrypt.hashSync(req.body.password.trim(), 10),
-                roleId : 1,
-                statutEntrepreneur : false
+                roleId : 1
             }
             dbConnector.utilisateur.create(newUtilisateur)
             .then((response)=> {

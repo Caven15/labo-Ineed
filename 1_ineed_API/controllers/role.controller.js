@@ -7,6 +7,38 @@ exports.addRole = (req, res, next) => {
     res.end()
 }
 
+// getAll
+exports.getAllRole = async (req, res, next) => {
+    try {
+        const allRole = await dbConnector.role.findAll()
+        res.status(200).json(allRole)
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+// getById
+exports.getById = async (req, res, next) => {
+    try {
+        const role = await dbConnector.role.findByPk(req.params.id)
+        res.status(200).json(role)
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+// updateById
+exports.updateById = async (req, res, next) => {
+    try {
+        const role = await dbConnector.role.findByPk(req.params.id)
+        role.update(req.body)
+        res.write(JSON.stringify({Message :  `role nr : ${req.params.id} mis a jour avec succès !` }))
+        res.end()
+    } catch (error) {
+        res.json(error)
+    }
+}
+
 // supprime un role
 exports.deleteRole = async (req, res, next) => {
     try {

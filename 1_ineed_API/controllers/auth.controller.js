@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken")
 // login d'un utilisateur
 exports.login = async (req, res, next) => {
     const utilisateur = await dbConnector.utilisateur.findOne({where: {email: req.body.email}})
-    const entrepreneur = await dbConnector.entrepreneur.findByPk(utilisateur.id)
     if (utilisateur) {
         const password = bcrypt.compareSync(req.body.password.trim(), utilisateur.password)
         if (!password) {
@@ -15,39 +14,15 @@ exports.login = async (req, res, next) => {
             })
         }
         else{
-            if (utilisateur.statutEntrepreneur != 1) {
-                // si le login est pour un utilisateur
-                const dataToken = {
-                    id : utilisateur.id,
-                    nom : utilisateur.nom,
-                    prenom : utilisateur.prenom,
-                    dateNaissance : utilisateur.dateNaissance,
-                    email : utilisateur.email,
-                    roleId : utilisateur.roleId
-                }
-                // j'envoie les donnée du utilisateur dans le token
-                var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
-                res.status(200).send({accessToken : token})
+            // si le login est pour un utilisateur
+            const dataToken = {
+                id : utilisateur.id,
+                email : utilisateur.email,
+                roleId : utilisateur.roleId
             }
-            else{
-                // si le login est pour un utilisateur qui a une entreprise 
-                const dataToken = {
-                    id : utilisateur.id,
-                    nom : utilisateur.nom,
-                    prenom : utilisateur.prenom,
-                    dateNaissance : utilisateur.dateNaissance,
-                    email : utilisateur.email,
-                    roleId : utilisateur.roleId,
-                    nomE : entrepreneur.nomE,
-                    numeroRueE : entrepreneur.numeroRueE,
-                    rueE : entrepreneur.rueE,
-                    villeE : entrepreneur.villeE,
-                    codePostalE : entrepreneur.codePostalE
-                }
-                // j'envoie les donnée du client + son entreprise dans le token
-                var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
-                res.status(200).send({accessToken : token})
-            }
+            // j'envoie les donnée du utilisateur dans le token
+            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
+            res.status(200).send({accessToken : token})
         }
     }
 }

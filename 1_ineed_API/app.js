@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3000
 const cors = require("cors")
 const db = require("./tools/dbConnect")
 
+// j'initialise mon projet et je me connecte a la db
 db.connect()
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
@@ -14,10 +15,10 @@ app.use(function (req, res, next) {
     ) 
     next();
 })
+// utilisation du cors pour autoriser toute les origine de connexionx au serveur
 app.use(cors())
 
 // ici j'importe tout mes routeur pour la redirection...
-
     const authRouter = require("./routers/auth.router")
     app.use("/auth", authRouter)
 
@@ -30,12 +31,15 @@ app.use(cors())
     const entrepreneurRouter = require("./routers/entrepreneur.router")
     app.use("/entrepreneur", entrepreneurRouter)
 
+    const utilisateurRouter = require("./routers/utilisateur.router")
+    app.use("/utilisateur", utilisateurRouter)
+
     //...
 
 // si aucune route n'est trouvée
-app.all("*", (req, res, next) => {
-    console.log("le route que vous chercher n'existe pas...")
-    res.end()
-})
+    app.all("*", (req, res, next) => {
+        console.log("le route que vous chercher n'existe pas...")
+        res.end()
+    })
 
 app.listen(PORT, console.log("serveur connecté :)"))

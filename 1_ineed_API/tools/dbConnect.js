@@ -30,16 +30,16 @@ module.exports = {
             dbConnector = {
                 Sequelize: Sequelize,
                 sequelize: sequelize,
-                // ici j'importe mes futur modèles
-                utilisateur: utilisateurModel(sequelize,DataTypes),
-                client: clientModel(sequelize,DataTypes),
-                entrepreneur : entrepreneurModel(sequelize,DataTypes),
-                categorie: categorieModel(sequelize,DataTypes),
-                livraison: livraisonModel(sequelize,DataTypes),
-                commande: commandeModel(sequelize,DataTypes),
-                ligneCommande: ligneCommandeModel(sequelize,DataTypes),
-                produit: produitModel(sequelize,DataTypes),
-                role: roleModel(sequelize,DataTypes)
+                // ici j'importe mes modèles
+                    utilisateur: utilisateurModel(sequelize,DataTypes),
+                    client: clientModel(sequelize,DataTypes),
+                    entrepreneur : entrepreneurModel(sequelize,DataTypes),
+                    categorie: categorieModel(sequelize,DataTypes),
+                    livraison: livraisonModel(sequelize,DataTypes),
+                    commande: commandeModel(sequelize,DataTypes),
+                    ligneCommande: ligneCommandeModel(sequelize,DataTypes),
+                    produit: produitModel(sequelize,DataTypes),
+                    role: roleModel(sequelize,DataTypes)
 
             }
 

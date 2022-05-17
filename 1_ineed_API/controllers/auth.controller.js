@@ -4,7 +4,52 @@ const jwt = require("jsonwebtoken")
 
 // login d'un utilisateur
 exports.login = async (req, res, next) => {
-    //...
+    const utilisateur = await dbConnector.utilisateur.findOne({where: {email: req.body.email}})
+    const entrepreneur = await dbConnector.entrepreneur.findByPk(utilisateur.id)
+    if (utilisateur) {
+        const password = bcrypt.compareSync(req.body.password.trim(), utilisateur.password)
+        if (!password) {
+            return res.status(401).send({
+                accessToken: null,
+                message: "mot de passe incorecte"
+            })
+        }
+        else{
+            if (utilisateur.statutEntrepreneur != 1) {
+                // si le login est pour un utilisateur
+                const dataToken = {
+                    id : utilisateur.id,
+                    nom : utilisateur.nom,
+                    prenom : utilisateur.prenom,
+                    dateNaissance : utilisateur.dateNaissance,
+                    email : utilisateur.email,
+                    roleId : utilisateur.roleId
+                }
+                // j'envoie les donnée du utilisateur dans le token
+                var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
+                res.status(200).send({accessToken : token})
+            }
+            else{
+                // si le login est pour un utilisateur qui a une entreprise 
+                const dataToken = {
+                    id : utilisateur.id,
+                    nom : utilisateur.nom,
+                    prenom : utilisateur.prenom,
+                    dateNaissance : utilisateur.dateNaissance,
+                    email : utilisateur.email,
+                    roleId : utilisateur.roleId,
+                    nomE : entrepreneur.nomE,
+                    numeroRueE : entrepreneur.numeroRueE,
+                    rueE : entrepreneur.rueE,
+                    villeE : entrepreneur.villeE,
+                    codePostalE : entrepreneur.codePostalE
+                }
+                // j'envoie les donnée du client + son entreprise dans le token
+                var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
+                res.status(200).send({accessToken : token})
+            }
+        }
+    }
 }
 
 // register d'un utilisateur
@@ -27,7 +72,8 @@ exports.registerUtilisateur = async (req, res, next) => {
                 codePostal : req.body.codePostal,
                 email : req.body.email,
                 password : bcrypt.hashSync(req.body.password.trim(), 10),
-                roleId : 1
+                roleId : 1,
+                statutEntrepreneur : false
             }
             dbConnector.utilisateur.create(newUtilisateur)
             .then((response)=> {
@@ -65,6 +111,7 @@ exports.registerEntrepreneur = async (req, res, next) => {
             return res.status(401).json({message: "vous devez d'abords créer un compte utilisateur !"})
         }
         else{
+            utilisateur.update({ statutEntrepreneur: true })
             let newEntrepreneur = {
                 nomE : req.body.nomE,
                 numeroRueE : req.body.numeroRueE,

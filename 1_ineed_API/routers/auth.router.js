@@ -3,10 +3,21 @@ const router = express.Router()
 const authController = require("../controllers/auth.controller")
 const {registerUtilisateur} = require("../controllers/auth.controller")
 
-// définitions des routes concernant l'authentification 
+// route libre
+    router.post("/registerClient", authController.registerUtilisateur, authController.registerClient)
+    router.post("/registerEntrepreneur", authController.registerEntrepreneur)
+    router.post("/login", authController.login)
 
-router.post("/registerClient", authController.registerUtilisateur, authController.registerClient)
-router.post("/registerEntrepreneur", authController.registerEntrepreneur)
-router.post("/login", authController.login)
+
+// route utilisateur connecté
+    //...
+
+
+// route entrepreneur
+    //...
+
+
+// route administration
+    //...
 
 module.exports = router

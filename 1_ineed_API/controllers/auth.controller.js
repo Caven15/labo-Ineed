@@ -61,7 +61,7 @@ exports.registerUtilisateur = async (req, res, next) => {
     }
 }
 
-// register d'un entrepreneur
+// register d'un client
 exports.registerClient = async (req, res, next) => {
     try {
         const utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})

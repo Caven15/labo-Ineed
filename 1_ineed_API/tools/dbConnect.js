@@ -81,7 +81,7 @@ module.exports = {
                 dbConnector.produit.belongsTo(dbConnector.entrepreneur);
 
 
-            dbConnector.sequelize.sync()    //sync({force : true}) pour reinitiliser la db
+            dbConnector.sequelize.sync()    //sync({force : true}) pour reiniatiliser la db
         }
     },
 

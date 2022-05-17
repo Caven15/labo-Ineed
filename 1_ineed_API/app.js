@@ -27,6 +27,9 @@ app.use(cors())
     const clientRouter = require("./routers/client.router")
     app.use("/client", clientRouter) 
 
+    const entrepreneurRouter = require("./routers/entrepreneur.router")
+    app.use("/entrepreneur", entrepreneurRouter)
+
     //...
 
 // si aucune route n'est trouvée

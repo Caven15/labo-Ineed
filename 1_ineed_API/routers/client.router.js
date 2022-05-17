@@ -5,6 +5,7 @@ const clientController = require("../controllers/client.controller")
 // route libre
     //...
 
+
 // route utilisateur connecté
     router.get("/getById/:id", clientController.getById)
 
@@ -12,6 +13,7 @@ const clientController = require("../controllers/client.controller")
 // route entrepreneur
     //...
 
+    
 // route administration
     router.get("/getAll", clientController.getAll)
     router.get("/getByRoleId/:roleId", clientController.getByRoleId)

@@ -2,6 +2,7 @@ require("dotenv").config()
 const { Sequelize, DataTypes } = require("sequelize")
 
 // ici import de tout mes modèles
+const utilisateurModel = require("../models/utilisateur.model")
 const clientModel = require("../models/client.model")
 const entrepreneurModel = require("../models/entrepreneur.model")
 const categorieModel = require("../models/categorie.model")
@@ -23,13 +24,14 @@ module.exports = {
                 {
                     host: process.env.DB_HOST,
                     dialect: "mysql",
-                    port: 3306,
+                    port: 3308,
                     timezone: "+02:00"
                 })
             dbConnector = {
                 Sequelize: Sequelize,
                 sequelize: sequelize,
                 // ici j'importe mes futur modèles
+                utilisateur: utilisateurModel(sequelize,DataTypes),
                 client: clientModel(sequelize,DataTypes),
                 entrepreneur : entrepreneurModel(sequelize,DataTypes),
                 categorie: categorieModel(sequelize,DataTypes),
@@ -42,6 +44,14 @@ module.exports = {
             }
 
             // ici je définis tout les règles concernant les tables (foreign key ect...)
+            // entrepreneur a un utilisateur
+                dbConnector.utilisateur.hasOne(dbConnector.entrepreneur);
+                dbConnector.entrepreneur.belongsTo(dbConnector.utilisateur);
+
+            // client a un utilisateur
+                dbConnector.utilisateur.hasOne(dbConnector.client);
+                dbConnector.client.belongsTo(dbConnector.utilisateur);
+                
             // client a un role
                 dbConnector.role.hasOne(dbConnector.client);
                 dbConnector.client.belongsTo(dbConnector.role);

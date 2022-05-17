@@ -1,39 +1,30 @@
 const entrepreneurModel = (sequelize, DataTypes) => {
     const entrepreneur = sequelize.define("entrepreneur", {
-        nomEntreprise: {
+        nomE: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        numeroRue: {
+        numeroRueE: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        rue: {
+        rueE: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        ville: {
+        villeE: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        codePostal: {
+        codePostalE: {
             type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
-        },
-        password: {
-            type: DataTypes.STRING,
             allowNull: false
         }
     },
     {
         // permet de ne pas generer les colonnes créer par sequelize
-        createdAt: false,
-        updatedAt: false,
+        createdAt: true,
+        updatedAt: true,
     })
 
     return entrepreneur

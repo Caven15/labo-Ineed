@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : lun. 16 mai 2022 à 17:24
+-- Hôte : 127.0.0.1:3308
+-- Généré le : mar. 17 mai 2022 à 01:07
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -43,20 +43,14 @@ CREATE TABLE IF NOT EXISTS `categories` (
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `dateNaissance` datetime NOT NULL,
-  `numeroRue` int(11) NOT NULL,
-  `rue` varchar(255) NOT NULL,
-  `ville` varchar(255) NOT NULL,
-  `codePostal` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `utilisateurId` int(11) DEFAULT NULL,
   `roleId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
+  KEY `utilisateurId` (`utilisateurId`),
   KEY `roleId` (`roleId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -83,16 +77,24 @@ CREATE TABLE IF NOT EXISTS `commandes` (
 DROP TABLE IF EXISTS `entrepreneurs`;
 CREATE TABLE IF NOT EXISTS `entrepreneurs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nomEntreprise` varchar(255) NOT NULL,
-  `numeroRue` int(11) NOT NULL,
-  `rue` varchar(255) NOT NULL,
-  `ville` varchar(255) NOT NULL,
-  `codePostal` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `nomE` varchar(255) NOT NULL,
+  `numeroRueE` int(11) NOT NULL,
+  `rueE` varchar(255) NOT NULL,
+  `villeE` varchar(255) NOT NULL,
+  `codePostalE` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `utilisateurId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `utilisateurId` (`utilisateurId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `entrepreneurs`
+--
+
+INSERT INTO `entrepreneurs` (`id`, `nomE`, `numeroRueE`, `rueE`, `villeE`, `codePostalE`, `createdAt`, `updatedAt`, `utilisateurId`) VALUES
+(1, 'tech', 15, 'rue du code', 'eccaussinnes', 7190, '2022-05-17 03:02:38', '2022-05-17 03:02:38', 3);
 
 -- --------------------------------------------------------
 
@@ -162,7 +164,47 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `roles`
+--
+
+INSERT INTO `roles` (`id`, `role`) VALUES
+(1, 'utilisateur'),
+(2, 'modérateur'),
+(3, 'administrateur');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateurs`
+--
+
+DROP TABLE IF EXISTS `utilisateurs`;
+CREATE TABLE IF NOT EXISTS `utilisateurs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `dateNaissance` datetime NOT NULL,
+  `numeroRue` int(11) NOT NULL,
+  `rue` varchar(255) NOT NULL,
+  `ville` varchar(255) NOT NULL,
+  `codePostal` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `dateNaissance`, `numeroRue`, `rue`, `ville`, `codePostal`, `email`, `password`) VALUES
+(1, 'claes', 'alexandre', '1990-03-15 02:00:00', 15, 'rue du code', 'eccaussinnes', 7190, 'azezezerrzeaze@gmail.com', '$2b$10$4v0vU.d0PNuq03CDaI1UyeZPUYsdBJj2JMRhXvXHgkzAtHR.zXQre'),
+(2, 'claes', 'alexandre', '1990-03-15 02:00:00', 15, 'rue du code', 'eccaussinnes', 7190, 'azezeqsdqczerrzeazgdq@gmail.com', '$2b$10$ITniickqAQBTjuGKWcDtauSpIp7yrZTEVTJ34h9cQPZH3tONq3wqq'),
+(3, 'claes', 'alexandre', '1990-03-15 02:00:00', 15, 'rue du code', 'eccaussinnes', 7190, 'aze@gmail.com', '$2b$10$iwx.UkMMtizsTpow2n6pJ.BqehDhP6x3Ra4AX8lMyoN.lbmgmbgZm');
 
 --
 -- Contraintes pour les tables déchargées
@@ -172,13 +214,20 @@ CREATE TABLE IF NOT EXISTS `roles` (
 -- Contraintes pour la table `clients`
 --
 ALTER TABLE `clients`
-  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`utilisateurId`) REFERENCES `utilisateurs` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `commandes`
 --
 ALTER TABLE `commandes`
   ADD CONSTRAINT `commandes_ibfk_1` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `entrepreneurs`
+--
+ALTER TABLE `entrepreneurs`
+  ADD CONSTRAINT `entrepreneurs_ibfk_1` FOREIGN KEY (`utilisateurId`) REFERENCES `utilisateurs` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `lignecommandes`

@@ -1,6 +1,6 @@
 const dbConnector = require("../tools/dbConnect").get()
 
-// getAll
+// récupère tout les entrepreneurs
 exports.getAll = async (req, res, next) => {
     try {
         const allEntrepreneurs = await dbConnector.entrepreneur.findAll()
@@ -10,7 +10,7 @@ exports.getAll = async (req, res, next) => {
     }
 }
 
-// getById
+// récupère un entrepreneur par son id
 exports.getById = async (req, res, next) => {
     try {
         const allEntrepreneurs = await dbConnector.entrepreneur.findByPk(req.params.id)
@@ -20,7 +20,7 @@ exports.getById = async (req, res, next) => {
     }
 }
 
-// updateById
+// met a jour un entrepreneur par son id
 exports.updateById = async (req, res, next) => {
     const entrepreneur = await dbConnector.entrepreneur.findByPk(req.params.id)
     // console.log(entrepreneur)
@@ -34,7 +34,7 @@ exports.updateById = async (req, res, next) => {
     }
 }
 
-// deleteById
+// supprime un entrepreneur par son id
 exports.delete = async (req, res, next) => {
     try {
         const entrepreneur = await dbConnector.entrepreneur.destroy({where : {id : req.params.id}})

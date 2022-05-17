@@ -1,6 +1,6 @@
 const dbConnector = require("../tools/dbConnect").get()
 
-// delete
+// delete utilisateur + client + entrepreneur
 exports.deleteutilisateur = async (req, res, next) => {
     try {
         const utilisateur = await dbConnector.utilisateur.destroy({where : {id : req.params.id}})

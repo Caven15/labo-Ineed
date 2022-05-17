@@ -7,7 +7,7 @@ exports.addRole = (req, res, next) => {
     res.end()
 }
 
-// getAll
+// récupère tout les roles
 exports.getAllRole = async (req, res, next) => {
     try {
         const allRole = await dbConnector.role.findAll()
@@ -17,7 +17,7 @@ exports.getAllRole = async (req, res, next) => {
     }
 }
 
-// getById
+// récupère un role par son id
 exports.getById = async (req, res, next) => {
     try {
         const role = await dbConnector.role.findByPk(req.params.id)
@@ -27,7 +27,7 @@ exports.getById = async (req, res, next) => {
     }
 }
 
-// updateById
+// met a jour un role par son id 
 exports.updateById = async (req, res, next) => {
     try {
         const role = await dbConnector.role.findByPk(req.params.id)
@@ -39,7 +39,7 @@ exports.updateById = async (req, res, next) => {
     }
 }
 
-// supprime un role
+// supprime un role par son id
 exports.deleteRole = async (req, res, next) => {
     try {
         const role = await dbConnector.role.destroy({where: {id: req.params.id}})

@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
 // utilisation du cors pour autoriser toute les origine de connexionx au serveur
 app.use(cors())
 
-// ici j'importe tout mes routeur pour la redirection...
+// ici j'importe tout mes routeurs pour la redirection...
     const authRouter = require("./routers/auth.router")
     app.use("/auth", authRouter)
 
@@ -34,11 +34,14 @@ app.use(cors())
     const utilisateurRouter = require("./routers/utilisateur.router")
     app.use("/utilisateur", utilisateurRouter)
 
+    const categorieRouter = require("./routers/categorie.router")
+    app.use("/categorie", categorieRouter)
+
     //...
 
 // si aucune route n'est trouvée
     app.all("*", (req, res, next) => {
-        console.log("le route que vous chercher n'existe pas...")
+        console.log("aucune route ne correspond a la requete...")
         res.end()
     })
 

@@ -7,7 +7,8 @@ const commandeModel = (sequelize, DataTypes) => {
     },
     {
         // permet de ne pas generer les colonnes créer par sequelize
-        createdAt: false
+        createdAt: false,
+        updatedAt: false,
     })
 
     return commande

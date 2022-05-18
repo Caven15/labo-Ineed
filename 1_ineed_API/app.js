@@ -40,11 +40,15 @@ app.use(cors())
     const produitRouter = require("./routers/produit.router")
     app.use("/produit", produitRouter)
 
+    const commandeRouter = require("./routers/commande.router")
+    app.use("/commande", commandeRouter)
+
     //...
 
 // si aucune route n'est trouvée
     app.all("*", (req, res, next) => {
-        console.log("aucune route ne correspond a la requete...")
+        console.log("aucune route ne correspond a cette requete... (veuillez revoir la syntaxe)")
+        res.write(JSON.stringify("aucune route ne correspond a cette requete... (veuillez revoir la syntaxe)"))
         res.end()
     })
 

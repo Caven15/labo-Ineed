@@ -7,14 +7,13 @@ const produitController = require("../controllers/produit.controller")
 
 
 // route utilisateur connecté
-    //...
+    router.get("/getById/:id", produitController.getById)
+    router.get("/getByEntrepreneurId/:entrepreneurId", produitController.getByEntrepreneurId)
+    router.get("/getByCategorieId/:categorieId", produitController.getByCategorieId)
 
 
 // route entrepreneur
     router.post("/add", produitController.add)
-    router.get("/getById/:id", produitController.getById)
-    router.get("/getByEntrepreneurId/:entrepreneurId", produitController.getByEntrepreneurId)
-    router.get("/getByCategorieId/:categorieId", produitController.getByCategorieId)
     router.patch("/updateById/:id", produitController.update)
 
 

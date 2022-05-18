@@ -53,11 +53,11 @@ module.exports = {
                 dbConnector.client.belongsTo(dbConnector.utilisateur);
                 
             // client a un role
-                dbConnector.role.hasOne(dbConnector.client);
+                dbConnector.role.hasMany(dbConnector.client);
                 dbConnector.client.belongsTo(dbConnector.role);
 
             // panier a un client
-                dbConnector.client.hasOne(dbConnector.commande);
+                dbConnector.client.hasMany(dbConnector.commande);
                 dbConnector.commande.belongsTo(dbConnector.client);
 
             // livraison a une commande
@@ -65,23 +65,23 @@ module.exports = {
                 dbConnector.livraison.belongsTo(dbConnector.commande);
 
             // ligneCommande a un panier
-                dbConnector.commande.hasOne(dbConnector.ligneCommande);
+                dbConnector.commande.hasMany(dbConnector.ligneCommande);
                 dbConnector.ligneCommande.belongsTo(dbConnector.commande);
 
             // ligneCommande a un produit
-                dbConnector.produit.hasOne(dbConnector.ligneCommande);
+                dbConnector.produit.hasMany(dbConnector.ligneCommande);
                 dbConnector.ligneCommande.belongsTo(dbConnector.produit);
 
             // produit a une categorie
-                dbConnector.categorie.hasOne(dbConnector.produit);
+                dbConnector.categorie.hasMany(dbConnector.produit);
                 dbConnector.produit.belongsTo(dbConnector.categorie);
             
             // produit a un entrepreneur
-                dbConnector.entrepreneur.hasOne(dbConnector.produit);
+                dbConnector.entrepreneur.hasMany(dbConnector.produit);
                 dbConnector.produit.belongsTo(dbConnector.entrepreneur);
 
 
-            dbConnector.sequelize.sync()    //sync({force : true}) pour reiniatiliser la db
+            //dbConnector.sequelize.sync()    //sync({force : true}) pour reiniatiliser la db
         }
     },
 

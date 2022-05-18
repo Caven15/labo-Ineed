@@ -11,10 +11,14 @@ const produitController = require("../controllers/produit.controller")
 
 
 // route entrepreneur
-    //...
+    router.post("/add", produitController.add)
+    router.get("/getById/:id", produitController.getById)
+    router.get("/getByEntrepreneurId/:entrepreneurId", produitController.getByEntrepreneurId)
+    router.get("/getByCategorieId/:categorieId", produitController.getByCategorieId)
+    router.patch("/updateById/:id", produitController.update)
 
 
 // route administration
-    //...
+    router.get("/getAll", produitController.getAll)
 
 module.exports = router

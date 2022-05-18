@@ -16,7 +16,7 @@ const livraisonModel = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        statut: {
+        estLivre: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         }

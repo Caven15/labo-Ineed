@@ -16,7 +16,7 @@ const produitModel = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        statut: {
+        estDisponible: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         }

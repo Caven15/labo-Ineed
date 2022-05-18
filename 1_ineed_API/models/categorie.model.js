@@ -1,6 +1,6 @@
 const categorieModel = (sequelize, DataTypes) => {
     const categorie = sequelize.define("categorie", {
-        categorie: {
+        nom: {
             type: DataTypes.STRING,
             allowNull: false
         }

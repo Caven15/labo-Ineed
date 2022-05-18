@@ -1,0 +1,16 @@
+insert into categories (id, nom) values (1, 'livre');
+insert into categories (id, nom) values (2, 'high-tec');
+insert into categories (id, nom) values (3, 'cuisine et maison');
+insert into categories (id, nom) values (4, 'informatique');
+insert into categories (id, nom) values (5, 'mode');
+insert into categories (id, nom) values (6, 'comestible');
+insert into categories (id, nom) values (7, 'bricolage');
+insert into categories (id, nom) values (8, 'jeux-vidéo');
+insert into categories (id, nom) values (9, 'sport et loisir');
+insert into categories (id, nom) values (10, 'auto moto');
+insert into categories (id, nom) values (11, 'animalerie');
+insert into categories (id, nom) values (12, 'electromenager');
+insert into categories (id, nom) values (13, 'fourniture de bureau');
+insert into roles (id, role) values (1, 'utilisateur');
+insert into roles (id, role) values (2, 'modérateur');
+insert into roles (id, role) values (3, 'administrateur');

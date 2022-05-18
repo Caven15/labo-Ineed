@@ -1,5 +1,9 @@
 const produitModel = (sequelize, DataTypes) => {
     const produit = sequelize.define("produit", {
+        nom: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         description: {
             type: DataTypes.STRING,
             allowNull: false

@@ -29,12 +29,12 @@ exports.getAll = async (req, res, next) => {
     }
 }
 
-// récupère tout les clients par leurs roleId
-exports.getByRoleId = async (req, res, next) => {
+// récupère un client par son id
+exports.getById = async (req, res, next) => {
     try {
-        const allClients = await dbConnector.client.findAll({
+        const allClients = await dbConnector.client.findOne({
             where: {
-                roleId: req.params.roleId
+                id: req.params.id
             },
             attributes: {
                 exclude: ['utilisateurId']
@@ -61,12 +61,12 @@ exports.getByRoleId = async (req, res, next) => {
     }
 }
 
-// récupère un client par son id
-exports.getById = async (req, res, next) => {
+// récupère tout les clients par leurs roleId
+exports.getByRoleId = async (req, res, next) => {
     try {
-        const allClients = await dbConnector.client.findOne({
+        const allClients = await dbConnector.client.findAll({
             where: {
-                id: req.params.id
+                roleId: req.params.roleId
             },
             attributes: {
                 exclude: ['utilisateurId']

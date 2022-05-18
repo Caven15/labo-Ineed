@@ -37,6 +37,9 @@ app.use(cors())
     const categorieRouter = require("./routers/categorie.router")
     app.use("/categorie", categorieRouter)
 
+    const produitRouter = require("./routers/produit.router")
+    app.use("/produit", produitRouter)
+
     //...
 
 // si aucune route n'est trouvée

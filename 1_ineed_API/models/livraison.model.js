@@ -1,18 +1,18 @@
 const livraisonModel = (sequelize, DataTypes) => {
     const livraison = sequelize.define("livraison", {
-        numeroRue: {
+        numeroRueL: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        rue: {
+        rueL: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        ville: {
+        villeL: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        codePostal: {
+        codePostalL: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

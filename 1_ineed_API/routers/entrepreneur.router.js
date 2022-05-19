@@ -1,15 +1,16 @@
 const express = require("express")
 const router = express.Router()
 const entrepreneurController = require("../controllers/entrepreneur.controller")
+const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
 
 // route libre
     //...
 
 
 // route utilisateur connecté
-    router.get("/getById/:id", entrepreneurController.getById)
-    router.patch("/updateById/:id", entrepreneurController.updateById)
-    router.delete("/delete/:id", entrepreneurController.delete)
+    router.get("/getById/:id", jwtControl, clientControl, entrepreneurController.getById)
+    router.patch("/updateById/:id", jwtControl, clientControl, entrepreneurController.updateById)
+    router.delete("/delete/:id", jwtControl, clientControl, entrepreneurController.delete)
 
 
 // route entrepreneur
@@ -17,6 +18,6 @@ const entrepreneurController = require("../controllers/entrepreneur.controller")
 
 
 // route administration
-    router.get("/getAll", entrepreneurController.getAll)
+    router.get("/getAll", jwtControl, moderateurControl, entrepreneurController.getAll)
 
 module.exports = router

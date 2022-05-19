@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const roleController = require("../controllers/role.controller")
-
+const {jwtControl, administrateurControl} = require("../middleware/auth")
 // route libre
     //...
 
@@ -15,11 +15,11 @@ const roleController = require("../controllers/role.controller")
 
     
 // route administration
-    router.post("/add", roleController.addRole)
-    router.get("/getAll", roleController.getAllRole)
-    router.get("/getById/:id", roleController.getById)
-    router.patch("/updateById/:id", roleController.updateById)
-    router.delete("/delete/:id", roleController.deleteRole)
+    router.post("/add", jwtControl, administrateurControl, roleController.addRole)
+    router.get("/getAll", jwtControl, administrateurControl, roleController.getAllRole)
+    router.get("/getById/:id", jwtControl, administrateurControl, roleController.getById)
+    router.patch("/updateById/:id", jwtControl, administrateurControl, roleController.updateById)
+    router.delete("/delete/:id", jwtControl, administrateurControl, roleController.deleteRole)
 
 
 module.exports = router

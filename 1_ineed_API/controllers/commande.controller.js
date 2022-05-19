@@ -1,22 +1,23 @@
 const dbConnector = require("../tools/dbConnect").get()
 
-// add
+// ajoute une nouvelle commande
 exports.add = async (req, res, next) => {
     try {
         let newCommande = {
             prix: req.body.prix,
             clientId: req.body.clientId
         }
+        console.log(newCommande)
         dbConnector.commande.create(newCommande)
             .then(() => {
-                res.status(201).json({ message: "le commande a été ajouté avec succès !" })
+                res.status(201).json({ message: "la commande a été ajouté avec succès !" })
             })
     } catch (error) {
         console.log()
     }
 }
 
-// getAll
+// récupère toute les commandes
 exports.getAll = async (req, res, next) => {
     try {
         allCommande = await dbConnector.commande.findAll({
@@ -40,7 +41,7 @@ exports.getAll = async (req, res, next) => {
     }
 }
 
-// getById
+// récupère une commande par son id
 exports.getById = async (req, res, next) => {
     try {
         commande = await dbConnector.commande.findOne({
@@ -67,7 +68,7 @@ exports.getById = async (req, res, next) => {
     }
 }
 
-// getByClientId
+// récupère toutes les commande par l'id client
 exports.getByClientId = async (req, res, next) => {
     try {
         commande = await dbConnector.commande.findAll({
@@ -93,7 +94,8 @@ exports.getByClientId = async (req, res, next) => {
         console.log(error)
     }
 }
-// updateById
+
+// met a jour une commande par son id
 exports.updateById = async (req, res, next) => {
     try {
         const commande = await dbConnector.commande.findByPk(req.params.id)
@@ -107,7 +109,7 @@ exports.updateById = async (req, res, next) => {
     }
 }
 
-// delete
+// supprimme une commande par son id
 exports.delete = async (req, res, next) => {
     try {
         const commande = await dbConnector.commande.destroy({where : {id : req.params.id}})

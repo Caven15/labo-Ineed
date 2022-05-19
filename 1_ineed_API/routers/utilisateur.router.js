@@ -7,7 +7,8 @@ const utilisateurController = require("../controllers/utilisateur.controller")
 
 
 // route utilisateur connecté
-    router.delete("/delete/:id", utilisateurController.deleteutilisateur)
+    router.delete("/delete/:id", utilisateurController.delete)
+    router.patch("/updatePassword/:id", utilisateurController.updatePassword)
 
 
 // route entrepreneur

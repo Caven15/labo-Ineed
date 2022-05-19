@@ -43,6 +43,9 @@ app.use(cors())
     const commandeRouter = require("./routers/commande.router")
     app.use("/commande", commandeRouter)
 
+    const livraisonRouter = require("./routers/livraison.router")
+    app.use("/livraison", livraisonRouter)
+
     //...
 
 // si aucune route n'est trouvée

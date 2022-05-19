@@ -110,7 +110,7 @@ exports.delete= async (req, res, next) => {
     try {
         const produit = await dbConnector.produit.destroy({where : {id : req.params.id}})
         if (produit) {
-            res.write(JSON.stringify({Message :  `produit nr : ${req.params.id} a été suprimer avec succès !` }))
+            res.write(JSON.stringify({Message :  `produit nr : ${req.params.id} a été supprimer avec succès !` }))
             res.end()
         }else{
             res.write(JSON.stringify({Message :  `produit nr : ${req.params.id} n'existe pas` }))

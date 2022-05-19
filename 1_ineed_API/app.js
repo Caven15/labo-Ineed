@@ -46,7 +46,8 @@ app.use(cors())
     const livraisonRouter = require("./routers/livraison.router")
     app.use("/livraison", livraisonRouter)
 
-    //...
+    const ligneCommandeRouter = require("./routers/ligneCommande.router")
+    app.use("/ligneCommande", ligneCommandeRouter)
 
 // si aucune route n'est trouvée
     app.all("*", (req, res, next) => {

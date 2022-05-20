@@ -3,10 +3,6 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
-
-// test Password /email
-
-
 // jwtControl
 exports.jwtControl = (req, res, next) => {
     console.log("je passe dans le jwtControl")

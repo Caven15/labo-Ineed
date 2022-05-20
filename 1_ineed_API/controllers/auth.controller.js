@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 exports.login = async (req, res, next) => {
     const utilisateur = await dbConnector.utilisateur.findOne({where: {email: req.body.email}})
     if (utilisateur == undefined) {
-        res.status(200).send({message : "cette adresse email n'existe pas"})
+        res.status(403).send({message : "cette adresse email n'existe pas"})
     }
     if (utilisateur) {
         const password = bcrypt.compareSync(req.body.password.trim(), utilisateur.password)

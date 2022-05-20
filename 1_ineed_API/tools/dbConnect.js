@@ -50,11 +50,11 @@ module.exports = {
                 dbConnector.utilisateur.hasOne(dbConnector.client);
                 dbConnector.client.belongsTo(dbConnector.utilisateur);
                 
-            // client a un role
+            // un role a plusieurs clients
                 dbConnector.role.hasMany(dbConnector.client);
                 dbConnector.client.belongsTo(dbConnector.role);
 
-            // panier a un client
+            // un client a plusieur commandes
                 dbConnector.client.hasMany(dbConnector.commande);
                 dbConnector.commande.belongsTo(dbConnector.client);
 
@@ -62,19 +62,19 @@ module.exports = {
                 dbConnector.commande.hasOne(dbConnector.livraison);
                 dbConnector.livraison.belongsTo(dbConnector.commande);
 
-            // ligneCommande a un panier
+            // un commande a plusieur ligne commandes
                 dbConnector.commande.hasMany(dbConnector.ligneCommande);
                 dbConnector.ligneCommande.belongsTo(dbConnector.commande);
 
-            // ligneCommande a un produit
+            // un produit a plusieurs ligne de commandes
                 dbConnector.produit.hasMany(dbConnector.ligneCommande);
                 dbConnector.ligneCommande.belongsTo(dbConnector.produit);
 
-            // produit a une categorie
+            // une catégorie a plusieurs produits
                 dbConnector.categorie.hasMany(dbConnector.produit);
                 dbConnector.produit.belongsTo(dbConnector.categorie);
             
-            // produit a un entrepreneur
+            // un entrepreneur a plusieur produits
                 dbConnector.entrepreneur.hasMany(dbConnector.produit);
                 dbConnector.produit.belongsTo(dbConnector.entrepreneur);
 

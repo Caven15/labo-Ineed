@@ -4,7 +4,8 @@ import { AccueilComponent } from './main/components/pages/accueil/accueil.compon
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  {path: 'home', component: AccueilComponent}
+  {path: 'home', component: AccueilComponent},
+  { path: 'auth', loadChildren: ()=>import('./modules/auth/auth.module').then(m => m.AuthModule)},
 ];
 
 @NgModule({

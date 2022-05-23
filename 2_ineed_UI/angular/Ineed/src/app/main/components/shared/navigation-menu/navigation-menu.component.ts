@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { INavItem } from 'src/app/models/inav-item';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -13,9 +14,21 @@ export class NavigationMenuComponent implements OnInit {
 
   public isConnected: boolean = false;
 
-  constructor(private _route: Router) { }
+  constructor(private _authService : AuthService, private _route: Router) { 
+    this._authService.currentUser.subscribe(
+      {
+        next : (utilisateur) => {
+          this.isConnected = this._authService.isConnected();
+          this.refresh();
+          console.log("est connecté : " + this.isConnected);
+        }
+      }
+    )
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  refresh(): void{
     this.routes = [
       // {title: "Acceuil", url: "home", isVisible: true},
       {title: "Inscription", url: "/auth/register", isVisible: !this.isConnected},
@@ -23,4 +36,7 @@ export class NavigationMenuComponent implements OnInit {
     ];
   }
 
+  logout(){
+    this._authService.logout();
+  }
 }

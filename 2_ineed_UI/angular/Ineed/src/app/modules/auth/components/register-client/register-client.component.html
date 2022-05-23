@@ -1,0 +1,59 @@
+<div class="modal modal-signin position-static d-block pt-md-4" tabindex="-1" role="dialog" id="modalSignin" >
+    <div class="modal-dialog " role="document">
+        <div class="modal-content rounded-lg-5 shadow ">
+            <div class=" colorSite modal-body p-5 ">
+                <form [formGroup]="registerClientForm" (ngSubmit)="register()">
+                        <div class="form-floating mb-4">
+                            <input type="text " formControlName="nom" class="form-control" id="Nom" placeholder="Dupont">
+                                <label for="floatingInput">Nom :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" formControlName="prenom" class="form-control" id="Prenom" placeholder="Jean">
+                                <label for="Prenom">Prénom :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="date" formControlName="dateNaissance" class="form-control" id="Date" placeholder="Date">
+                                <label for="Date">Date de naissance :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="email" formControlName="email" class="form-control" id="Email" placeholder="name@example.com">
+                                <label for="Email">E-mail :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="number" formControlName="numeroRue" class="form-control" id="numeroRue" placeholder="15">
+                                <label for="numeroRue">numéro :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" formControlName="rue" class="form-control" id="rue" placeholder="votre rue...">
+                                <label for="rue">rue :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" formControlName="ville" class="form-control" id="ville" placeholder="votre ville...">
+                                <label for="ville">ville :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="number" formControlName="codePostal" class="form-control" id="codePostal" placeholder="1000">
+                                <label for="codePostal">code postal :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                <label for="floatingPassword">Mot de passe :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" formControlName="password" class="form-control" id="confirmPassword" placeholder="Password">
+                                <label for="confirmPassword">Confirmer Mot de passe :</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <div *ngIf="errorMessage != '' " class="modal-header p-5 pb-5 border-bottom-0 justify-content-center">
+                                <p>erreur de complétion veuillez reesayer !</p>
+                            </div>
+                            <div *ngIf="confirmPassword == true " class="modal-header p-5 pb-5 border-bottom-0 justify-content-center">
+                                <p>erreur de confirmation de pot de passe !</p>
+                            </div>
+                        </div>
+                        <input class="w-100 btn btn-lg btn-success" type="submit"value="S'enregistrer">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

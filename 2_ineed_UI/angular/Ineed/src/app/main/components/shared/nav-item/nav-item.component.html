@@ -1,18 +1,11 @@
 <div *ngIf="navItem.children;else ngNotChidren" class="dropdown">
-    <a class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"  routerLink="{{parentUrl}}{{navItem.url}}" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="btn dropdown-toggle" data-toggle="dropdown"  routerLink="{{parentUrl}}{{navItem.url}}" data-bs-toggle="dropdown" aria-expanded="false">
         {{navItem.title}}
     </a>
-    <ul *ngIf="navItem.children"  class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li *ngFor="let navItemChild of navItem.children" class="dropdown-item">
-            <app-nav-item parentUrl="{{parentUrl}}{{navItem.url}}" [navItem]="navItemChild">
-                <img *ngIf="navItemChild.imgSrc" [src]="navItemChild.imgSrc">
-            </app-nav-item>
-        </li>
-    </ul>
 </div>
 
 <ng-template #ngNotChidren>
-    <a class="btn btn-outline-light m-3"  routerLink="{{parentUrl}}{{navItem.url}}" id="dropdownMenuButton1">
+    <a class="btn btn-outline-dark m-3"  routerLink="{{parentUrl}}{{navItem.url}}">
         {{navItem.title}}
     </a>
 </ng-template>

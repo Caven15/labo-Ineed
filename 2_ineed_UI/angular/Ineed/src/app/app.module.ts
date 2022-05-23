@@ -7,20 +7,39 @@ import { AccueilComponent } from './main/components/pages/accueil/accueil.compon
 import { NavItemComponent } from './main/components/shared/nav-item/nav-item.component';
 import { NavigationMenuComponent } from './main/components/shared/navigation-menu/navigation-menu.component';
 import { FooterMenuComponent } from './main/components/shared/footer-menu/footer-menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './modules/auth/auth.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor } from './tools/jwt.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AccueilComponent,
-    NavItemComponent,
-    NavigationMenuComponent,
-    FooterMenuComponent
+    // déclarations des components liés au module principale
+      AppComponent,
+      AccueilComponent,
+      NavItemComponent,
+      NavigationMenuComponent,
+      FooterMenuComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    // outils angular
+      BrowserModule,
+      AppRoutingModule,
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+
+    // imports des modules enfants
+      AuthModule
   ],
-  providers: [],
+  exports: [
+    FormsModule
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

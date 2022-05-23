@@ -1,0 +1,19 @@
+<div class="modal modal-signin position-static d-block pt-md-4" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-lg-5 shadow bg-one" >
+            <div class="modal-body p-5">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <div class="form-floating mb-4">
+                        <input type="email" formControlName="email" class="form-control mb-4" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">E-mail :</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input  type="password" formControlName="password" class="form-control mb-4" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Mot de passe :</label>
+                    </div>
+                    <input class="w-100 btn btn-lg btn-success" type="submit"value="Connexion">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

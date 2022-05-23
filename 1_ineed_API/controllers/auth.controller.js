@@ -9,6 +9,7 @@ exports.login = async (req, res, next) => {
         res.status(403).send({message : "cette adresse email n'existe pas"})
     }
     if (utilisateur) {
+        const client = await dbConnector.client.findByPk(utilisateur.id)
         const password = bcrypt.compareSync(req.body.password.trim(), utilisateur.password)
         if (!password) {
             return res.status(401).send({
@@ -20,9 +21,10 @@ exports.login = async (req, res, next) => {
             const dataToken = {
                 id : utilisateur.id,
                 email : utilisateur.email,
-                roleId : utilisateur.roleId
+                roleId : client.roleId
             }
             // j'envoie les donnée du utilisateur dans le token
+            console.log("j'envoie mon token")
             var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
             res.status(200).send({accessToken : token})
         }

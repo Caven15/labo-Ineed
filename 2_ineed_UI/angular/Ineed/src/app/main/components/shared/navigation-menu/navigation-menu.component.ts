@@ -29,11 +29,38 @@ export class NavigationMenuComponent implements OnInit {
   ngOnInit(): void {}
 
   refresh(): void{
-    this.routes = [
-      // {title: "Acceuil", url: "home", isVisible: true},
-      {title: "Inscription", url: "/auth/register", isVisible: !this.isConnected},
-      {title: "Connexion", url: "/auth/login", isVisible: !this.isConnected}
-    ];
+    let testUtilisateur: number = parseInt(sessionStorage.getItem("roleId"))
+    console.log(testUtilisateur)
+    if (testUtilisateur == 1) {
+      this.routes = [
+        {title: "Mon Profil", url: "", isVisible: true},
+        {title: "Mes commandes", url: "", isVisible: true},
+        {title: "Suivis commande", url: "", isVisible: true},
+        {title: "catégories", url: "", isVisible: true},
+      ];
+    }
+    else if (testUtilisateur == 2) {
+      this.routes = [
+        // ici les routes relative au entrepreneur
+      ];
+    }
+    else if (testUtilisateur == 3) {
+      this.routes = [
+        // ici les routes relative au médérateur
+      ];
+    }
+    else if (testUtilisateur == 4) {
+      this.routes = [
+        // ici les routes relative au administrateur
+      ];
+    }
+    else{
+      this.routes = [
+        {title: "Inscription", url: "/auth/register", isVisible: true},
+        {title: "Connexion", url: "/auth/login", isVisible: true}
+      ];
+    }
+    
   }
 
   logout(){

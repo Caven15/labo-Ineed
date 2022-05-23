@@ -1,6 +1,6 @@
 <div class="modal modal-signin position-static d-block pt-md-4" tabindex="-1" role="dialog" id="modalSignin" >
     <div class="modal-dialog " role="document">
-        <div class="modal-content rounded-lg-5 shadow ">
+        <div class="modal-content rounded-lg-5 shadow bg-one">
             <div class=" colorSite modal-body p-5 ">
                 <form [formGroup]="registerClientForm" (ngSubmit)="register()">
                         <div class="form-floating mb-4">
@@ -51,7 +51,7 @@
                                 <p>erreur de confirmation de pot de passe !</p>
                             </div>
                         </div>
-                        <input class="w-100 btn btn-lg btn-success" type="submit"value="S'enregistrer">
+                        <input class="w-100 btn btn-lg btn-outline-dark" type="submit"value="S'enregistrer">
                 </form>
             </div>
         </div>

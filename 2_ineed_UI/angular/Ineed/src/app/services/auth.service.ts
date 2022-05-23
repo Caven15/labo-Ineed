@@ -63,20 +63,20 @@ export class AuthService {
     return (this.currentUserValue != null);
   }
 
-  // vérification qu'un modératur est bie nconnecté
-  isAdminConnected() : boolean{
+  // vérification qu'un modérateur est bien connecté
+  isModerateurConnected() : boolean{
     let id:number = parseInt(sessionStorage.getItem("roleId"))
-    if (id == 3) {
+    if (id == 2) {
       return true
     }
     else
       return false
   }
 
-  // vérification qu'un administrateur est bien connecté
-  isModerateurConnected() : boolean{
+  // vérification qu'un administrateur est bie nconnecté
+  isAdminConnected() : boolean{
     let id:number = parseInt(sessionStorage.getItem("roleId"))
-    if (id == 2) {
+    if (id == 3) {
       return true
     }
     else

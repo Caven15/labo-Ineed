@@ -1,19 +1,25 @@
-<div class="modal modal-signin position-static d-block pt-md-4" tabindex="-1" role="dialog" id="modalSignin">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content rounded-lg-5 shadow bg-one" >
-            <div class="modal-body p-5">
-                <form [formGroup]="loginForm" (ngSubmit)="login()">
-                    <div class="form-floating mb-4">
-                        <input type="email" formControlName="email" class="form-control mb-4" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">E-mail :</label>
-                    </div>
-                    <div class="form-floating mb-4">
-                        <input  type="password" formControlName="password" class="form-control mb-4" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Mot de passe :</label>
-                    </div>
-                    <input class="w-100 btn btn-lg btn-outline-dark" type="submit"value="Connexion">
-                </form>
+<div class="container p-5 d-flex justify-content-center mt-5 mb-5">
+    <div class="container rounded bg-one mb-5">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="bg-two p-4 mt-3 rounded">
+                <div class="d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                </div>
+                <div class="form-floating">
+                    <h2 class="d-flex justify-content-center text-white fw-bold">Login</h2>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="email" formControlName="email" class="form-control mb-4 " id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">E-mail :</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input  type="password" formControlName="password" class="form-control mb-4" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Mot de passe :</label>
+                </div>
             </div>
-        </div>
+            <input class="w-100 btn btn-lg btn-dark mt-5 mb-5" type="submit"value="Valider">
+        </form>
     </div>
 </div>

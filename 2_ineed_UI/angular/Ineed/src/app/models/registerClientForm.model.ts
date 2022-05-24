@@ -8,4 +8,5 @@ export class registerClientForm {
     codePostal : number
     email : string
     password : string
+    etat : boolean
 }

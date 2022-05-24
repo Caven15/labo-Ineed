@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { client } from 'src/app/models/client.model';
 import { loginForm } from 'src/app/models/loginForm.model';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
         },
         error: (error) => {
           console.log(error)
-          console.log("probleme ici")
         }
       }
     );

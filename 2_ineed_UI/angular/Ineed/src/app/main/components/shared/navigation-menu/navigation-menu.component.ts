@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { INavItem } from 'src/app/models/inav-item';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -26,14 +26,15 @@ export class NavigationMenuComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.refresh();
+  }
 
   refresh(): void{
     let testUtilisateur: number = parseInt(sessionStorage.getItem("roleId"))
-    console.log(testUtilisateur)
     if (testUtilisateur == 1) {
       this.routes = [
-        {title: "Mon Profil", url: "", isVisible: true},
+        {title: "Mon Profil", url: "/client/profil", isVisible: true},
         {title: "Mes commandes", url: "", isVisible: true},
         {title: "Suivis commande", url: "", isVisible: true},
         {title: "catégories", url: "", isVisible: true},
@@ -56,7 +57,7 @@ export class NavigationMenuComponent implements OnInit {
     }
     else{
       this.routes = [
-        {title: "Inscription", url: "/auth/register", isVisible: true},
+        {title: "Inscription", url: "/auth/registerStepOne", isVisible: true},
         {title: "Connexion", url: "/auth/login", isVisible: true}
       ];
     }

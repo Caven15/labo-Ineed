@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { client } from 'src/app/models/client.model';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
   selector: 'app-profil-client',

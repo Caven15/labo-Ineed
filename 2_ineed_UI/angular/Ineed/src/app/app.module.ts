@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './tools/jwt.interceptor';
+import { ClientModule } from './modules/client/client.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { JwtInterceptor } from './tools/jwt.interceptor';
       BrowserAnimationsModule,
 
     // imports des modules enfants
-      AuthModule
+      AuthModule,
+      ClientModule
   ],
   exports: [
     FormsModule

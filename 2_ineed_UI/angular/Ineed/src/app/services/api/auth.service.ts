@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { registerClientForm } from '../models/registerClientForm.model';
-import { registerEntrepreneurForm } from '../models/registerEntrepreneurForm.model';
-import { client } from '../models/client.model';
-import { loginForm } from '../models/loginForm.model';
+import { registerClientForm } from '../../models/registerClientForm.model';
+import { registerEntrepreneurForm } from '../../models/registerEntrepreneurForm.model';
+import { client } from '../../models/client.model';
+import { loginForm } from '../../models/loginForm.model';
 import jwtDecode from 'jwt-decode';
 
 @Injectable({
@@ -53,7 +53,7 @@ export class AuthService {
 
   // logout d'un utilisateur
   logout(){
-    sessionStorage.removeItem('currentUser');
+    sessionStorage.clear()
     this._currentUserSubject.next(null);
     this._route.navigate(['auth', 'login']);
   }

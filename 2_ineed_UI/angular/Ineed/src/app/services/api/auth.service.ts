@@ -42,7 +42,7 @@ export class AuthService {
     .pipe(map(client => {
     // Inserer l'utilisateur dans le sessionStorage
     const tokenDecode = JSON.parse(JSON.stringify(jwtDecode(client.accessToken)));
-    sessionStorage.setItem('currentUser', JSON.stringify(client));
+    sessionStorage.setItem('currentUser', JSON.stringify(client.accessToken));
     sessionStorage.setItem('id', JSON.stringify(tokenDecode.id));
     sessionStorage.setItem('email', JSON.stringify(tokenDecode.email));
     sessionStorage.setItem('roleId', JSON.stringify(tokenDecode.roleId));

@@ -1,0 +1,48 @@
+<form [formGroup]="updateFormAdresse" (ngSubmit)="onSubmit()">
+    <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
+        <div class="container bg-two rounded-3">
+            <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mt-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-house-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="container d-flex justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="text-secondary fw-bold d-flex justify-content-center">modification adresse</h2>
+                    <div>
+                        <label class="labels text-one fw-bold ">Rue :</label>
+                        <input type="text" formControlName="rue" class="form-control" placeholder="{{client['utilisateur'].rue}}">
+                    </div>
+                    <div>
+                        <label class="labels text-one fw-bold ">Numéro :</label>
+                        <input type="number" formControlName="numeroRue" class="form-control"  placeholder="{{client['utilisateur'].numeroRue}}">
+                    </div>
+                    <div>
+                        <label class="labels text-one fw-bold ">Ville :</label>
+                        <input type="text" formControlName="ville" class="form-control" placeholder="{{client['utilisateur'].ville}}">
+                    </div>
+                    <div>
+                        <label class="labels text-one fw-bold ">Code Postal :</label>
+                        <input type="number" formControlName="codePostal" class="form-control" placeholder="{{client['utilisateur'].codePostal}}">
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                <input class="btn w-100 btn-success" type="submit"value="Confirmer" [disabled]="updateFormAdresse.invalid">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                <button class="btn w-100 btn-danger" type="button" (click)="chargerRouteProfil()">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</form>

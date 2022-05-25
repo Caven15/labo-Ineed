@@ -14,6 +14,7 @@ exports.jwtControl = (req, res, next) => {
                 console.log("token invalide !")
                 return res.sendStatus(403).json({error: "erreur d'authentification"})
             }
+            console.log("jwtControl ok je passe a la suite")
             next();
         });
     } 
@@ -25,9 +26,11 @@ exports.jwtControl = (req, res, next) => {
 
 // utilisateurControl
 exports.clientControl = async (req, res, next) => {
+    console.log("middleware client control")
     try {
         // je récupère le token
             const authHeader = req.headers.authorization;
+            console.log(authHeader)
         // j'extrait l'id et je retourne son instance avec findByPk
             const token = authHeader.split(' ')[1];
             var decoded = jwt.decode(token, {complete: true});

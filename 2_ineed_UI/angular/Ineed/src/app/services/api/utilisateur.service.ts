@@ -1,24 +1,50 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { client } from '../../models/client.model';
 
 @Injectable({
-  providedIn: 'root'
+providedIn: 'root'
 })
 export class UtilisateurService {
 
-  constructor(private _client: HttpClient) { }
-  // récupérer tout les clients
-  getAll(): Observable<client[]>{
-    var client = this._client.get<client[]>(`${environment.apiUrl}/client`)
-    return client
-  }
+constructor(private _client: HttpClient) { }
 
-  // recherche un client 
-  GetById(id : number) : Observable<client>{
-    var client = this._client.get<client>(`${environment.apiUrl}/Utilisateur/${id}`);
-    return client;
+// suprimmer un utilisateur
+delete(id: number)
+{
+let token : string = sessionStorage.getItem("currentUser")
+for (let i = 0; i < token.length; i++) {
+    token = token.replace('"', '')
+}
+token = "Bearer " + token
+
+const headers = new HttpHeaders({
+    'content-type': 'application/json',
+    
+    'Authorization': token
+}) 
+return this._client.delete(`${environment.apiUrl}/utilisateur/delete/${id}`,{'headers' : headers});
+}
+
+// update Password
+updatePassword(id: number, password: string){
+let token : string = sessionStorage.getItem("currentUser")
+    for (let i = 0; i < token.length; i++) {
+        token = token.replace('"', '')
+    }
+    token = "Bearer " + token
+
+    const headers = new HttpHeaders({
+        'content-type': 'application/json',
+        
+        'Authorization': token
+    }) 
+    return this._client.patch(
+        `${environment.apiUrl}/utilisateur/updatePassword/${id}`,
+        {
+            password: password
+        },
+        {'headers' : headers}
+    )
 }
 }

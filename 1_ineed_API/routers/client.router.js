@@ -9,6 +9,7 @@ const {jwtControl, clientControl, moderateurControl} = require("../middleware/au
 
 // route utilisateur connecté
     router.get("/getById/:id", clientControl, jwtControl, clientController.getById)
+    router.patch("/updateById/:id", clientControl, jwtControl, clientController.update)
 
 
 // route entrepreneur

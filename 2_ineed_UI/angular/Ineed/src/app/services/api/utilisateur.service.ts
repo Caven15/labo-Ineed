@@ -27,7 +27,7 @@ return this._client.delete(`${environment.apiUrl}/utilisateur/delete/${id}`,{'he
 }
 
 // update Password
-updatePassword(id: number, password: string){
+updatePassword(id: number, oldPassword: string, newPassword: string, confirmNewPassword: string){
 let token : string = sessionStorage.getItem("currentUser")
     for (let i = 0; i < token.length; i++) {
         token = token.replace('"', '')
@@ -42,7 +42,9 @@ let token : string = sessionStorage.getItem("currentUser")
     return this._client.patch(
         `${environment.apiUrl}/utilisateur/updatePassword/${id}`,
         {
-            password: password
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmNewPassword: confirmNewPassword
         },
         {'headers' : headers}
     )

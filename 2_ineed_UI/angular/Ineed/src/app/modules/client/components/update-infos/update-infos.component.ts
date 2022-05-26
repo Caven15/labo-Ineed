@@ -9,14 +9,12 @@ import { ClientService } from 'src/app/services/api/client.service';
 @Component({
   selector: 'app-update-infos',
   templateUrl: './update-infos.component.html',
-  styleUrls: ['./update-infos.component.scss'],
-  providers: [DatePipe]
+  styleUrls: ['./update-infos.component.scss']
 })
 export class UpdateInfosComponent implements OnInit {
 
   public client : client
   public updateFormInfos : FormGroup
-  public datePipe : DatePipe
 
   constructor(
     private _route : Router,
@@ -41,8 +39,6 @@ export class UpdateInfosComponent implements OnInit {
       {
         next: (client) => {
           this.client = client
-          var dateEN = client.dateNaissance
-          this.datePipe.transform(dateEN, 'dd-MM-yyyy')
         },
         error: (errors) => {
           console.log(errors)
@@ -67,10 +63,6 @@ export class UpdateInfosComponent implements OnInit {
       // si le formulaire d'update n'est pas valable
       console.log("je lance l'update")
       if(this.updateFormInfos.invalid){
-        console.log(this.updateFormInfos.value['nom'])
-        console.log(this.updateFormInfos.value['prenom'])
-        console.log(this.updateFormInfos.value['dateNAissance'])
-        console.log(this.updateFormInfos.value['email'])
         return;
       }
       // sinon tout est ok

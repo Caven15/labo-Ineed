@@ -25,6 +25,10 @@ export class ProfilClientComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(!this._authService.isConnected()){
+      this._route.navigate(['auth', 'login'])
+      return;
+    }
     this.chargerClient()
   }
 

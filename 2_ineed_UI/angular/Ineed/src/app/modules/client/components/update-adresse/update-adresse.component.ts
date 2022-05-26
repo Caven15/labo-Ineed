@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,14 +8,12 @@ import { ClientService } from 'src/app/services/api/client.service';
 @Component({
   selector: 'app-update-adresse',
   templateUrl: './update-adresse.component.html',
-  styleUrls: ['./update-adresse.component.scss'],
-  providers: [DatePipe]
+  styleUrls: ['./update-adresse.component.scss']
 })
 export class UpdateAdresseComponent implements OnInit {
 
   public client: client
   public updateFormAdresse : FormGroup
-  public datepipe: DatePipe
 
   constructor(
     private _route : Router,
@@ -41,8 +38,6 @@ export class UpdateAdresseComponent implements OnInit {
       {
         next: (client) => {
           this.client = client
-          var dateEN = client.dateNaissance
-          this.datepipe.transform(dateEN, 'dd-MM-yyyy')
         },
         error: (errors) => {
           console.log(errors)
@@ -59,10 +54,10 @@ export class UpdateAdresseComponent implements OnInit {
           
           // alor tout est ok je peux créer mon formulaire d'update
           this.updateFormAdresse = this._formBuilder.group({
-            rue : [this.client.rue, [Validators.required]],
-            numeroRue : [this.client.numeroRue, [Validators.required]],
-            ville : [this.client.ville, [Validators.required]],
-            codePostal : [this.client.codePostal, [Validators.required]]
+            rue : [null, [Validators.required]],
+            numeroRue : [null, [Validators.required]],
+            ville : [null, [Validators.required]],
+            codePostal : [null, [Validators.required]]
           })
         }
       })

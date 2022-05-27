@@ -17,6 +17,7 @@ const {jwtControl, clientControl, entrepreneurControl} = require("../middleware/
 // route entrepreneur
     router.post("/add", jwtControl, entrepreneurControl, produitController.add)
     router.patch("/updateById/:id", jwtControl,  entrepreneurControl, produitController.update)
+    router.delete("/delete/:id", jwtControl,  entrepreneurControl, produitController.delete)
 
 
 // route administration

@@ -8,6 +8,7 @@ import { registerEntrepreneurForm } from '../../models/registerEntrepreneurForm.
 import { client } from '../../models/client.model';
 import { loginForm } from '../../models/loginForm.model';
 import jwtDecode from 'jwt-decode';
+import { HeadersReturnsService } from '../other/headers-returns.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,11 @@ export class AuthService {
     return this._currentUserSubject.value;
   }
 
-  constructor(private _client: HttpClient, private _route: Router) { 
+  constructor(
+    private _client: HttpClient, 
+    private _route: Router,
+    private _headers: HeadersReturnsService
+    ) { 
     this._currentUserSubject = new BehaviorSubject<client>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this._currentUserSubject.asObservable();
   }
@@ -33,7 +38,8 @@ export class AuthService {
 
   // enregistrement d'un nouvel entrepreneur
   RegisterEntrepreneur(entrepreneur:registerEntrepreneurForm) : Observable<any>{
-    return this._client.post(`${environment.apiUrl}/Auth/registerEntrepreneur`, entrepreneur);
+    let headers = this._headers.headersReturn()
+    return this._client.post(`${environment.apiUrl}/Auth/registerEntrepreneur`,entrepreneur,{'headers' : headers});
   }
 
   // login d'un utilisateur

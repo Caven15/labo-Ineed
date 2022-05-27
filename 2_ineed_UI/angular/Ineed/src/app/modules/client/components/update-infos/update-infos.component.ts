@@ -56,8 +56,9 @@ export class UpdateInfosComponent implements OnInit {
             })
           }
         }
-      })
-    }
+      }
+    )
+  }
 
     onSubmit(){
       // si le formulaire d'update n'est pas valable

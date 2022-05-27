@@ -115,17 +115,33 @@
                 </div>
             </div>
         </div>
-        <div class="d-grid gap-2 mb-1">
-            <a class="btn btn-dark " (click)="chargerRouteUpdateAdresse()">Modifier mon adresse</a>
-        </div>
-        <div class="d-grid gap-2 mb-1">
-            <a class="btn btn-dark " (click)="chargerRouteUpdateInfos()">Modifier mes infos</a>
-        </div>
-        <div class="d-grid gap-2 mb-1">
-            <a class="btn btn-danger " (click)="chargerRouteUpdatePassword()">Modifier mon mot de passe</a>
-        </div>
-        <div class="d-grid gap-2 mb-1">
-            <a class="btn btn-danger " (click)="chargerRouteUpdate()">Supprimer mon profil</a>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center mt-3 mb-3">
+            <div class="col-md-12">
+                <div class="d-grid gap-2 mb-1">
+                    <a class="btn btn-dark" (click)="chargerRouteUpdateAdresse()">Modifier mon adresse</a>
+                </div>
+                <div class="d-grid gap-2 mb-1">
+                    <a class="btn btn-dark" (click)="chargerRouteUpdateInfos()">Modifier mes infos</a>
+                </div>
+                <div class="d-grid gap-2 mb-1">
+                    <a class="btn btn-danger" (click)="chargerRouteUpdatePassword()">Modifier mon mot de passe</a>
+                </div>
+                <div class="d-grid gap-2 mb-1">
+                    <a class="btn btn-danger" (click)="chargerRouteUpdate()">Supprimer mon profil</a>
+                </div>
+                <div *ngIf="estEntrepreneur == false ; else notEntrepreneur">
+                    <div class="d-grid gap-2 mb-1">
+                        <a class="btn btn-success" (click)="chargerRouteRegisterEntrepreneur()">Créer un compte de vente</a>
+                    </div>
+                </div>
+                <ng-template #notEntrepreneur>
+                    <div class="d-grid gap-2 mb-1">
+                        <a class="btn btn-success" (click)="chargerRouteCompteEntrepreneur()">Mon compte entrepreneur</a>
+                    </div>
+                </ng-template>
+            </div>
         </div>
     </div>
 </div>

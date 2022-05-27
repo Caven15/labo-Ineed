@@ -5,6 +5,5 @@ export class entrepreneur {
     rueE : string
     villeE : string
     codePostalE : number
-    email : string
     utilisateurId : number
 }

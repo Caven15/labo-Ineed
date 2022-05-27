@@ -25,7 +25,7 @@ exports.login = async (req, res, next) => {
             }
             // j'envoie les donnée du utilisateur dans le token
             console.log("j'envoie mon token")
-            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '1800s'})
+            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '5000s'})
             res.status(200).send({accessToken : token})
         }
     }
@@ -85,20 +85,18 @@ exports.registerClient = async (req, res, next) => {
 // register d'un entrepreneur
 exports.registerEntrepreneur = async (req, res, next) => {
     try {
-        const utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})
-        if (!utilisateur) {
-            return res.status(401).json({message: "vous devez d'abords créer un compte utilisateur !"})
+        const entrepreneur = await dbConnector.entrepreneur.findOne({where: {'utilisateurId' :req.body.utilisateurId}})
+        if (entrepreneur) {
+            return res.status(401).json({message: "le compte entrepreneur existe déja ! !"})
         }
         else{
-            utilisateur.update({ statutEntrepreneur: true })
             let newEntrepreneur = {
                 nomE : req.body.nomE,
                 numeroRueE : req.body.numeroRueE,
                 rueE : req.body.rueE,
                 villeE : req.body.villeE,
                 codePostalE : req.body.codePostalE,
-                email : req.body.email,
-                utilisateurId : utilisateur.id
+                utilisateurId : req.body.utilisateurId
             }
             dbConnector.entrepreneur.create(newEntrepreneur)
                 .then(()=> {
@@ -107,5 +105,6 @@ exports.registerEntrepreneur = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error)
+        console.log("erreur ici")
     }
 }

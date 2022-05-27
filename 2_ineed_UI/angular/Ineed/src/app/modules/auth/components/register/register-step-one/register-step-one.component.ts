@@ -34,8 +34,6 @@ export class RegisterStepOneComponent implements OnInit {
   get f() { return this.RegisterStepOne.controls; }
 
   onSubmit(): void{
-    
-
     if (this.RegisterStepOne.invalid) {
       this.etatEnvoi = true;
       return;

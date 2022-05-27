@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './tools/jwt.interceptor';
 import { ClientModule } from './modules/client/client.module';
+import { EntrepreneurModule } from './modules/entrepreneur/entrepreneur.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ClientModule } from './modules/client/client.module';
 
     // imports des modules enfants
       AuthModule,
-      ClientModule
+      ClientModule,
+      EntrepreneurModule
   ],
   exports: [
     FormsModule

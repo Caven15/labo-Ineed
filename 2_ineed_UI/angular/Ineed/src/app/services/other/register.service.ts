@@ -10,8 +10,8 @@ export class RegisterService {
 
   constructor() {
     this.dataRegister = new registerClientForm();
-    this.dataRegister.nom = "test"
   }
+  
   loadDataStepOne(nom: string, prenom: string, dateNaissance: Date, email: string): void{
     this.dataRegister.nom = nom
     this.dataRegister.prenom = prenom

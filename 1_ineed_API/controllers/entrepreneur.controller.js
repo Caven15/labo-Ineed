@@ -13,8 +13,18 @@ exports.getAll = async (req, res, next) => {
 // récupère un entrepreneur par son id
 exports.getById = async (req, res, next) => {
     try {
-        const allEntrepreneurs = await dbConnector.entrepreneur.findByPk(req.params.id)
-        res.status(200).json(allEntrepreneurs)
+        const entrepreneur = await dbConnector.entrepreneur.findByPk(req.params.id)
+        res.status(200).json(entrepreneur)
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+// récupère un entrepreneur par son id
+exports.getByUtilisateurId = async (req, res, next) => {
+    try {
+        const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})
+        res.status(200).json(entrepreneur)
     } catch (error) {
         res.json(error)
     }
@@ -22,13 +32,12 @@ exports.getById = async (req, res, next) => {
 
 // met a jour un entrepreneur par son id
 exports.updateById = async (req, res, next) => {
-    const entrepreneur = await dbConnector.entrepreneur.findByPk(req.params.id)
-    // console.log(entrepreneur)
+    const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})
     if (entrepreneur == null) {
         res.json(`entrepreneur nr : ${req.params.id} n'existe pas !`)
     }
     else{
-        entrepreneur.update(req.body)
+        entrepreneur.update(req.body.entrepreneur)
         res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} mis a jour avec succès !` }))
         res.end()
     }
@@ -37,7 +46,7 @@ exports.updateById = async (req, res, next) => {
 // supprime un entrepreneur par son id
 exports.delete = async (req, res, next) => {
     try {
-        const entrepreneur = await dbConnector.entrepreneur.destroy({where : {id : req.params.id}})
+        const entrepreneur = await dbConnector.entrepreneur.destroy({where : {utilisateurId : req.params.id}})
         if (entrepreneur) {
             res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} a été suprimer avec succès !` }))
             res.end()

@@ -2,45 +2,48 @@
     <div class="container rounded bg-one mb-5">
         <form [formGroup]="RegisterStepOne" (ngSubmit)="onSubmit()">
             <div class="bg-two p-4 mt-3 rounded">
-                <div class="d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                    </svg>
-                </div>
-                <div class="form-floating">
-                    <h2 class="d-flex justify-content-center text-white fw-bold">Mes infos</h2>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="text " formControlName="nom" class="form-control" id="Nom" placeholder="Dupont" required>
-                        <label for="floatingInput">Nom :</label>
-                        <div *ngIf="etatEnvoi && f['nom'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
-                            <p>veuillez encoder votre nom !</p>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
                         </div>
-                </div>
-                    
-                <div class="form-floating mb-4">
-                    <input type="text" formControlName="prenom" class="form-control" id="Prenom" placeholder="Jean" required>
-                        <label for="Prenom">Prénom :</label>
-                        <div *ngIf="etatEnvoi && f['prenom'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
-                            <p>veuillez encoder votre prenom !</p>
+                        <div class="form-floating">
+                            <h2 class="d-flex justify-content-center text-white fw-bold">Mes infos</h2>
                         </div>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="date" formControlName="dateNaissance" class="form-control" id="Date" placeholder="Date" required>
-                        <label for="Date">Date de naissance :</label>
-                        <div *ngIf="etatEnvoi && f['dateNaissance'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
-                            <p>veuillez encoder votre date de naissance !</p>
+                        <div class="form-floating mb-4">
+                            <input type="text " formControlName="nom" class="form-control" id="Nom" placeholder="Dupont" required>
+                                <label for="floatingInput">Nom :</label>
+                                <div *ngIf="etatEnvoi && f['nom'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
+                                    <p>veuillez encoder votre nom !</p>
+                                </div>
                         </div>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="email" formControlName="email" class="form-control" id="Email" placeholder="name@example.com" required>
-                        <label for="Email">E-mail :</label>
-                        <div *ngIf="etatEnvoi && f['dateNaissance'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
-                            <p>veuillez encoder votre adresse e-mail !</p>
+                            
+                        <div class="form-floating mb-4">
+                            <input type="text" formControlName="prenom" class="form-control" id="Prenom" placeholder="Jean" required>
+                                <label for="Prenom">Prénom :</label>
+                                <div *ngIf="etatEnvoi && f['prenom'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
+                                    <p>veuillez encoder votre prenom !</p>
+                                </div>
                         </div>
+                        <div class="form-floating mb-4">
+                            <input type="date" formControlName="dateNaissance" class="form-control" id="Date" placeholder="Date" required>
+                                <label for="Date">Date de naissance :</label>
+                                <div *ngIf="etatEnvoi && f['dateNaissance'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
+                                    <p>veuillez encoder votre date de naissance !</p>
+                                </div>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="email" formControlName="email" class="form-control" id="Email" placeholder="name@example.com" required>
+                                <label for="Email">E-mail :</label>
+                                <div *ngIf="etatEnvoi && f['dateNaissance'].errors" class="modal-headerborder-bottom-0 justify-content-center text-danger">
+                                    <p>veuillez encoder votre adresse e-mail !</p>
+                                </div>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
             <div class="p-5">
                 <div class="progress bg-warning">

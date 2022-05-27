@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterStepOneComponent } from './components/register/register-step-one/register-step-one.component';
 import { RegisterStepTwoComponent } from './components/register/register-step-two/register-step-two.component';
 import { RegisterStepThreeComponent } from './components/register/register-step-three/register-step-three.component';
+import { RegisterEntrepreneurComponent } from './components/register-entrepreneur/register-entrepreneur.component';
 
 
 
@@ -16,7 +17,8 @@ import { RegisterStepThreeComponent } from './components/register/register-step-
     LoginComponent,
     RegisterStepOneComponent,
     RegisterStepTwoComponent,
-    RegisterStepThreeComponent
+    RegisterStepThreeComponent,
+    RegisterEntrepreneurComponent
   ],
   imports: [
     CommonModule,

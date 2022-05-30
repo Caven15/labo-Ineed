@@ -43,6 +43,7 @@ export class ProfilClientComponent implements OnInit {
       let id: number = parseInt(sessionStorage.getItem("id"))
       this._clientService.GetById(id).subscribe(client => {
         this.client = client
+        
         // configuration dyu pipe pour avoir la date au format dd/MM/yyyy
         var dateEN = client.dateNaissance
         this.datepipe.transform(dateEN, 'dd-MM-yyyy')
@@ -51,6 +52,8 @@ export class ProfilClientComponent implements OnInit {
     else{
       this._route.navigate(['login'])
     }
+    console.log("this.client")
+    console.log(this.client['utilisateur'])
   }
 
   chargerEntrepreneur(): void {

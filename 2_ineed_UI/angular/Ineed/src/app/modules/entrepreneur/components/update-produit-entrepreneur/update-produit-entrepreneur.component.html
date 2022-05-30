@@ -1,1 +1,51 @@
-<p>update-produit-entrepreneur works!</p>
+<div class="h-auto">
+    <form [formGroup]="updateProduit" (ngSubmit)="onSubmit()">
+        <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
+            <div class="container bg-two rounded-3">
+                <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+
+                    </div>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <h2 class="text-secondary fw-bold d-flex justify-content-center">modification produit</h2>
+                        <div>
+                            <label class="labels text-one fw-bold ">Nom :</label>
+                            <input type="text" formControlName="nom" class="form-control" placeholder="{{produit.nom}}">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">Description :</label>
+                            <textarea type="text" formControlName="description" class="form-control" placeholder="{{produit.description}}"></textarea>
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">Prix :</label>
+                            <input type="number" formControlName="prix" class="form-control" placeholder="{{produit.prix}}">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">Quantité :</label>
+                            <input type="number" formControlName="quantite" class="form-control" placeholder="{{produit.quantite}}">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">categorie :</label>
+                            <input type="number" formControlName="categorieId" class="form-control" placeholder="{{produit.categorieId}}">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                    <input class="btn w-100 btn-success" type="submit"value="Confirmer" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                    <button class="btn w-100 btn-danger" type="button" (click)="chargerRouteDetailProduit()">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>

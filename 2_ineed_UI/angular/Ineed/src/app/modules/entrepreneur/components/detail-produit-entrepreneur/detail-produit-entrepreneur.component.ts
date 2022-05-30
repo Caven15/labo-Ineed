@@ -32,8 +32,13 @@ export class DetailProduitEntrepreneurComponent implements OnInit {
       }
     })
   }
+  chargerRouteUpdate(): void {
+    var idProduits = this._activatedRoute.snapshot.params["id"]
+    this._route.navigate(['updateProduit', idProduits])
+  }
 
-  chargerRouteProfil(): void {
-    
+  chargerRouteDelete(): void {
+    var idProduits = this._activatedRoute.snapshot.params["id"]
+    this._route.navigate(['delete', idProduits])
   }
 }

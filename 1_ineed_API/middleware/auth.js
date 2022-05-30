@@ -11,7 +11,6 @@ exports.jwtControl = (req, res, next) => {
         const token = authHeader.split(' ')[1];
         jwt.verify(token, process.env.TOKEN_SECRET, (err) => {
             if (err) {
-                console.log("token invalide !")
                 return res.sendStatus(403).json({error: "erreur d'authentification"})
             }
             console.log("jwtControl ok je passe a la suite")
@@ -30,13 +29,16 @@ exports.clientControl = async (req, res, next) => {
     try {
         // je récupère le token
             const authHeader = req.headers.authorization;
-            console.log(authHeader)
         // j'extrait l'id et je retourne son instance avec findByPk
             const token = authHeader.split(' ')[1];
             var decoded = jwt.decode(token, {complete: true});
-            client = await dbConnector.client.findByPk(decoded.payload.id)
+            client = await dbConnector.client.findOne({where: {utilisateurId : decoded.payload.id}})
+            console.log("----------")
+            console.log(client.roleId)
+            console.log("----------")
         // je férifier si le role id est >= 1
-            if (client.roleId  >= 1 ) {
+            if (client.roleId  == 1 ) {
+                
                 // oui => next()
                 next()
             }

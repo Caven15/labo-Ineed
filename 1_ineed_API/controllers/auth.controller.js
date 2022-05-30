@@ -9,7 +9,7 @@ exports.login = async (req, res, next) => {
         res.status(403).send({message : "cette adresse email n'existe pas"})
     }
     if (utilisateur) {
-        const client = await dbConnector.client.findByPk(utilisateur.id)
+        const client = await dbConnector.client.findOne({where : {utilisateurId : utilisateur.id}})
         const password = bcrypt.compareSync(req.body.password.trim(), utilisateur.password)
         if (!password) {
             return res.status(401).send({

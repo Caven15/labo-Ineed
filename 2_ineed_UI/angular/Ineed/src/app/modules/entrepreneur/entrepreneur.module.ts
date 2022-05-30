@@ -11,6 +11,7 @@ import { UpdateProduitEntrepreneurComponent } from './components/update-produit-
 import { AllProduitEntrepreneurComponent } from './components/all-produit-entrepreneur/all-produit-entrepreneur.component';
 import { DetailProduitEntrepreneurComponent } from './components/detail-produit-entrepreneur/detail-produit-entrepreneur.component';
 import { AddProduitComponent } from './components/add-produit/add-produit.component';
+import { DeleteProduitComponent } from './components/delete-produit/delete-produit.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AddProduitComponent } from './components/add-produit/add-produit.compon
     UpdateProduitEntrepreneurComponent,
     AllProduitEntrepreneurComponent,
     DetailProduitEntrepreneurComponent,
-    AddProduitComponent
+    AddProduitComponent,
+    DeleteProduitComponent
   ],
   imports: [
     CommonModule,

@@ -1,45 +1,48 @@
-<form [formGroup]="updateFormInfos" (ngSubmit)="onSubmit()">
-    <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
-        <div class="container bg-two rounded-3">
-            <div class="d-flex justify-content-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                </svg>
-            </div>
-            <div class="container d-flex justify-content-center">
-                <div class="col-md-6">
-                    <h2 class="text-secondary fw-bold d-flex justify-content-center">informations personnel</h2>
-                    <div>
-                        <label class="labels text-one fw-bold ">Nom :</label>
-                        <input type="text" formControlName="nom" class="form-control" placeholder="{{client['utilisateur'].nom}}">
-                    </div>
-                    <div>
-                        <label class="labels text-one fw-bold ">Prenom :</label>
-                        <input type="text" formControlName="prenom" class="form-control" placeholder="{{client['utilisateur'].prenom}}">
-                    </div>
-                    <div>
-                        <label class="labels text-one fw-bold ">Date de naissance :</label>
-                        <input type="date" formControlName="dateNaissance" class="form-control">
-                    </div>
-                    <div>
-                        <label class="labels text-one fw-bold ">E-mail :</label>
-                        <input type="text" formControlName="email" class="form-control" placeholder="{{client['utilisateur'].email}}">
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="mb-3 text-center d-grid col-6 mx-auto">
-                                <input class="btn w-100 btn-success" type="submit"value="Confirmer" [disabled]="updateFormInfos.invalid">
-                            </div>
+<div class="h-75">
+    <form [formGroup]="updateFormInfos" (ngSubmit)="onSubmit()">
+        <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
+            <div class="container bg-two rounded-3">
+                <div class="d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <h2 class="text-secondary fw-bold d-flex justify-content-center">informations personnel</h2>
+                        <div>
+                            <label class="labels text-one fw-bold ">Nom :</label>
+                            <input type="text" formControlName="nom" class="form-control" placeholder="{{client['utilisateur'].nom}}">
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3 text-center d-grid col-6 mx-auto">
-                                <button class="btn w-100 btn-danger" type="button" (click)="chargerRouteProfil()">Annuler</button>
+                        <div>
+                            <label class="labels text-one fw-bold ">Prenom :</label>
+                            <input type="text" formControlName="prenom" class="form-control" placeholder="{{client['utilisateur'].prenom}}">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">Date de naissance :</label>
+                            <input type="date" formControlName="dateNaissance" class="form-control">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">E-mail :</label>
+                            <input type="text" formControlName="email" class="form-control" placeholder="{{client['utilisateur'].email}}">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                    <input class="btn w-100 btn-success" type="submit"value="Confirmer" [disabled]="updateFormInfos.invalid">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                    <button class="btn w-100 btn-danger" type="button" (click)="chargerRouteProfil()">Annuler</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
-            
         </div>
-    </div>
-</form>
+    </form>
+    
+</div>

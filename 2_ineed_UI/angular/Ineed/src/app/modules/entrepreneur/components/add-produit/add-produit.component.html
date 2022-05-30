@@ -1,0 +1,48 @@
+<div class="h-75">
+    <form [formGroup]="addProduit" (ngSubmit)="onSubmit()">
+        <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
+            <div class="container bg-two rounded-3">
+                <div class="d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-plus-square-fill mt-3" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                    </svg>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <h2 class="text-secondary fw-bold d-flex justify-content-center mt-3">Ajout produit</h2>
+                        <div>
+                            <label class="labels text-one fw-bold ">Nom :</label>
+                            <input type="text" formControlName="nom" class="form-control">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">description :</label>
+                            <textarea type="" formControlName="description" class="form-control" ></textarea>
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">Prix :</label>
+                            <input type="number" formControlName="prix" class="form-control">
+                        </div>
+                        <div>
+                            <label class="labels text-one fw-bold ">Quantité :</label>
+                            <input type="text" formControlName="quantite" class="form-control" >
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                    <input class="btn w-100 btn-success" type="submit"value="Confirmer" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3 text-center d-grid col-6 mx-auto">
+                                    <button class="btn w-100 btn-danger" type="button" (click)="chargerRouteAllProduits()">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    
+</div>

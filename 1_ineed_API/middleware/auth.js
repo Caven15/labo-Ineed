@@ -83,9 +83,15 @@ exports.entrepreneurControl = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
     var decoded = jwt.decode(token, {complete: true});
     client = await dbConnector.client.findByPk(decoded.payload.id)
-    entrepreneur = await dbConnector.entrepreneur.findByPk(client.id)
+    entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : client.id}})
     if (!entrepreneur) {
-        res.status(403).json({"error" : "vous devez etre entrepreneur pour acceder a cette zone"})
+        console.log("-----------------------------")
+        console.log("  entrepreneur control Nok ! ")
+        console.log("-----------------------------")
+        res.status(403).json({"error" : "vous devez etre entrepreneur pour acceder a cette zone !"})
     }
+    console.log("-----------------------------")
+    console.log(" entrepreneur control ok :)  ")
+    console.log("-----------------------------")
     next()
 }

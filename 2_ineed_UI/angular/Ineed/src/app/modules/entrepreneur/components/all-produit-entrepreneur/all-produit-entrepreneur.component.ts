@@ -48,8 +48,6 @@ export class AllProduitEntrepreneurComponent implements OnInit {
     this._produitService.GetByEntrepreneurId(this.entrepreneur.id).subscribe({
       next: (produits) => {
         this.produits = produits
-        console.log("this.produits")
-        console.log(this.produits)
       },
       error: (error) => {
         console.log(error)
@@ -59,11 +57,11 @@ export class AllProduitEntrepreneurComponent implements OnInit {
   }
 
   chargerRouteProduit(id): void {
-    
+    this._route.navigate(["entrepreneur", "detail", id])
   }
 
   chargeRouteAddProduit(): void {
-    this._route.navigate(["produit", "add"])
+    this._route.navigate(["entrepreneur", "add", this.entrepreneur.id])
   }
 
   chargeRouteAddProfil(): void {

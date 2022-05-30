@@ -4,6 +4,7 @@ export class produit {
     description : string
     prix : number
     quantite : number
+    estDisponible : boolean
     categorieId : number
     entrepreneurId : number
 }

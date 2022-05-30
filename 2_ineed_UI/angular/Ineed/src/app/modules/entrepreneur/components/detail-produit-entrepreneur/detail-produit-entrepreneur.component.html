@@ -1,0 +1,50 @@
+<div class="h-75">
+    <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
+        <div class="container bg-two rounded-3">
+            <div class="row">
+                <div class="col-md-5 border-right">
+                    <div class="d-flex flex-column align-items-center text-center mt-4 py-5">
+                        <img class="rounded-circle mt-md-3" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    </div>
+                </div>
+                <div class="col-md-6 border-right">
+                    <div class="p-3 py-5">
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <label class="labels fs-5 mt-2 mb-3 text-one fw-bold">Nom :</label>
+                                <p class="fw-bold mb-0 text-secondary">{{produit.nom}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels fs-5 mt-2 mb-3 text-one fw-bold">Prix :</label>
+                                <p class="fw-bold mb-0 text-secondary">{{produit.prix}} €</p>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <label class="labels fs-5 mt-2 mb-3 text-one fw-bold">Quantité :</label>
+                                <p class="fw-bold mb-0 text-secondary">{{produit.quantite}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels fs-5 mt-2 mb-3 text-one fw-bold">catégorie :</label>
+                                <p class="fw-bold mb-0 text-secondary">{{produit.categorieId}}</p>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <label class="labels fs-5 mt-2 mb-3 text-one fw-bold">Description :</label>
+                            <p class="fw-bold mb-0 text-secondary">{{produit.description}}</p>
+                        </div>
+                    </div>
+                </div>                  
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-md-12">
+                    <div class="mb-3 col-6 mx-auto ">
+                        <button class="btn w-100 btn-warning mb-1 mt-md-4" type="button">Modifier</button></div>
+                        <div class="mb-3 col-6 mx-auto">
+                            <button class="btn w-100 btn-danger mb-1" type="button">Suprimer</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

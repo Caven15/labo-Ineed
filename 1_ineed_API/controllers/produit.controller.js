@@ -15,7 +15,7 @@ exports.add = async (req, res, next) => {
                 quantite : req.body.quantite,
                 categorieId : req.body.categorieId,
                 entrepreneurId : req.body.entrepreneurId,
-                estDisponible : req.body.quantite > 1 ? true : false
+                estDisponible : req.body.quantite > 0 ? true : false
             }
             dbConnector.produit.create(newProduit)
                 .then(() => {

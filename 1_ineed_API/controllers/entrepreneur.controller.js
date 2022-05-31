@@ -30,6 +30,21 @@ exports.getByUtilisateurId = async (req, res, next) => {
     }
 }
 
+// récupère un entrepreneur par son nom
+exports.getByName = async (req, res, next) => {
+    try {
+        entrepreneur = await dbConnector.entrepreneur.findOne({where : {'nomE' : req.params.name}})
+        if (!entrepreneur) {
+            res.status(200).json("aucun entrepreneur trouvé...")
+        }
+        else{
+            res.status(200).json(entrepreneur)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 // met a jour un entrepreneur par son id
 exports.updateById = async (req, res, next) => {
     const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})

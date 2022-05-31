@@ -34,6 +34,13 @@ export class ProduitService {
     return produit;
   }
 
+  // récupère un produit par son id
+  GetByName(name : string) : Observable<produit>{
+    let headers = this._headers.headersReturn()
+    var produit = this._client.get<produit>(`${environment.apiUrl}/produit/getByName/${name}`, {'headers' : headers});
+    return produit;
+  }
+
   // récupère tout les produits par son catégorieId
   GetByCategorieId(id : number) : Observable<produit[]>{
     let headers = this._headers.headersReturn()

@@ -87,6 +87,21 @@ exports.getByCategorieId = async (req, res, next) => {
     }
 }
 
+// récupère un produit par son nom
+exports.getByName = async (req, res, next) => {
+    try {
+        produit = await dbConnector.produit.findOne({where : {'nom' : req.params.name}})
+        if (!produit) {
+            res.status(200).json("aucun produit trouvé...")
+        }
+        else{
+            res.status(200).json(produit)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 // mes a jour un produit par son id
 exports.update = async (req, res, next) => {
     try {

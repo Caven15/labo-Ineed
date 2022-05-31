@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { INavItem } from 'src/app/models/inav-item';
+import { recherche } from 'src/app/models/recherche.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 
 @Component({
@@ -11,10 +13,17 @@ import { AuthService } from 'src/app/services/api/auth.service';
 export class NavigationMenuComponent implements OnInit {
 
   public routes : INavItem[] = [];
-
   public isConnected: boolean = false;
+  public resultat : FormGroup
+  public recherche : recherche = new recherche()
 
-  constructor(private _authService : AuthService, private _route: Router) { 
+  constructor(
+    private _authService : AuthService, 
+    private _route: Router,
+    private _formBuilder : FormBuilder,
+    private _activatedRoute : ActivatedRoute 
+    ) { 
+
     this._authService.currentUser.subscribe(
       {
         next : (utilisateur) => {
@@ -28,6 +37,9 @@ export class NavigationMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.refresh();
+    this.resultat = this._formBuilder.group({
+      recherche : [null, [Validators.required]]
+    })
   }
 
   refresh(): void{
@@ -66,5 +78,10 @@ export class NavigationMenuComponent implements OnInit {
 
   logout(){
     this._authService.logout();
+  }
+
+  onSubmit(): void {
+    this.recherche.recherche = this.resultat.value['recherche']
+    this._route.navigate(['produit', 'resultSearch', this.recherche.recherche])
   }
 }

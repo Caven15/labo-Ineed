@@ -29,6 +29,13 @@ export class EntrepreneurService {
     return entrepreneur;
   }
 
+    // récupère un entrepreneur par son id
+    getByName(name : string) : Observable<entrepreneur>{
+      let headers = this._headers.headersReturn()
+      var entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getByName/${name}`,{'headers' : headers})
+      return entrepreneur;
+    }
+
   // récupère un entrepreneur par son id utilisateur
   getByUtilisateurId(id : number) : Observable<entrepreneur>{
     let headers = this._headers.headersReturn()

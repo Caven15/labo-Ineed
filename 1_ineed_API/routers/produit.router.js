@@ -12,6 +12,7 @@ const {jwtControl, clientControl, entrepreneurControl} = require("../middleware/
     router.get("/getByEntrepreneurId/:entrepreneurId", jwtControl, clientControl, produitController.getByEntrepreneurId)
     router.get("/getByCategorieId/:categorieId", jwtControl, clientControl, produitController.getByCategorieId)
     router.get("/getAll", jwtControl, clientControl, produitController.getAll)
+    router.get("/getByName/:name", jwtControl, clientControl, produitController.getByName)
 
 
 // route entrepreneur

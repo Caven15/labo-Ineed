@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './tools/jwt.interceptor';
 import { ClientModule } from './modules/client/client.module';
 import { EntrepreneurModule } from './modules/entrepreneur/entrepreneur.module';
+import { ProduitModule } from './modules/produit/produit.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EntrepreneurModule } from './modules/entrepreneur/entrepreneur.module';
     // imports des modules enfants
       AuthModule,
       ClientModule,
-      EntrepreneurModule
+      EntrepreneurModule,
+      ProduitModule
   ],
   exports: [
     FormsModule

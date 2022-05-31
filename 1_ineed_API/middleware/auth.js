@@ -33,9 +33,6 @@ exports.clientControl = async (req, res, next) => {
             const token = authHeader.split(' ')[1];
             var decoded = jwt.decode(token, {complete: true});
             client = await dbConnector.client.findOne({where: {utilisateurId : decoded.payload.id}})
-            console.log("----------")
-            console.log(client.roleId)
-            console.log("----------")
         // je férifier si le role id est >= 1
             if (client.roleId  == 1 ) {
                 
@@ -87,13 +84,7 @@ exports.entrepreneurControl = async (req, res, next) => {
     client = await dbConnector.client.findByPk(decoded.payload.id)
     entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : client.id}})
     if (!entrepreneur) {
-        console.log("-----------------------------")
-        console.log("  entrepreneur control Nok ! ")
-        console.log("-----------------------------")
         res.status(403).json({"error" : "vous devez etre entrepreneur pour acceder a cette zone !"})
     }
-    console.log("-----------------------------")
-    console.log(" entrepreneur control ok :)  ")
-    console.log("-----------------------------")
     next()
 }

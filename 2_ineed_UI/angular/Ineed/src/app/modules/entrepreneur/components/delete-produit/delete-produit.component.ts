@@ -21,7 +21,7 @@ export class DeleteProduitComponent implements OnInit {
   }
 
   deleteProduit(): void {
-    let id: number = parseInt(sessionStorage.getItem("id"));
+    let id: number = this._activatedRoute.snapshot.params['id']
       this._produitService.delete(id).subscribe({
         error: (errors) =>{
           console.log(errors)

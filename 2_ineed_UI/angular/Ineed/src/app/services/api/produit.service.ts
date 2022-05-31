@@ -52,12 +52,12 @@ export class ProduitService {
   update(id: number,produit: produit){
     console.log("je passe dans mon update !")
     let headers = this._headers.headersReturn()
-    return this._client.patch(`${environment.apiUrl}/client/updateById/${id}`,{produit: produit}, {'headers' : headers})
+    return this._client.patch(`${environment.apiUrl}/produit/updateById/${id}`,{produit: produit}, {'headers' : headers})
   }
 
   // supprime un produit par son id
   delete(id: number){
     let headers = this._headers.headersReturn()
-    return this._client.delete(`${environment.apiUrl}/utilisateur/delete/${id}`, {'headers' : headers});
+    return this._client.delete(`${environment.apiUrl}/produit/delete/${id}`, {'headers' : headers});
 }
 }

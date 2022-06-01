@@ -12,6 +12,8 @@ import { AllProduitEntrepreneurComponent } from './components/all-produit-entrep
 import { DetailProduitEntrepreneurComponent } from './components/detail-produit-entrepreneur/detail-produit-entrepreneur.component';
 import { AddProduitComponent } from './components/add-produit/add-produit.component';
 import { DeleteProduitComponent } from './components/delete-produit/delete-produit.component';
+import { EntrepreneurItemComponent } from './components/entrepreneur-item/entrepreneur-item.component';
+
 
 
 @NgModule({
@@ -23,13 +25,17 @@ import { DeleteProduitComponent } from './components/delete-produit/delete-produ
     AllProduitEntrepreneurComponent,
     DetailProduitEntrepreneurComponent,
     AddProduitComponent,
-    DeleteProduitComponent
+    DeleteProduitComponent,
+    EntrepreneurItemComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
     EntrepreneurRoutingModule
+  ],
+  exports: [
+    EntrepreneurItemComponent
   ]
 })
 export class EntrepreneurModule { }

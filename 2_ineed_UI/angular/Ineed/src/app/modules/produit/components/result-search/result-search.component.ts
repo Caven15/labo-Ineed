@@ -13,8 +13,8 @@ import { ProduitService } from 'src/app/services/api/produit.service';
 })
 export class ResultSearchComponent implements OnInit {
 
-  public produit : produit = new produit()
-  public entrepreneur : entrepreneur = new entrepreneur()
+  public produits : produit[] = []
+  public entrepreneurs : entrepreneur[] = []
 
   constructor(
     private _activatedRoute : ActivatedRoute,
@@ -31,14 +31,32 @@ export class ResultSearchComponent implements OnInit {
   chargerProduit(): void {
     let result : string = this._activatedRoute.snapshot.params['value']
     this._produitService.GetByName(result).subscribe(produit => {
-      this.produit = produit
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      this.produits.push(produit)
+      console.log(this.produits[0].id)
     })
   }
 
   chargerEntrepreneur(): void {
     let result : string = this._activatedRoute.snapshot.params['value']
     this._entrepreneurService.getByName(result).subscribe(entrepreneur => {
-      this.entrepreneur = entrepreneur
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
+      this.entrepreneurs.push(entrepreneur)
     })
   }
   

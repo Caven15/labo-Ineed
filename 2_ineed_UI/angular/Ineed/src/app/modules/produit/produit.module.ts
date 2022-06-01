@@ -8,6 +8,8 @@ import { ResultSearchComponent } from './components/result-search/result-search.
 import { ProduitItemComponent } from './components/produit-item/produit-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EntrepreneurItemComponent } from '../entrepreneur/components/entrepreneur-item/entrepreneur-item.component';
+import { EntrepreneurModule } from '../entrepreneur/entrepreneur.module';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ProduitRoutingModule
+    ProduitRoutingModule,
+    EntrepreneurModule
   ]
 })
 export class ProduitModule { }

@@ -82,6 +82,9 @@ export class NavigationMenuComponent implements OnInit {
 
   onSubmit(): void {
     this.recherche.recherche = this.resultat.value['recherche']
+    // permet de recharger le composant apres recherche de navigation
+      this._route.routeReuseStrategy.shouldReuseRoute = () => false
+      this._route.onSameUrlNavigation = 'reload'
     this._route.navigate(['produit', 'resultSearch', this.recherche.recherche])
   }
 }

@@ -1,5 +1,10 @@
-<div class="h-auto">
-    <div class="container mt-5 mb-5 bg-one">
+<div *ngIf="client == undefined ; else dataOk" class="d-flex justify-content-center align-items-center text-warning h-100">
+    <div class="spinner-border" role="status" style="width: 8rem; height: 8rem;">
+        <span class="visually-hidden">Chargement...</span>
+    </div>
+</div>
+<ng-template #dataOk>
+    <div class="container mt-5 mb-5 bg-one h-auto">
         <div class="row">
             <div class="col-md-6 p-3">
                 <div class="col-md-12 ">
@@ -146,6 +151,4 @@
             </div>
         </div>
     </div>
-    
-    
-</div>
+</ng-template>

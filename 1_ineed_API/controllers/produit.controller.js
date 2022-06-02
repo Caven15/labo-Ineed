@@ -1,4 +1,5 @@
 const dbConnector = require("../tools/dbConnect").get()
+const { Op } = require("sequelize");
 
 // ajoute un nouveau produit
 exports.add = async (req, res, next) => {
@@ -87,10 +88,16 @@ exports.getByCategorieId = async (req, res, next) => {
     }
 }
 
-// récupère un produit par son nom
+// récupère une liste de produit contenant une partie du nom
 exports.getByName = async (req, res, next) => {
     try {
-        produit = await dbConnector.produit.findOne({where : {'nom' : req.params.name}})
+        produit = await dbConnector.produit.findAll({
+            where : {
+                nom : {
+                    [Op.substring]: req.params.name
+                }
+            }
+        })
         if (!produit) {
             res.status(200).json("aucun produit trouvé...")
         }

@@ -30,9 +30,9 @@ export class EntrepreneurService {
   }
 
     // récupère un entrepreneur par son id
-    getByName(name : string) : Observable<entrepreneur>{
+    getByName(name : string) : Observable<entrepreneur[]>{
       let headers = this._headers.headersReturn()
-      var entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getByName/${name}`,{'headers' : headers})
+      var entrepreneur = this._client.get<entrepreneur[]>(`${environment.apiUrl}/entrepreneur/getByName/${name}`,{'headers' : headers})
       return entrepreneur;
     }
 

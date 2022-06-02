@@ -49,7 +49,7 @@ module.exports = {
             // client a un utilisateur
                 dbConnector.utilisateur.hasOne(dbConnector.client);
                 dbConnector.client.belongsTo(dbConnector.utilisateur);
-                
+
             // un role a plusieurs clients
                 dbConnector.role.hasMany(dbConnector.client);
                 dbConnector.client.belongsTo(dbConnector.role);

@@ -35,9 +35,9 @@ export class ProduitService {
   }
 
   // récupère un produit par son id
-  GetByName(name : string) : Observable<produit>{
+  GetByName(name : string) : Observable<produit[]>{
     let headers = this._headers.headersReturn()
-    var produit = this._client.get<produit>(`${environment.apiUrl}/produit/getByName/${name}`, {'headers' : headers});
+    var produit = this._client.get<produit[]>(`${environment.apiUrl}/produit/getByName/${name}`, {'headers' : headers});
     return produit;
   }
 

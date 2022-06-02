@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { entrepreneur } from 'src/app/models/entrepreneur.model';
 import { produit } from 'src/app/models/produit.model';
-import { recherche } from 'src/app/models/recherche.model';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 import { ProduitService } from 'src/app/services/api/produit.service';
 
@@ -30,33 +29,15 @@ export class ResultSearchComponent implements OnInit {
 
   chargerProduit(): void {
     let result : string = this._activatedRoute.snapshot.params['value']
-    this._produitService.GetByName(result).subscribe(produit => {
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      this.produits.push(produit)
-      console.log(this.produits[0].id)
+    this._produitService.GetByName(result).subscribe(produits => {
+      this.produits = produits
     })
   }
 
   chargerEntrepreneur(): void {
     let result : string = this._activatedRoute.snapshot.params['value']
-    this._entrepreneurService.getByName(result).subscribe(entrepreneur => {
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
-      this.entrepreneurs.push(entrepreneur)
+    this._entrepreneurService.getByName(result).subscribe(entrepreneurs => {
+      this.entrepreneurs = entrepreneurs
     })
   }
   

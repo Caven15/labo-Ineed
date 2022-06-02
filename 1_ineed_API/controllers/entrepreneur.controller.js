@@ -1,4 +1,5 @@
 const dbConnector = require("../tools/dbConnect").get()
+const { Op } = require("sequelize");
 
 // récupère tout les entrepreneurs
 exports.getAll = async (req, res, next) => {
@@ -30,10 +31,16 @@ exports.getByUtilisateurId = async (req, res, next) => {
     }
 }
 
-// récupère un entrepreneur par son nom
+// récupère une liste d'entrepreneur contenant une partie du nom
 exports.getByName = async (req, res, next) => {
     try {
-        entrepreneur = await dbConnector.entrepreneur.findOne({where : {'nomE' : req.params.name}})
+        entrepreneur = await dbConnector.entrepreneur.findAll({
+            where : {
+                nomE : {
+                    [Op.substring]: req.params.name
+                }
+            }
+        })
         if (!entrepreneur) {
             res.status(200).json("aucun entrepreneur trouvé...")
         }
@@ -44,6 +51,8 @@ exports.getByName = async (req, res, next) => {
         console.log(error)
     }
 }
+
+
 
 // met a jour un entrepreneur par son id
 exports.updateById = async (req, res, next) => {

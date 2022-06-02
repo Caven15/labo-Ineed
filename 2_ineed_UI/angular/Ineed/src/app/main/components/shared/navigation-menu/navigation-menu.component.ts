@@ -69,11 +69,10 @@ export class NavigationMenuComponent implements OnInit {
     }
     else{
       this.routes = [
-        {title: "Inscription", url: "/auth/registerStepOne", isVisible: true},
-        {title: "Connexion", url: "/auth/login", isVisible: true}
+        {title: "Connexion", url: "/auth/login", isVisible: true},
+        {title: "Inscription", url: "/auth/registerStepOne", isVisible: true}
       ];
     }
-    
   }
 
   logout(){

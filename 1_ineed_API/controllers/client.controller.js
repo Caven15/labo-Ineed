@@ -1,5 +1,3 @@
-const clientModel = require("../models/client.model")
-
 const dbConnector = require("../tools/dbConnect").get()
 
 // récupère tout les clients
@@ -35,7 +33,7 @@ exports.getAll = async (req, res, next) => {
 exports.getById = async (req, res, next) => {
     console.log("je passe dans mon get by id")
     try {
-        const allClients = await dbConnector.client.findOne({
+        const client = await dbConnector.client.findOne({
             where: {
                 id: req.params.id
             },
@@ -58,7 +56,7 @@ exports.getById = async (req, res, next) => {
                 }
             ]
         })
-        res.status(200).json(allClients)
+        res.status(200).json(client)
     } catch (error) {
         res.json(error)
     }
@@ -114,7 +112,7 @@ exports.update = async (req, res, next) => {
 // met a jour le  role du client par son id
 exports.updateRoleById = async (req, res, next) => {
     try {
-        const client = await dbConnector.client.findByPk(req.params.id)
+        const client = await dbConnector.client.findOne({where : {utilisateurId : req.params.id}})
         if (client) {
             client.update(req.body)
             res.write(JSON.stringify({Message :  `client nr : ${req.params.id} mis a jour avec succès !` }))

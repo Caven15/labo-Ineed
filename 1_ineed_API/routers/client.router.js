@@ -19,7 +19,7 @@ const {jwtControl, clientControl, moderateurControl} = require("../middleware/au
 // route administration
     router.get("/getAll", jwtControl, moderateurControl, clientController.getAll)
     router.get("/getByRoleId/:roleId", jwtControl, moderateurControl, clientController.getByRoleId)
-    router.patch("/updateRoleById/:id", jwtControl, moderateurControl, clientController.updateRoleById)
+    router.patch("/updateRoleById/:id", jwtControl, clientController.updateRoleById)
 
 
 module.exports = router

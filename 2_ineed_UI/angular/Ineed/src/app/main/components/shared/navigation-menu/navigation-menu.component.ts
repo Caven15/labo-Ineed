@@ -29,7 +29,6 @@ export class NavigationMenuComponent implements OnInit {
         next : (utilisateur) => {
           this.isConnected = this._authService.isConnected();
           this.refresh();
-          console.log("est connecté : " + this.isConnected);
         }
       }
     )
@@ -46,15 +45,23 @@ export class NavigationMenuComponent implements OnInit {
     let testUtilisateur: number = parseInt(sessionStorage.getItem("roleId"))
     if (testUtilisateur == 1) {
       this.routes = [
-        {title: "Mon Profil", url: "/client/profil", isVisible: true},
-        {title: "Mes commandes", url: "", isVisible: true},
-        {title: "Suivis commande", url: "", isVisible: true},
-        {title: "catégories", url: "", isVisible: true},
+        // ici les routes relative au client
+          {title: "profil client", url: "/client/profil", isVisible: true},
+          {title: "Devenir vendeur !", url: "/auth/registerEntrepreneur", isVisible: true},
+          {title: "Mes commandes", url: "", isVisible: true},
+          {title: "Suivis commande", url: "", isVisible: true},
+          {title: "catégories", url: "", isVisible: true},
       ];
     }
     else if (testUtilisateur == 2) {
       this.routes = [
         // ici les routes relative au entrepreneur
+          {title: "profil client", url: "/client/profil", isVisible: true},
+          {title: "profil vendeur !", url: "/entrepreneur/profil", isVisible: true},
+          {title: "Mes commandes", url: "", isVisible: true},
+          {title: "Suivis commande", url: "", isVisible: true},
+          {title: "catégories", url: "", isVisible: true},
+
       ];
     }
     else if (testUtilisateur == 3) {
@@ -86,4 +93,5 @@ export class NavigationMenuComponent implements OnInit {
       this._route.onSameUrlNavigation = 'reload'
     this._route.navigate(['produit', 'resultSearch', this.recherche.recherche])
   }
+
 }

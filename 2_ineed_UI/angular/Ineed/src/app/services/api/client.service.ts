@@ -41,6 +41,12 @@ export class ClientService {
     )
   }
 
+  // mis a jour des donnée d'un client
+  updateRoleClient(id: number,roleId : number){
+    let headers = this._headers.headersReturn()
+    return this._client.patch(`${environment.apiUrl}/client/updateRoleById/${id}`,{roleId: roleId},{'headers' : headers})
+  }
+
   // mis a jour des données de livraison d'un client
   updateDataLivraison(id: number,rue: string, numeroRue: number, ville: string, codePostal: number){
     console.log("je passe dans mon update !")

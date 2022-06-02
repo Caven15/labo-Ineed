@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { client } from 'src/app/models/client.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
@@ -20,7 +20,8 @@ export class UpdateInfosComponent implements OnInit {
     private _route : Router,
     private _clientService: ClientService,
     private _authService : AuthService,
-    private _formBuilder : FormBuilder
+    private _formBuilder : FormBuilder,
+    private _activatedRoute : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -33,31 +34,19 @@ export class UpdateInfosComponent implements OnInit {
       this._route.navigate(['auth', 'login'])
       return;
     }
-    // je récupère l'id compris dans le session storage
-    const id: number = parseInt(sessionStorage.getItem("id"))
-    this._clientService.GetById(id).subscribe(
-      {
-        next: (client) => {
-          this.client = client
-        },
-        error: (errors) => {
-          console.log(errors)
-        },
-        complete: () => {
-          if (!this.client || this.client == null){
-            this._route.navigate(['client'])
-          }
-          else{
-            this.updateFormInfos = this._formBuilder.group({
-              nom : [this.client.nom, [Validators.required]],
-              prenom : [this.client.prenom, [Validators.required]],
-              dateNaissance : [this.client.dateNaissance, [Validators.required]],
-              email : [this.client.email, [Validators.email,Validators.required]]
-            })
-          }
-        }
-      }
-    )
+    let client : client = this._activatedRoute.snapshot.data['datas']
+    this.client = client
+    if (!this.client || this.client == null){
+      this._route.navigate(['client'])
+    }
+    else{
+      this.updateFormInfos = this._formBuilder.group({
+        nom : [this.client.nom, [Validators.required]],
+        prenom : [this.client.prenom, [Validators.required]],
+        dateNaissance : [this.client.dateNaissance, [Validators.required]],
+        email : [this.client.email, [Validators.email,Validators.required]]
+      })
+    }
   }
 
     onSubmit(){

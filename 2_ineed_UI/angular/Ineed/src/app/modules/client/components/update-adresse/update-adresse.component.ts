@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { client } from 'src/app/models/client.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
@@ -19,7 +19,8 @@ export class UpdateAdresseComponent implements OnInit {
     private _route : Router,
     private _clientService: ClientService,
     private _authService : AuthService,
-    private _formBuilder : FormBuilder
+    private _formBuilder : FormBuilder,
+    private _activatedRoute : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -32,35 +33,20 @@ export class UpdateAdresseComponent implements OnInit {
       this._route.navigate(['auth', 'login'])
       return;
     }
-    // je récupère l'id compris dans le session storage
-    const id: number = parseInt(sessionStorage.getItem("id"))
-    this._clientService.GetById(id).subscribe(
-      {
-        next: (client) => {
-          this.client = client
-        },
-        error: (errors) => {
-          console.log(errors)
-        },
-        complete: () => {
-          // je vérifie si l'client existe
-          if (!this.client || this.client == null){
-            this._route.navigate(['client'])
-          }
-          // je vérifie si l'user a modifier est le meme que celui qui procède a la modification
-            // if (this.client.) {
-              
-            // }
-          
-          // alor tout est ok je peux créer mon formulaire d'update
-          this.updateFormAdresse = this._formBuilder.group({
-            rue : [null, [Validators.required]],
-            numeroRue : [null, [Validators.required]],
-            ville : [null, [Validators.required]],
-            codePostal : [null, [Validators.required]]
-          })
-        }
-      })
+    let client : client = this._activatedRoute.snapshot.data['datas']
+    this.client = client
+    // je vérifie si l'client existe
+    if (!this.client || this.client == null){
+      this._route.navigate(['client'])
+    }
+    // je vérifie si l'user a modifier est le meme que celui qui procède a la modification
+    // alor tout est ok je peux créer mon formulaire d'update
+    this.updateFormAdresse = this._formBuilder.group({
+      rue : [null, [Validators.required]],
+      numeroRue : [null, [Validators.required]],
+      ville : [null, [Validators.required]],
+      codePostal : [null, [Validators.required]]
+    })
     }
 
     onSubmit(){

@@ -40,7 +40,6 @@ export class RegisterStepTwoComponent implements OnInit {
       this.etatEnvoi = true;
       return;
     }
-    console.log("register strep two !");
     this.errorMessage = "";
     this._registerService.loadDataStepTwo(
       this.RegisterStepTwo.value["numeroRue"],

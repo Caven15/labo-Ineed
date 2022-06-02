@@ -87,7 +87,7 @@ exports.registerEntrepreneur = async (req, res, next) => {
     try {
         const entrepreneur = await dbConnector.entrepreneur.findOne({where: {'utilisateurId' :req.body.utilisateurId}})
         if (entrepreneur) {
-            return res.status(401).json({message: "le compte entrepreneur existe déja ! !"})
+            return res.status(401).json({message: "le compte entrepreneur existe déja !"})
         }
         else{
             let newEntrepreneur = {

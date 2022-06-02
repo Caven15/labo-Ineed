@@ -32,11 +32,12 @@ exports.clientControl = async (req, res, next) => {
         // j'extrait l'id et je retourne son instance avec findByPk
             const token = authHeader.split(' ')[1];
             var decoded = jwt.decode(token, {complete: true});
-            client = await dbConnector.client.findOne({where: {utilisateurId : decoded.payload.id}})
+            client = await dbConnector.client.findByPk(decoded.payload.id)
         // je férifier si le role id est >= 1
-            if (client.roleId  == 1 ) {
+            if (client.roleId  >= 1 ) {
                 
                 // oui => next()
+                console.log("middleware client control ok !")
                 next()
             }
     } catch (error) {
@@ -50,8 +51,8 @@ exports.moderateurControl = async (req, res, next) => {
         const authHeader = req.headers.authorization;
         const token = authHeader.split(' ')[1];
         var decoded = jwt.decode(token, {complete: true});
-        client = await dbConnector.client.findByPk(decoded.payload.id)
-        if (client.roleId  >= 2 ) {
+        client = await dbConnector.client.findOne({where : {utilisateurId : decoded.payload.id}})
+        if (client.roleId  >= 3 ) {
             // oui => next()
             next()
         }
@@ -67,7 +68,7 @@ exports.administrateurControl = async (req, res, next) => {
         const token = authHeader.split(' ')[1];
         var decoded = jwt.decode(token, {complete: true});
         client = await dbConnector.client.findByPk(decoded.payload.id)
-        if (client.roleId  >= 3 ) {
+        if (client.roleId  >= 4 ) {
             // oui => next()
             next()
         }

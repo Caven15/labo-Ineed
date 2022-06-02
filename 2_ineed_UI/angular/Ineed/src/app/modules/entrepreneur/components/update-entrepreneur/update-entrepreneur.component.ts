@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { entrepreneur } from 'src/app/models/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
@@ -20,7 +20,8 @@ export class UpdateEntrepreneurComponent implements OnInit {
     private _route : Router,
     private _authService : AuthService,
     private _formBuilder : FormBuilder,
-    private _entrepreneurService : EntrepreneurService
+    private _entrepreneurService : EntrepreneurService,
+    private _activatedRoute : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -44,10 +45,8 @@ export class UpdateEntrepreneurComponent implements OnInit {
   }
 
   chargerEntrepreneur(): void {
-    let id: number = parseInt(sessionStorage.getItem("id"))
-    this._entrepreneurService.getByUtilisateurId(id).subscribe(entrepreneur => {
-      this.entrepreneur = entrepreneur
-    })
+    let entrepreneur : entrepreneur = this._activatedRoute.snapshot.data['datas']
+    this.entrepreneur = entrepreneur
   }
 
   onSubmit(): void {

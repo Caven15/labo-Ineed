@@ -40,11 +40,8 @@ export class UpdateProduitEntrepreneurComponent implements OnInit {
   }
 
   chargerProduit(): void {
-    let id: number = this._activatedRoute.snapshot.params['id']
-    this._produitService.GetById(id).subscribe(produit => {
-      this.produit = produit
-      console.log(this.produit)
-    })
+    let produit : produit = this._activatedRoute.snapshot.data['datas']
+    this.produit = produit
   }
 
   onSubmit() : void {
@@ -54,6 +51,8 @@ export class UpdateProduitEntrepreneurComponent implements OnInit {
     this.produit.prix = this.updateProduit.value['prix']
     this.produit.quantite = this.updateProduit.value['quantite']
     this.produit.categorieId = this.updateProduit.value['categorieId']
+    this._authService.logout()
+    this._route.navigate(['auth', 'login'])
   }
 
   chargerRouteDetailProduit(): void {

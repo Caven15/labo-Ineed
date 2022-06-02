@@ -4,13 +4,12 @@ const entrepreneurController = require("../controllers/entrepreneur.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
 
 // route libre
-    //...
+    router.get("/getByName/:name", entrepreneurController.getByName)
 
 
 // route utilisateur connecté
     router.get("/getById/:id", jwtControl, clientControl, entrepreneurController.getById)
     router.get("/getByUtilisateurId/:id", jwtControl, clientControl, entrepreneurController.getByUtilisateurId)
-    router.get("/getByName/:name", jwtControl, clientControl, entrepreneurController.getByName)
     router.patch("/updateById/:id", jwtControl, clientControl, entrepreneurController.updateById)
     router.delete("/delete/:id", jwtControl, clientControl, entrepreneurController.delete)
 

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { client } from 'src/app/models/client.model';
 import { entrepreneur } from 'src/app/models/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
@@ -25,6 +25,7 @@ export class ProfilClientComponent implements OnInit {
     private _authService : AuthService, 
     private _clientService : ClientService,
     private _entrepreneurService : EntrepreneurService,
+    private _activatedRoute : ActivatedRoute,
     public datepipe: DatePipe
     
   ) { }
@@ -40,20 +41,15 @@ export class ProfilClientComponent implements OnInit {
 
   chargerClient(): void{
     if (this._authService.isConnected()) {
-      let id: number = parseInt(sessionStorage.getItem("id"))
-      this._clientService.GetById(id).subscribe(client => {
-        this.client = client
-        
-        // configuration dyu pipe pour avoir la date au format dd/MM/yyyy
-        var dateEN = client.dateNaissance
-        this.datepipe.transform(dateEN, 'dd-MM-yyyy')
-      })
+      let client : client = this._activatedRoute.snapshot.data['datas']
+      this.client = client
+        // configuration du pipe pour avoir la date au format dd/MM/yyyy
+      var dateEN = this.client.dateNaissance
+      this.datepipe.transform(dateEN, 'dd-MM-yyyy')
     }
     else{
       this._route.navigate(['login'])
     }
-    console.log("this.client")
-    console.log(this.client['utilisateur'])
   }
 
   chargerEntrepreneur(): void {

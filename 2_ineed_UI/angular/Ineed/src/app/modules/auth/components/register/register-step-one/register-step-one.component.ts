@@ -38,7 +38,6 @@ export class RegisterStepOneComponent implements OnInit {
       this.etatEnvoi = true;
       return;
     }
-    console.log("register step one !");
     this.errorMessage = " ";
 
     this._registerService.loadDataStepOne(

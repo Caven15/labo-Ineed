@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { entrepreneur } from 'src/app/models/entrepreneur.model';
 import { registerEntrepreneurForm } from 'src/app/models/registerEntrepreneurForm.model';
 import { AuthService } from 'src/app/services/api/auth.service';
+import { ClientService } from 'src/app/services/api/client.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class RegisterEntrepreneurComponent implements OnInit {
     private _entrepreneurService: EntrepreneurService,
     private _authService : AuthService,
     private _formBuilder : FormBuilder,
+    private _clientService : ClientService
   ) { }
 
   ngOnInit(): void {
@@ -55,17 +57,22 @@ export class RegisterEntrepreneurComponent implements OnInit {
       this.entrepreneur.codePostalE = this.registerEntrepreneur.value["codePostal"]
       this.entrepreneur.utilisateurId = parseInt(sessionStorage.getItem("id"))
       console.log(this.entrepreneur)
-      this._authService.RegisterEntrepreneur(this.entrepreneur).subscribe(
-        {
-          next : (data) => {
-            this._route.navigate(["entrepreneur", "profil"]);
-          },
-          error : (error) => {
-            console.log(error)
-          }
+      this._authService.RegisterEntrepreneur(this.entrepreneur).subscribe({
+        next : (data) => {
+          
+          this._route.navigate(["entrepreneur", "profil"])
+          let id : number = parseInt(sessionStorage.getItem('id'))
+          this._clientService.updateRoleClient(id, 2).subscribe({
+            next : (data) => {
+              this._authService.logout()
+              this._route.navigate(['auth', 'login'])
+            }
+          })
+        },
+        error : (error) => {
+          console.log(error)
         }
-      )
-      
+      })
     }
   }
 

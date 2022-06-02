@@ -31,6 +31,7 @@ export class ResultSearchComponent implements OnInit {
     let result : string = this._activatedRoute.snapshot.params['value']
     this._produitService.GetByName(result).subscribe(produits => {
       this.produits = produits
+      console.log(this.produits[0].id)
     })
   }
 
@@ -38,10 +39,8 @@ export class ResultSearchComponent implements OnInit {
     let result : string = this._activatedRoute.snapshot.params['value']
     this._entrepreneurService.getByName(result).subscribe(entrepreneurs => {
       this.entrepreneurs = entrepreneurs
+      console.log(this.entrepreneurs[0].id)
     })
   }
-  
-  retourAccueil(): void {
-    this._route.navigate(['home'])
-  }
+
 }

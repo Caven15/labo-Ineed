@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { INavItem } from 'src/app/models/inav-item';
 import { recherche } from 'src/app/models/recherche.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 
@@ -12,8 +11,8 @@ import { AuthService } from 'src/app/services/api/auth.service';
 })
 export class NavigationMenuComponent implements OnInit {
 
-  public routes : INavItem[] = [];
   public isConnected: boolean = false;
+  public roleId : number = parseInt(sessionStorage.getItem('roleId'))
   public resultat : FormGroup
   public recherche : recherche = new recherche()
 
@@ -24,66 +23,49 @@ export class NavigationMenuComponent implements OnInit {
     private _activatedRoute : ActivatedRoute 
     ) { 
 
-    this._authService.currentUser.subscribe(
-      {
+    this._authService.currentUser.subscribe({
         next : (utilisateur) => {
           this.isConnected = this._authService.isConnected();
-          this.refresh();
+          this.roleId = parseInt(sessionStorage.getItem('roleId'))
         }
-      }
-    )
+    })
   }
 
   ngOnInit(): void {
-    this.refresh();
     this.resultat = this._formBuilder.group({
       recherche : [null, [Validators.required]]
     })
   }
-
-  refresh(): void{
-    let testUtilisateur: number = parseInt(sessionStorage.getItem("roleId"))
-    if (testUtilisateur == 1) {
-      this.routes = [
-        // ici les routes relative au client
-          {title: "profil client", url: "/client/profil", isVisible: true},
-          {title: "Devenir vendeur !", url: "/auth/registerEntrepreneur", isVisible: true},
-          {title: "Mes commandes", url: "", isVisible: true},
-          {title: "Suivis commande", url: "", isVisible: true},
-          {title: "catégories", url: "", isVisible: true},
-      ];
-    }
-    else if (testUtilisateur == 2) {
-      this.routes = [
-        // ici les routes relative au entrepreneur
-          {title: "profil client", url: "/client/profil", isVisible: true},
-          {title: "profil vendeur !", url: "/entrepreneur/profil", isVisible: true},
-          {title: "Mes commandes", url: "", isVisible: true},
-          {title: "Suivis commande", url: "", isVisible: true},
-          {title: "catégories", url: "", isVisible: true},
-
-      ];
-    }
-    else if (testUtilisateur == 3) {
-      this.routes = [
-        // ici les routes relative au médérateur
-      ];
-    }
-    else if (testUtilisateur == 4) {
-      this.routes = [
-        // ici les routes relative au administrateur
-      ];
-    }
-    else{
-      this.routes = [
-        {title: "Connexion", url: "/auth/login", isVisible: true},
-        {title: "Inscription", url: "/auth/registerStepOne", isVisible: true}
-      ];
-    }
-  }
-
   logout(){
     this._authService.logout();
+  }
+
+  chargerRouteProfil(){
+    this._route.navigate(['client', 'profil'])
+  }
+
+  ChargerRouteRegisterEntrepreneur(){
+    this._route.navigate(['auth', 'registerEntrepreneur'])
+  }
+
+  ChargerRoutePanier(){
+    this._route.navigate(['home'])
+  }
+
+  chargerRouteProfilVente(){
+    this._route.navigate(['entrepreneur', 'profil'])
+  }
+
+  chargeRouteProduits(){
+    this._route.navigate(['entrepreneur', 'allProduits'])
+  }
+
+  chargerRouteConnexion(){
+    this._route.navigate(['auth', 'login'])
+  }
+
+  chargeRouteInscription(){
+    this._route.navigate(['auth', 'registerStepOne'])
   }
 
   onSubmit(): void {

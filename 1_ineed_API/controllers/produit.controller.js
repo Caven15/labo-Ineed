@@ -94,8 +94,12 @@ exports.getByName = async (req, res, next) => {
         produit = await dbConnector.produit.findAll({
             where : {
                 nom : {
-                    [Op.substring]: req.params.name
-                }
+                    [Op.or]: {
+                        [Op.eq]: req.params.name,
+                        [Op.substring]: req.params.name,
+                        [Op.startsWith]: req.params.name
+                    }
+                },
             }
         })
         if (!produit) {

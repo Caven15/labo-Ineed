@@ -10,6 +10,7 @@ const {jwtControl, clientControl} = require("../middleware/auth")
 
 // route utilisateur connecté
     router.post("/registerEntrepreneur", jwtControl, clientControl, authController.registerEntrepreneur)
+    router.post("/refreshToken", authController.refreshToken)
 
 
 // route entrepreneur

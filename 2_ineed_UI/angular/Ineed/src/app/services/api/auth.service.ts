@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
@@ -49,12 +49,21 @@ export class AuthService {
     // Inserer l'utilisateur dans le sessionStorage
     const tokenDecode = JSON.parse(JSON.stringify(jwtDecode(client.accessToken)));
     sessionStorage.setItem('currentUser', JSON.stringify(client.accessToken));
+    sessionStorage.setItem('refreshToken', JSON.stringify(client.refreshToken));
     sessionStorage.setItem('id', JSON.stringify(tokenDecode.id));
     sessionStorage.setItem('email', JSON.stringify(tokenDecode.email));
     sessionStorage.setItem('roleId', JSON.stringify(tokenDecode.roleId));
     this._currentUserSubject.next(client);
     return client;
     }));
+  }
+
+  // refresh token 
+  refreshToken(token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'refreshToken' : sessionStorage.getItem('refreshToken')})
+    };
+    return this._client.post(`${environment.apiUrl}/Auth/refreshToken`,{}, httpOptions);
   }
 
   // logout d'un utilisateur

@@ -25,8 +25,73 @@ exports.login = async (req, res, next) => {
             }
             // j'envoie les donnée du utilisateur dans le token
             console.log("j'envoie mon token")
-            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: '5000s'})
-            res.status(200).send({accessToken : token})
+            var refreshToken = jwt.sign(dataToken, process.env.REFRESH_TOKEN_SECRET, {expiresIn: parseInt(process.env.REFRESH_TOKEN_LIFE)})
+            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: parseInt(process.env.TOKEN_LIFE)})
+            console.log(client)
+            dbConnector.client.update({'refreshToken' : refreshToken}, {
+                where: {
+                    id: client.id
+                }
+            })
+            res.status(200).send({
+                accessToken : token,
+                refreshToken : refreshToken
+            })
+        }
+    }
+}
+
+// renew token
+exports.refreshToken = async (req, res, next) => {
+//checker si token ok
+    const Rtoken =  req.headers['refreshToken']
+    jwt.verify(Rtoken,Process.en.REFRESH_TOKEN_SECRET, (err) => {
+    if (err) {
+        console.log(err)
+        console.log("refresh token invalide !")
+        return res.sendStatus(403).json({error: "erreur d'authentification du refresh token"})
+    }
+    console.log("jwtControl ok je passe a la suite")
+
+    const decodedToken = jwt.decode(Rtoken, {
+        complete: true
+    });
+    console.log(decodedToken.payload.email)
+    });
+
+    const utilisateur = await dbConnector.utilisateur.findOne({where: {email: req.body.email}})
+    if (utilisateur == undefined) {
+        res.status(403).send({message : "cette adresse email n'existe pas"})
+    }
+
+    if (utilisateur) {
+        const client = await dbConnector.client.findOne({where : {utilisateurId : utilisateur.id}})
+        const refreshTokenFromDb = client.refreshToken
+        if (refreshTokenFromDb != Rtoken) {
+            return res.status(401).send({
+                accessToken: null,
+                message: "Refresh token incorecte"
+            })
+        }
+        else{
+            const dataToken = {
+                id : utilisateur.id,
+                email : utilisateur.email,
+                roleId : client.roleId
+            }
+            // j'envoie les donnée du utilisateur dans le token
+            console.log("j'envoie mon token")
+            var refreshToken = jwt.sign(dataToken, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3600'})
+            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: parseInt(process.env.TOKEN_LIFE)})
+            dbConnector.client.update({'refreshToken' : refreshToken}, {
+                where: {
+                    id: client.id
+                }
+            })
+            res.status(200).send({
+                accessToken : token,
+                refreshToken : refreshToken
+            })
         }
     }
 }

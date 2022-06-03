@@ -24,7 +24,7 @@ module.exports = {
                 {
                     host: process.env.DB_HOST,
                     dialect: "mysql",
-                    port: 3308,
+                    port: 3306,
                     timezone: "+02:00"
                 })
             dbConnector = {
@@ -79,7 +79,7 @@ module.exports = {
                 dbConnector.produit.belongsTo(dbConnector.entrepreneur);
 
 
-            // dbConnector.sequelize.sync()    //sync({force : true}) pour reiniatiliser la db
+            // dbConnector.sequelize.sync({force : true})    //sync({force : true}) pour reiniatiliser la db
         }
     },
 

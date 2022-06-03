@@ -11,6 +11,3 @@ insert into categories (id, nom) values (10, 'auto moto');
 insert into categories (id, nom) values (11, 'animalerie');
 insert into categories (id, nom) values (12, 'electromenager');
 insert into categories (id, nom) values (13, 'fourniture de bureau');
-insert into roles (id, role) values (1, 'utilisateur');
-insert into roles (id, role) values (2, 'modérateur');
-insert into roles (id, role) values (3, 'administrateur');

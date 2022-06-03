@@ -1,18 +1,25 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import jwtDecode from 'jwt-decode';
+import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeadersReturnsService {
 
-  constructor() { }
-
+  constructor(
+    private _client : HttpClient
+  ) { }
   headersReturn(){
     let token : string = sessionStorage.getItem("currentUser")
     for (let i = 0; i < token.length; i++) {
       token = token.replace('"', '')
     }
+    console.log("recup token !")
+    console.log(token)
+
     token = "Bearer " + token
 
     // construit et renvoi le token dans le headers

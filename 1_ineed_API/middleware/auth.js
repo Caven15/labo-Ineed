@@ -9,13 +9,11 @@ exports.jwtControl = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-        console.log(token);
-        console.log(process.env.TOKEN_SECRET);
         jwt.verify(token, process.env.TOKEN_SECRET, (err) => {
             if (err) {
                 console.log(err)
                 console.log("token invalide !")
-                return res.sendStatus(403).json({error: "erreur d'authentification"})
+                return res.sendStatus(401).json({error: "erreur d'authentification"})
             }
             console.log("jwtControl ok je passe a la suite")
             next();

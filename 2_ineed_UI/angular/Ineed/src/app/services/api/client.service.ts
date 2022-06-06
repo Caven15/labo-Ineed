@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { client } from '../../models/client.model';
 import { HeadersReturnsService } from '../other/headers-returns.service';
+import { tokenService } from '../other/token-service.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,9 @@ export class ClientService {
 
   constructor(
     private _client: HttpClient,
-    private _headers: HeadersReturnsService
+    private _headers: HeadersReturnsService,
+    private _authService : AuthService,
+    private _tokenService : tokenService
     ) { }
 
   // récupérer tout les clients

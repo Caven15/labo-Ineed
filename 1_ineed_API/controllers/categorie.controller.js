@@ -5,7 +5,7 @@ exports.addCategorie = async (req, res, next) => {
     try {
         const categorie = await dbConnector.categorie.findOne({where: {'categorie' :req.body.categorie}})
         if (categorie) {
-            return res.status(401).json({message: "la catégorie existe déja dans le système !"})
+            return res.status(403).json({message: "la catégorie existe déja dans le système !"})
         }
         else{
             let newCategorie = {

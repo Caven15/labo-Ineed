@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log("connection en cours...");
     this.utilisateur = new loginForm();
     this.utilisateur.email = this.loginForm.value["email"];
     this.utilisateur.password = this.loginForm.value["password"];

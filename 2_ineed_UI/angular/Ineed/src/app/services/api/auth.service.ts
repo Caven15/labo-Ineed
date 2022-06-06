@@ -9,6 +9,8 @@ import { client } from '../../models/client.model';
 import { loginForm } from '../../models/loginForm.model';
 import jwtDecode from 'jwt-decode';
 import { HeadersReturnsService } from '../other/headers-returns.service';
+import { tokenService } from '../other/token-service.service';
+import { refreshToken } from 'src/app/models/refreshToken.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class AuthService {
 
   private _currentUserSubject : BehaviorSubject<client>
   public currentUser : Observable<client>
+  public tokenRefresh : refreshToken = new refreshToken()
   
   public get currentUserValue(): client {
     return this._currentUserSubject.value;
@@ -25,11 +28,28 @@ export class AuthService {
   constructor(
     private _client: HttpClient, 
     private _route: Router,
-    private _headers: HeadersReturnsService
+    private _headers: HeadersReturnsService,
+    private _tokenService : tokenService
     ) { 
     this._currentUserSubject = new BehaviorSubject<client>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this._currentUserSubject.asObservable();
   }
+
+    // login d'un utilisateur
+    Login(userLogin:loginForm) : Observable<client>{
+      return this._client.post<any>(`${environment.apiUrl}/Auth/login`, userLogin)
+      .pipe(map(client => {
+      // Inserer l'utilisateur dans le sessionStorage
+      this._tokenService.saveToken(client.accessToken)
+      this._tokenService.saveRefreshToken(client.refreshToken)
+      const tokenDecode = JSON.parse(JSON.stringify(jwtDecode(client.accessToken)));
+      sessionStorage.setItem('id', JSON.stringify(tokenDecode.id));
+      sessionStorage.setItem('email', JSON.stringify(tokenDecode.email));
+      sessionStorage.setItem('roleId', JSON.stringify(tokenDecode.roleId));
+      this._currentUserSubject.next(client);
+      return client;
+      }));
+    }
 
   // enregistrement d'un nouveau client
   RegisterClient(client:registerClientForm) : Observable<any>{
@@ -42,28 +62,16 @@ export class AuthService {
     return this._client.post(`${environment.apiUrl}/Auth/registerEntrepreneur`,entrepreneur,{'headers' : headers});
   }
 
-  // login d'un utilisateur
-  Login(userLogin:loginForm) : Observable<client>{
-    return this._client.post<any>(`${environment.apiUrl}/Auth/login`, userLogin)
-    .pipe(map(client => {
-    // Inserer l'utilisateur dans le sessionStorage
-    const tokenDecode = JSON.parse(JSON.stringify(jwtDecode(client.accessToken)));
-    sessionStorage.setItem('currentUser', JSON.stringify(client.accessToken));
-    sessionStorage.setItem('refreshToken', JSON.stringify(client.refreshToken));
-    sessionStorage.setItem('id', JSON.stringify(tokenDecode.id));
-    sessionStorage.setItem('email', JSON.stringify(tokenDecode.email));
-    sessionStorage.setItem('roleId', JSON.stringify(tokenDecode.roleId));
-    this._currentUserSubject.next(client);
-    return client;
-    }));
-  }
-
   // refresh token 
-  refreshToken(token: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'refreshToken' : sessionStorage.getItem('refreshToken')})
-    };
-    return this._client.post(`${environment.apiUrl}/Auth/refreshToken`,{}, httpOptions);
+  refreshToken() : Observable<any>{
+    console.log("je refresh mon token !")
+    let token : string = sessionStorage.getItem("refreshToken")
+    console.log(token)
+    for (let i = 0; i < token.length; i++) {
+      token = token.replace('"', '')
+    }
+    this.tokenRefresh.refreshToken = token
+    return this._client.post(`${environment.apiUrl}/Auth/refreshToken`,this.tokenRefresh);
   }
 
   // logout d'un utilisateur

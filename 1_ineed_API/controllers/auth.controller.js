@@ -1,6 +1,7 @@
 const dbConnector = require("../tools/dbConnect").get()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+var email = ""
 
 // login d'un utilisateur
 exports.login = async (req, res, next) => {
@@ -12,7 +13,7 @@ exports.login = async (req, res, next) => {
         const client = await dbConnector.client.findOne({where : {utilisateurId : utilisateur.id}})
         const password = bcrypt.compareSync(req.body.password.trim(), utilisateur.password)
         if (!password) {
-            return res.status(401).send({
+            return res.status(403).send({
                 accessToken: null,
                 message: "mot de passe incorecte"
             })
@@ -33,7 +34,7 @@ exports.login = async (req, res, next) => {
                     id: client.id
                 }
             })
-            res.status(200).send({
+            res.status(202).send({
                 accessToken : token,
                 refreshToken : refreshToken
             })
@@ -43,55 +44,65 @@ exports.login = async (req, res, next) => {
 
 // renew token
 exports.refreshToken = async (req, res, next) => {
-//checker si token ok
-    const Rtoken =  req.headers['refreshToken']
-    jwt.verify(Rtoken,Process.en.REFRESH_TOKEN_SECRET, (err) => {
+// vérification de la validités du token
+    console.log("je rentre dans mon refreshToken")
+    const Rtoken =  req.body.refreshToken
+    jwt.verify(Rtoken,process.env.REFRESH_TOKEN_SECRET, (err) => {
+    // 
     if (err) {
         console.log(err)
         console.log("refresh token invalide !")
         return res.sendStatus(403).json({error: "erreur d'authentification du refresh token"})
     }
     console.log("jwtControl ok je passe a la suite")
-
+    
+// décodage du token et extraction de l'email
     const decodedToken = jwt.decode(Rtoken, {
         complete: true
     });
-    console.log(decodedToken.payload.email)
+    email = decodedToken.payload.email
     });
 
-    const utilisateur = await dbConnector.utilisateur.findOne({where: {email: req.body.email}})
+// récuperation e l'utilisateur correspondant a l'email
+    const utilisateur = await dbConnector.utilisateur.findOne({where: {email: email}})
     if (utilisateur == undefined) {
         res.status(403).send({message : "cette adresse email n'existe pas"})
     }
 
+// si l'utilisateur existe
     if (utilisateur) {
-        const client = await dbConnector.client.findOne({where : {utilisateurId : utilisateur.id}})
-        const refreshTokenFromDb = client.refreshToken
+        // récupération du client correspondant a l'utilisateurId récupéré
+            const client = await dbConnector.client.findOne({where : {utilisateurId : utilisateur.id}})
+        // récupération du refreshToken de l'utilisateur
+            const refreshTokenFromDb = client.refreshToken
+        // si le refresh token est différent de celui enregistrer en db
         if (refreshTokenFromDb != Rtoken) {
-            return res.status(401).send({
-                accessToken: null,
-                message: "Refresh token incorecte"
-            })
+            // on force la déconnexion
+                return res.status(403).send({accessToken: null, message: "Refresh token incorecte"})
         }
         else{
-            const dataToken = {
-                id : utilisateur.id,
-                email : utilisateur.email,
-                roleId : client.roleId
-            }
-            // j'envoie les donnée du utilisateur dans le token
-            console.log("j'envoie mon token")
-            var refreshToken = jwt.sign(dataToken, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3600'})
-            var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: parseInt(process.env.TOKEN_LIFE)})
-            dbConnector.client.update({'refreshToken' : refreshToken}, {
-                where: {
-                    id: client.id
+            // on reconstruit un nouveau token comporant les infos utilisateurs
+                const dataToken = {
+                    id : utilisateur.id,
+                    email : utilisateur.email,
+                    roleId : client.roleId
                 }
-            })
-            res.status(200).send({
-                accessToken : token,
-                refreshToken : refreshToken
-            })
+            // j'envoie les donnée de l'utilisateur dans le token
+                console.log("j'envoie mon token")
+                // je regénère un nouveau token + refreshToken
+                    var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: parseInt(process.env.TOKEN_LIFE)})
+                    var refreshToken = jwt.sign(dataToken, process.env.REFRESH_TOKEN_SECRET, {expiresIn: parseInt(process.env.REFRESH_TOKEN_LIFE)})
+                // j'envoie le nouveau refresh token en db
+                    dbConnector.client.update({'refreshToken' : refreshToken}, {
+                        where: {
+                            id: client.id
+                        }
+                    })
+                // je renvoie les token vers le front
+                    res.status(202).send({
+                        accessToken : token,
+                        refreshToken : refreshToken
+                    })
         }
     }
 }
@@ -103,7 +114,7 @@ exports.registerUtilisateur = async (req, res, next) => {
         let utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})
         console.log(utilisateur)
         if (utilisateur) {
-            return res.status(401).json({message: "l'adresse e-mail existe déja dans le système"})
+            return res.status(403).json({message: "l'adresse e-mail existe déja dans le système"})
         }
         // sinon je stock mes valeur et j'envoie a la db
         else {
@@ -152,7 +163,7 @@ exports.registerEntrepreneur = async (req, res, next) => {
     try {
         const entrepreneur = await dbConnector.entrepreneur.findOne({where: {'utilisateurId' :req.body.utilisateurId}})
         if (entrepreneur) {
-            return res.status(401).json({message: "le compte entrepreneur existe déja !"})
+            return res.status(403).json({message: "le compte entrepreneur existe déja !"})
         }
         else{
             let newEntrepreneur = {

@@ -6,7 +6,7 @@ exports.add = async (req, res, next) => {
     try {
         const produit = await dbConnector.produit.findOne({where: {'nom' :req.body.nom}})
         if (produit) {
-            return res.status(401).json({message: "le produit existe déja dans le système !"})
+            return res.status(403).json({message: "le produit existe déja dans le système !"})
         }
         else{
             let newProduit = {

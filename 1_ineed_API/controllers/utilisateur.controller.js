@@ -26,13 +26,13 @@ exports.updatePassword = async (req, res, next) => {
         if (utilisateur) {
             const password = bcrypt.compareSync(req.body.oldPassword.trim(), utilisateur.password)
             if (!password) {
-                res.status(401).send({message: "mot de passe invalide !"})
+                res.status(403).send({message: "mot de passe invalide !"})
             }
             if (req.body.newPassword != req.body.confirmNewPassword) {
-                res.status(401).send({message: `le mot de passe ne correspond pas !`})
+                res.status(403).send({message: `le mot de passe ne correspond pas !`})
             }
             if (req.body.newPassword == "") {
-                res.status(401).send({message: `le mot de passe ne peut être vide !`})
+                res.status(403).send({message: `le mot de passe ne peut être vide !`})
             } 
             const newPassword = bcrypt.hashSync(req.body.newPassword.trim(), 10)
             await utilisateur.update({password : newPassword})

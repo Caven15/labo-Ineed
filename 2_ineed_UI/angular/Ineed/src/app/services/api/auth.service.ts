@@ -64,9 +64,11 @@ export class AuthService {
 
   // refresh token 
   refreshToken() : Observable<any>{
-    console.log("je refresh mon token !")
+    console.log("------------------------------------")
+    console.log("j'entre dans mon refresh mon token !")
+    console.log("------------------------------------")
+
     let token : string = sessionStorage.getItem("refreshToken")
-    console.log(token)
     for (let i = 0; i < token.length; i++) {
       token = token.replace('"', '')
     }

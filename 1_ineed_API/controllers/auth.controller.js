@@ -48,11 +48,11 @@ exports.refreshToken = async (req, res, next) => {
     console.log("je rentre dans mon refreshToken")
     const Rtoken =  req.body.refreshToken
     jwt.verify(Rtoken,process.env.REFRESH_TOKEN_SECRET, (err) => {
-    // 
+    // si le refreshToken est invalide je force la déconnexion dans le front-end => code 410
     if (err) {
         console.log(err)
         console.log("refresh token invalide !")
-        return res.sendStatus(403).json({error: "erreur d'authentification du refresh token"})
+        return res.sendStatus(410).json({error: "erreur d'authentification du refresh token"})
     }
     console.log("jwtControl ok je passe a la suite")
     
@@ -66,7 +66,7 @@ exports.refreshToken = async (req, res, next) => {
 // récuperation e l'utilisateur correspondant a l'email
     const utilisateur = await dbConnector.utilisateur.findOne({where: {email: email}})
     if (utilisateur == undefined) {
-        res.status(403).send({message : "cette adresse email n'existe pas"})
+        res.status(410).send({message : "cette adresse email n'existe pas"})
     }
 
 // si l'utilisateur existe
@@ -78,7 +78,7 @@ exports.refreshToken = async (req, res, next) => {
         // si le refresh token est différent de celui enregistrer en db
         if (refreshTokenFromDb != Rtoken) {
             // on force la déconnexion
-                return res.status(403).send({accessToken: null, message: "Refresh token incorecte"})
+                return res.status(410).send({accessToken: null, message: "Refresh token incorecte"})
         }
         else{
             // on reconstruit un nouveau token comporant les infos utilisateurs

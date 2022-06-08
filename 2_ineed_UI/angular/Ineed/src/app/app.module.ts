@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccueilComponent } from './main/components/pages/accueil/accueil.component';
@@ -22,7 +21,7 @@ import { RefreshTokenInterceptor } from './services/interceptor/refresh-token.in
       AppComponent,
       AccueilComponent,
       NavigationMenuComponent,
-      FooterMenuComponent
+      FooterMenuComponent,
   ],
   imports: [
     // outils angular

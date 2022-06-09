@@ -12,14 +12,14 @@ import { ProduitService } from 'src/app/services/api/produit.service';
 })
 export class ResultSearchComponent implements OnInit {
 
-  public produits : produit[] = []
-  public entrepreneurs : entrepreneur[] = []
+  public produits: produit[] = []
+  public entrepreneurs: entrepreneur[] = []
 
   constructor(
-    private _activatedRoute : ActivatedRoute,
-    private _produitService : ProduitService,
-    private _entrepreneurService : EntrepreneurService,
-    private _route : Router
+    private _activatedRoute: ActivatedRoute,
+    private _produitService: ProduitService,
+    private _entrepreneurService: EntrepreneurService,
+    private _route: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,19 +28,19 @@ export class ResultSearchComponent implements OnInit {
   }
 
   chargerProduit(): void {
-    let result : string = this._activatedRoute.snapshot.params['value']
+    let result: string = this._activatedRoute.snapshot.params['value']
     this._produitService.GetByName(result).subscribe(produits => {
       this.produits = produits
-      console.log(this.produits[0].id)
     })
   }
 
   chargerEntrepreneur(): void {
-    let result : string = this._activatedRoute.snapshot.params['value']
+    let result: string = this._activatedRoute.snapshot.params['value']
     this._entrepreneurService.getByName(result).subscribe(entrepreneurs => {
       this.entrepreneurs = entrepreneurs
-      console.log(this.entrepreneurs[0].id)
     })
   }
+
+
 
 }

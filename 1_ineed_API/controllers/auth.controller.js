@@ -28,7 +28,6 @@ exports.login = async (req, res, next) => {
             console.log("j'envoie mon token")
             var refreshToken = jwt.sign(dataToken, process.env.REFRESH_TOKEN_SECRET, {expiresIn: parseInt(process.env.REFRESH_TOKEN_LIFE)})
             var token = jwt.sign(dataToken, process.env.TOKEN_SECRET, {expiresIn: parseInt(process.env.TOKEN_LIFE)})
-            console.log(client)
             dbConnector.client.update({'refreshToken' : refreshToken}, {
                 where: {
                     id: client.id

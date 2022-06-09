@@ -103,7 +103,7 @@ exports.getByName = async (req, res, next) => {
             }
         })
         if (!produit) {
-            res.status(200).json("aucun produit trouvé...")
+            res.status(200).json([])
         }
         else{
             res.status(200).json(produit)

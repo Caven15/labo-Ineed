@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ResolveInfoEntrepreneurService } from 'src/app/services/resolver/resolve-info-entrepreneur.service';
-import { ResolveInfoProduitService } from 'src/app/services/resolver/resolve-info-produit.service';
+import { GetByIdUtilisateurResolver } from 'src/app/services/resolver/entrepreneur/get-by-id-utilisateur.resolver';
+import { GetByIdProduitResolver } from 'src/app/services/resolver/produit/get-by-id-produit.resolver';
 import { AddProduitComponent } from './components/add-produit/add-produit.component';
 import { AllProduitEntrepreneurComponent } from './components/all-produit-entrepreneur/all-produit-entrepreneur.component';
 import { DeleteEntrepreneurComponent } from './components/delete-entrepreneur/delete-entrepreneur.component';
@@ -13,13 +13,13 @@ import { UpdateEntrepreneurComponent } from './components/update-entrepreneur/up
 import { UpdateProduitEntrepreneurComponent } from './components/update-produit-entrepreneur/update-produit-entrepreneur.component';
 
 const routes: Routes = [
-  {path:'profil', resolve:{datas: ResolveInfoEntrepreneurService}, component: ProfilEntrepreneurComponent},
-  {path:'update', resolve:{datas: ResolveInfoEntrepreneurService}, component: UpdateEntrepreneurComponent},
+  {path:'profil', resolve:{datas: GetByIdUtilisateurResolver}, component: ProfilEntrepreneurComponent},
+  {path:'update', resolve:{datas: GetByIdUtilisateurResolver}, component: UpdateEntrepreneurComponent},
   {path:'delete', component: DeleteEntrepreneurComponent},
   {path:'delete/:id', component: DeleteProduitComponent},
   {path:'allProduits', component: AllProduitEntrepreneurComponent},
   {path:'detail/:id', component: DetailProduitEntrepreneurComponent},
-  {path:'updateProduit/:id', resolve:{datas: ResolveInfoProduitService}, component: UpdateProduitEntrepreneurComponent},
+  {path:'updateProduit/:id', resolve:{datas: GetByIdProduitResolver}, component: UpdateProduitEntrepreneurComponent},
   {path:'add/:entrepreneurId', component: AddProduitComponent},
   {path: 'entrepreneurItem/:id', component: EntrepreneurItemComponent}
 ];

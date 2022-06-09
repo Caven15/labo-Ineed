@@ -42,7 +42,7 @@ exports.getByName = async (req, res, next) => {
             }
         })
         if (!entrepreneur) {
-            res.status(200).json("aucun entrepreneur trouvé...")
+            res.status(200).json([])
         }
         else{
             res.status(200).json(entrepreneur)

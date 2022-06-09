@@ -31,7 +31,7 @@ export class AuthService {
     private _headers: HeadersReturnsService,
     private _tokenService : tokenService
     ) { 
-    this._currentUserSubject = new BehaviorSubject<client>(JSON.parse(sessionStorage.getItem('currentUser')));
+    this._currentUserSubject = new BehaviorSubject<client>(JSON.parse(this._tokenService.getToken()));
     this.currentUser = this._currentUserSubject.asObservable();
   }
 
@@ -39,13 +39,9 @@ export class AuthService {
     Login(userLogin:loginForm) : Observable<client>{
       return this._client.post<any>(`${environment.apiUrl}/Auth/login`, userLogin)
       .pipe(map(client => {
-      // Inserer l'utilisateur dans le sessionStorage
+      // Enregistrement du token + refreshToken
       this._tokenService.saveToken(client.accessToken)
       this._tokenService.saveRefreshToken(client.refreshToken)
-      const tokenDecode = JSON.parse(JSON.stringify(jwtDecode(client.accessToken)));
-      sessionStorage.setItem('id', JSON.stringify(tokenDecode.id));
-      sessionStorage.setItem('email', JSON.stringify(tokenDecode.email));
-      sessionStorage.setItem('roleId', JSON.stringify(tokenDecode.roleId));
       this._currentUserSubject.next(client);
       return client;
       }));
@@ -68,7 +64,7 @@ export class AuthService {
     console.log("j'entre dans mon refresh mon token !")
     console.log("------------------------------------")
 
-    let token : string = sessionStorage.getItem("refreshToken")
+    let token : string = this._tokenService.getRefreshToken()
     for (let i = 0; i < token.length; i++) {
       token = token.replace('"', '')
     }
@@ -90,7 +86,7 @@ export class AuthService {
 
   // vérification qu'un modérateur est bien connecté
   isModerateurConnected() : boolean{
-    let id:number = parseInt(sessionStorage.getItem("roleId"))
+    let id:number = parseInt(this._tokenService.getRoleIdFromToken())
     if (id == 2) {
       return true
     }
@@ -100,7 +96,7 @@ export class AuthService {
 
   // vérification qu'un administrateur est bie nconnecté
   isAdminConnected() : boolean{
-    let id:number = parseInt(sessionStorage.getItem("roleId"))
+    let id:number = parseInt(this._tokenService.getRoleIdFromToken())
     if (id == 3) {
       return true
     }

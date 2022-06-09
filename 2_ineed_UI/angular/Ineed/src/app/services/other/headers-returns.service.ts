@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tokenService } from './token-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,11 @@ import { Injectable } from '@angular/core';
 export class HeadersReturnsService {
 
   constructor(
-    private _client : HttpClient
+    private _client : HttpClient,
+    private _tokenService : tokenService
   ) { }
   headersReturn(){
-    let token : string = sessionStorage.getItem("currentUser")
+    let token : string = this._tokenService.getToken()
     for (let i = 0; i < token.length; i++) {
       token = token.replace('"', '')
     }

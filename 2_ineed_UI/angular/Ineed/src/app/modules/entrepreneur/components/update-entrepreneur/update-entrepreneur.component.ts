@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { entrepreneur } from 'src/app/models/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
+import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
   selector: 'app-update-entrepreneur',
@@ -21,7 +22,8 @@ export class UpdateEntrepreneurComponent implements OnInit {
     private _authService : AuthService,
     private _formBuilder : FormBuilder,
     private _entrepreneurService : EntrepreneurService,
-    private _activatedRoute : ActivatedRoute
+    private _activatedRoute : ActivatedRoute,
+    private _tokenService : tokenService
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class UpdateEntrepreneurComponent implements OnInit {
   }
 
   onSubmit(): void {
-    let id : number = parseInt(sessionStorage.getItem("id"))
+    let id : number = parseInt(this._tokenService.getIdFromToken())
     this.entrepreneur = new entrepreneur()
     this.entrepreneur.nomE = this.updateFormAdresseE.value['nomE']
     this.entrepreneur.rueE = this.updateFormAdresseE.value['rueE']

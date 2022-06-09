@@ -6,6 +6,7 @@ import { entrepreneur } from 'src/app/models/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
+import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
   selector: 'app-profil-client',
@@ -26,8 +27,8 @@ export class ProfilClientComponent implements OnInit {
     private _clientService : ClientService,
     private _entrepreneurService : EntrepreneurService,
     private _activatedRoute : ActivatedRoute,
-    public datepipe: DatePipe
-    
+    public datepipe: DatePipe,
+    private _tokenService : tokenService
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +54,7 @@ export class ProfilClientComponent implements OnInit {
   }
 
   chargerEntrepreneur(): void {
-    let id: number = parseInt(sessionStorage.getItem("id"))
+    let id: number = parseInt(this._tokenService.getIdFromToken())
     this._entrepreneurService.getByUtilisateurId(id).subscribe(entrepreneur => {
       if (entrepreneur == undefined) {
         this.estEntrepreneur = false

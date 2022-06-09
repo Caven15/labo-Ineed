@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { updatePassword } from 'src/app/models/updatePassword.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { UtilisateurService } from 'src/app/services/api/utilisateur.service';
+import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
   selector: 'app-update-password',
@@ -19,7 +20,8 @@ export class UpdatePasswordComponent implements OnInit {
     private _route : Router,
     private _authService : AuthService,
     private _utilisateurService : UtilisateurService,
-    private _formBuilder : FormBuilder
+    private _formBuilder : FormBuilder,
+    private _tokenService : tokenService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class UpdatePasswordComponent implements OnInit {
     let oldPassword: string = this.updateFormPassword.value['oldPassword']
     let newPassword: string = this.updateFormPassword.value['newPassword']
     let comfirmNewPassword: string = this.updateFormPassword.value['comfirmNewPassword']
-    let id : number = parseInt(sessionStorage.getItem("id"))
+    let id : number = parseInt(this._tokenService.getIdFromToken())
     this._utilisateurService.updatePassword(id, oldPassword, newPassword, comfirmNewPassword).subscribe({
       error: (errors) => {
         console.log(errors)

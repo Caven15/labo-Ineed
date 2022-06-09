@@ -6,6 +6,7 @@ import { registerEntrepreneurForm } from 'src/app/models/registerEntrepreneurFor
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
+import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
   selector: 'app-register-entrepreneur',
@@ -22,7 +23,8 @@ export class RegisterEntrepreneurComponent implements OnInit {
     private _entrepreneurService: EntrepreneurService,
     private _authService : AuthService,
     private _formBuilder : FormBuilder,
-    private _clientService : ClientService
+    private _clientService : ClientService,
+    private _tokenService : tokenService
   ) { }
 
   ngOnInit(): void {
@@ -55,13 +57,13 @@ export class RegisterEntrepreneurComponent implements OnInit {
       this.entrepreneur.numeroRueE = this.registerEntrepreneur.value["numeroRue"]
       this.entrepreneur.villeE = this.registerEntrepreneur.value["ville"]
       this.entrepreneur.codePostalE = this.registerEntrepreneur.value["codePostal"]
-      this.entrepreneur.utilisateurId = parseInt(sessionStorage.getItem("id"))
+      this.entrepreneur.utilisateurId = parseInt(this._tokenService.getIdFromToken())
       console.log(this.entrepreneur)
       this._authService.RegisterEntrepreneur(this.entrepreneur).subscribe({
         next : (data) => {
           
           this._route.navigate(["entrepreneur", "profil"])
-          let id : number = parseInt(sessionStorage.getItem('id'))
+          let id : number = parseInt(this._tokenService.getIdFromToken())
           this._clientService.updateRoleClient(id, 2).subscribe({
             next : (data) => {
               this._authService.logout()

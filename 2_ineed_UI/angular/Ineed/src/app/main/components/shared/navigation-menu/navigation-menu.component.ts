@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { recherche } from 'src/app/models/recherche.model';
 import { AuthService } from 'src/app/services/api/auth.service';
+import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/api/auth.service';
 export class NavigationMenuComponent implements OnInit {
 
   public isConnected: boolean = false;
-  public roleId : number = parseInt(sessionStorage.getItem('roleId'))
+  public roleId : number = parseInt(this._tokenService.getRoleIdFromToken())
   public resultat : FormGroup
   public recherche : recherche = new recherche()
 
@@ -20,13 +21,14 @@ export class NavigationMenuComponent implements OnInit {
     private _authService : AuthService, 
     private _route: Router,
     private _formBuilder : FormBuilder,
-    private _activatedRoute : ActivatedRoute 
+    private _activatedRoute : ActivatedRoute,
+    private _tokenService : tokenService
     ) { 
 
     this._authService.currentUser.subscribe({
         next : (utilisateur) => {
           this.isConnected = this._authService.isConnected();
-          this.roleId = parseInt(sessionStorage.getItem('roleId'))
+          this.roleId = parseInt(this._tokenService.getRoleIdFromToken())
         }
     })
   }

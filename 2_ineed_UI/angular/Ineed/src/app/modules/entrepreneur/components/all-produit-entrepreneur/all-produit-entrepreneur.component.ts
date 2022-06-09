@@ -5,6 +5,7 @@ import { produit } from 'src/app/models/produit.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 import { ProduitService } from 'src/app/services/api/produit.service';
+import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
   selector: 'app-all-produit-entrepreneur',
@@ -20,7 +21,8 @@ export class AllProduitEntrepreneurComponent implements OnInit {
     private _route: Router,
     private _authService: AuthService,
     private _produitService : ProduitService,
-    private _entrepreneurservice : EntrepreneurService
+    private _entrepreneurservice : EntrepreneurService,
+    private _tokenService : tokenService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class AllProduitEntrepreneurComponent implements OnInit {
   }
   
   getAllById(): void {
-    let id: number = parseInt(sessionStorage.getItem("id"))
+    let id: number = parseInt(this._tokenService.getIdFromToken())
     this._entrepreneurservice.getByUtilisateurId(id).subscribe({
       next: (entrepreneur) => {
         this.entrepreneur = entrepreneur

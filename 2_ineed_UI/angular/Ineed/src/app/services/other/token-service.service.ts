@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import jwtDecode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
 export class tokenService {
+
+  public tokenDecode = JSON.parse(JSON.stringify(jwtDecode(this.getToken())));
+
   constructor() { }
 
   public saveToken(token: string): void {
@@ -19,5 +24,17 @@ export class tokenService {
 
   public getRefreshToken(): string {
     return sessionStorage.getItem('refreshToken');
+  }
+
+  public getIdFromToken() {
+    return this.tokenDecode.id
+  }
+
+  public getRoleIdFromToken() {
+    return this.tokenDecode.roleId
+  }
+
+  public getEmailFromToken() {
+    return this.tokenDecode.email
   }
 }

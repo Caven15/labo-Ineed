@@ -1,1 +1,22 @@
-<p>all-by-entrepreneur works!</p>
+<div class="h-auto ovh">
+    <div class="row ">
+        <div *ngIf="produits.length == 0 ; else dataOk">
+            <div class="d-flex justify-content-center">
+                <p class="text-danger mt-5 fs-3">cet entrepreneur ne possede aucun produit actuellement . . .</p>
+            </div>
+        </div>
+        <ng-template #dataOk>
+            <div *ngIf="produits.length > 0">
+                <div class="container">
+                    <div class="row ovh">
+                        <h1 class="d-flex justify-content-center fw-bold text-secondary mt-3 mb-3">Produit(s)</h1>
+                        <hr class="bg-one fw bold mb-3">
+                        <app-produit-item *ngFor="let produit of produits" [produitItem]="produit" class="col-3 col-lg-3 col-md-4 col-sm-6">
+                        </app-produit-item>
+                        <hr class="bg-one fw bold mt-3">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

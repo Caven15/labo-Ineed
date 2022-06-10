@@ -58,6 +58,8 @@ export class NavigationMenuComponent implements OnInit {
 
   chargerAllProduitsByCategorie(id): void {
     this._route.navigate(['produit', 'allByCategorie', id])
+    this._route.routeReuseStrategy.shouldReuseRoute = () => false
+      this._route.onSameUrlNavigation = 'reload'
   }
 
   logout(){

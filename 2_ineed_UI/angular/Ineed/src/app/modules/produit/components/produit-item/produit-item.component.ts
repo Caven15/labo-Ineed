@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { produit } from 'src/app/models/produit.model';
 
 @Component({
@@ -9,12 +10,14 @@ import { produit } from 'src/app/models/produit.model';
 export class ProduitItemComponent implements OnInit {
 
   @Input() produitItem : produit
-  constructor() { }
+  constructor(
+    private _router : Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   chargerRouteDetail(id): void {
-    console.log("components a mettre en place")
+    this._router.navigate(['detailProduit', id])
   }
 }

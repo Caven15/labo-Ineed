@@ -14,4 +14,7 @@ export class EntrepreneurItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  chargerDetailEntrepreneur(id): void {
+
+  }
 }

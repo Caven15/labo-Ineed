@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { produit } from 'src/app/models/produit.model';
+import { ProduitService } from 'src/app/services/api/produit.service';
 
 @Component({
   selector: 'app-all-by-categorie',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllByCategorieComponent implements OnInit {
 
-  constructor() { }
+  public produits : produit[] = []
+
+  constructor(
+    private _produitService : ProduitService,
+    private _activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.chargerProduit()
   }
 
+  chargerProduit(): void{
+    let id : number = this._activatedRoute.snapshot.params['id']
+    this._produitService.GetByCategorieId(id).subscribe({
+      next : (produits) => {
+        this.produits = produits
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
 }

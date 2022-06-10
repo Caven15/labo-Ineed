@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntrepreneurItemComponent } from '../entrepreneur/components/entrepreneur-item/entrepreneur-item.component';
 import { EntrepreneurModule } from '../entrepreneur/entrepreneur.module';
+import { DetailProduitComponent } from './components/detail-produit/detail-produit.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EntrepreneurModule } from '../entrepreneur/entrepreneur.module';
     AllByCategorieComponent,
     AllByEntrepreneurComponent,
     ResultSearchComponent,
-    ProduitItemComponent
+    ProduitItemComponent,
+    DetailProduitComponent
   ],
   imports: [
     CommonModule,

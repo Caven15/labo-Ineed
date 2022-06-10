@@ -49,13 +49,13 @@
             data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
-                class="bi bi-list shadow-none" viewBox="0 0 16 16">
+                class="bi bi-list shadow-none d-flex justify-content-center" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
                     d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
             </svg>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="col-lg-11">
+            <div class="col-lg-11 col-md-11 col-sm-11">
                 <form class="d-flex" role="search" [formGroup]="resultat" (ngSubmit)="onSubmit()">
                     <input class="form-control me-3 shadow-none" formControlName="recherche" type="search"
                         placeholder="encoder un produit, une entreprise...">
@@ -168,8 +168,8 @@
         </div>
     </div>
 </nav>
-<div class="d-flex justify-content-center bg-one">
-    <ul class="nav">
+<div class="bg-one">
+    <ul class="nav d-flex justify-content-center">
         <li *ngFor="let categorie of categories" class="nav-item" ><a [routerLink]="" (click)="chargerAllProduitsByCategorie(categorie.id)" class="nav-link text-two mb-3 fw-bold link-warning">{{categorie.nom}}</a></li>
     </ul>
 </div>

@@ -4,11 +4,11 @@ const categorieController = require("../controllers/categorie.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
 
 // route libre
-    router.get("/getAll", clientControl, categorieController.getAllCategorie)
+    router.get("/getAll", categorieController.getAllCategorie)
 
     
 // route utilisateur connecté
-    router.get("/getById/:id", jwtControl,  categorieController.getCategorieById)
+    router.get("/getById/:id", categorieController.getCategorieById)
     router.patch("/:id", jwtControl, categorieController.updateCategorie)
     router.delete("/:id", jwtControl, categorieController.deleteCategorie)
 

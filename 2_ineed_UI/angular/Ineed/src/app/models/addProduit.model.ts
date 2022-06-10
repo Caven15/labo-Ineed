@@ -1,5 +1,5 @@
 export class addProduit {
-    id : string
+    id : number
     nom : string
     description : string
     prix : number

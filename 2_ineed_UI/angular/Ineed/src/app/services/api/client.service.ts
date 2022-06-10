@@ -14,9 +14,7 @@ export class ClientService {
 
   constructor(
     private _client: HttpClient,
-    private _headers: HeadersReturnsService,
-    private _authService : AuthService,
-    private _tokenService : tokenService
+    private _headers: HeadersReturnsService
     ) { }
 
   // récupérer tout les clients

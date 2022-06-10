@@ -6,8 +6,6 @@ import jwtDecode from 'jwt-decode';
 })
 export class tokenService {
 
-  public tokenDecode = JSON.parse(JSON.stringify(jwtDecode(this.getToken())));
-
   constructor() { }
 
   public saveToken(token: string): void {
@@ -26,15 +24,22 @@ export class tokenService {
     return sessionStorage.getItem('refreshToken');
   }
 
+  public getDecodeToken(){
+    if (this.getToken()) {
+      return JSON.parse(JSON.stringify(jwtDecode(this.getToken())))
+    }
+    return null
+  }
+
   public getIdFromToken() {
-    return this.tokenDecode.id
+    return this.getDecodeToken()?.id
   }
 
   public getRoleIdFromToken() {
-    return this.tokenDecode.roleId
+    return this.getDecodeToken()?.roleId
   }
 
   public getEmailFromToken() {
-    return this.tokenDecode.email
+    return this.getDecodeToken()?.email
   }
 }

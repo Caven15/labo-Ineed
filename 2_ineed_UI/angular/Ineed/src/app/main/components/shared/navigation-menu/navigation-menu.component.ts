@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { categorie } from 'src/app/models/categorie.model';
 import { recherche } from 'src/app/models/recherche.model';
 import { AuthService } from 'src/app/services/api/auth.service';
+import { CategorieService } from 'src/app/services/api/categorie.service';
 import { tokenService } from 'src/app/services/other/token-service.service';
 
 @Component({
@@ -12,32 +14,52 @@ import { tokenService } from 'src/app/services/other/token-service.service';
 })
 export class NavigationMenuComponent implements OnInit {
 
-  public isConnected: boolean = false;
+  public isConnected: boolean = false
   public roleId : number = parseInt(this._tokenService.getRoleIdFromToken())
   public resultat : FormGroup
   public recherche : recherche = new recherche()
+  public categories : categorie[] = []
 
   constructor(
     private _authService : AuthService, 
     private _route: Router,
     private _formBuilder : FormBuilder,
     private _activatedRoute : ActivatedRoute,
-    private _tokenService : tokenService
-    ) { 
-
-    this._authService.currentUser.subscribe({
-        next : (utilisateur) => {
-          this.isConnected = this._authService.isConnected();
-          this.roleId = parseInt(this._tokenService.getRoleIdFromToken())
-        }
-    })
-  }
+    private _tokenService : tokenService,
+    private _categorieService: CategorieService
+    ) {}
 
   ngOnInit(): void {
-    this.resultat = this._formBuilder.group({
-      recherche : [null, [Validators.required]]
+
+  this._authService.currentUser.subscribe({
+    next : (utilisateur) => {
+      this.isConnected = this._authService.isConnected();
+      this.roleId = parseInt(this._tokenService.getRoleIdFromToken())
+    }
+  })
+
+  this.resultat = this._formBuilder.group({
+    recherche : [null, [Validators.required]]
+  })
+
+  this.chargerCategories()
+  }
+
+  chargerCategories(): void {
+    this._categorieService.getAll().subscribe({
+      next: (categories) => {
+        this.categories = categories
+      },
+      error: (error) => {
+        console.log(error)
+      }
     })
   }
+
+  chargerAllProduitsByCategorie(id): void {
+    this._route.navigate(['produit', 'allByCategorie', id])
+  }
+
   logout(){
     this._authService.logout();
   }

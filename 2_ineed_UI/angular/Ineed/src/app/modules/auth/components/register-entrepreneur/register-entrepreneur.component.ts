@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { entrepreneur } from 'src/app/models/entrepreneur.model';
-import { registerEntrepreneurForm } from 'src/app/models/registerEntrepreneurForm.model';
+import { registerEntrepreneurForm } from 'src/app/models//auth/registerEntrepreneurForm.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';

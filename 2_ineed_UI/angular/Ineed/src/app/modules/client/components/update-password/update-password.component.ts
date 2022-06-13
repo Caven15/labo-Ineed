@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { updatePassword } from 'src/app/models/updatePassword.model';
+import { updatePassword } from 'src/app/models/auth/updatePassword.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { UtilisateurService } from 'src/app/services/api/utilisateur.service';
 import { tokenService } from 'src/app/services/other/token-service.service';

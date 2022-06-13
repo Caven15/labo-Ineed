@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { entrepreneur } from 'src/app/models/entrepreneur.model';
+import { entrepreneur } from 'src/app/models/entrepreneur/entrepreneur.model';
 
 @Component({
   selector: 'app-entrepreneur-item',

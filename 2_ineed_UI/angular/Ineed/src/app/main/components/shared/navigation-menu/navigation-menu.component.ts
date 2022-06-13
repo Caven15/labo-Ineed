@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { categorie } from 'src/app/models/categorie.model';
-import { recherche } from 'src/app/models/recherche.model';
+import { categorie } from 'src/app/models/categorie/categorie.model';
+import { recherche } from 'src/app/models/produit/recherche.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { CategorieService } from 'src/app/services/api/categorie.service';
 import { tokenService } from 'src/app/services/other/token-service.service';

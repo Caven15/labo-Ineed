@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterService } from 'src/app/services/other/register.service';
-import { registerClientForm } from 'src/app/models/registerClientForm.model';
+import { registerClientForm } from 'src/app/models/auth/registerClientForm.model';
 
 @Component({
   selector: 'app-register-step-two',

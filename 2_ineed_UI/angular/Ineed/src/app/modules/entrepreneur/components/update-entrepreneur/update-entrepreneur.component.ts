@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { entrepreneur } from 'src/app/models/entrepreneur.model';
+import { entrepreneur } from 'src/app/models/entrepreneur/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 import { tokenService } from 'src/app/services/other/token-service.service';

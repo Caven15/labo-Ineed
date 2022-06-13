@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { produit } from 'src/app/models/produit.model';
+import { produit } from 'src/app/models/produit/produit.model';
 import { environment } from 'src/environments/environment';
 import { HeadersReturnsService } from '../other/headers-returns.service';
 

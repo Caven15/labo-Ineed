@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { registerClientForm } from '../../models/registerClientForm.model';
-import { registerEntrepreneurForm } from '../../models/registerEntrepreneurForm.model';
-import { client } from '../../models/client.model';
-import { loginForm } from '../../models/loginForm.model';
-import jwtDecode from 'jwt-decode';
+import { registerClientForm } from '../../models/auth/registerClientForm.model';
+import { registerEntrepreneurForm } from '../../models/auth/registerEntrepreneurForm.model';
+import { client } from '../../models/client/client.model';
+import { loginForm } from '../../models/auth/loginForm.model';
 import { HeadersReturnsService } from '../other/headers-returns.service';
 import { tokenService } from '../other/token-service.service';
-import { refreshToken } from 'src/app/models/refreshToken.model';
+import { refreshToken } from 'src/app/models/auth/refreshToken.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { client } from 'src/app/models/client.model';
-import { entrepreneur } from 'src/app/models/entrepreneur.model';
+import { client } from 'src/app/models/client/client.model';
+import { entrepreneur } from 'src/app/models/entrepreneur/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';

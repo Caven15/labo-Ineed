@@ -13,59 +13,36 @@
                     d="M153.63,68.19c3.98,2.38,5.27,7.54,2.89,11.51h0l-42.74,71.22h155l-42.75-71.22c-2.38-3.98-1.09-9.13,2.89-11.51,3.98-2.38,9.13-1.09,11.51,2.89l47.92,79.85h28.82c4.64,0,8.39,3.76,8.39,8.39v16.79c0,4.64-3.76,8.39-8.39,8.39h-10.46l-30.95,108.37c-1.55,5.41-6.49,9.14-12.12,9.13H118.94c-5.63,0-10.57-3.72-12.12-9.13l-30.97-108.37h-10.46c-4.64,0-8.39-3.76-8.39-8.39v-16.79c0-4.64,3.76-8.39,8.39-8.39h28.82l47.89-79.85c2.38-3.98,7.54-5.27,11.51-2.89h.02Zm-60.33,116.31l28.77,100.71h138.41l28.77-100.71H93.31Z" />
             </svg>
         </div>
-        <div class="col-md-6 d-flex align-items-center">
+        <div class="col-md-6">
             <div class="col-md-12">
-                <div class="card bg-two">
-                    <div class="d-flex justify-content-center bg-two">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-house-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                        </svg>
+                <div class="d-flex justify-content-center align-items-center ">
+                    <p class="fs-4 fw-bold mt-5">Détail produit</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6 class="mb-0 text-one fw-bold text-two">Nom :</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{produit.nom}}
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h6 class="mb-0 text-one fw-bold ">Nom :</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
-                        </div>
                     <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h6 class="mb-0 text-one fw-bold">Description :</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6 class="mb-0 text-one fw-bold text-two">Prix :</h6>
                         </div>
-                    <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h6 class="mb-0 text-one fw-bold">Prix :</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{produit.prix}} <strong class="text-two">€</strong>
                         </div>
+                    </div>
                     <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h6 class="mb-0 text-one fw-bold">nombre restant :</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="mb-0 text-one fw-bold text-two">Description :</h6>
                         </div>
-                    <hr>
-                        <div class="row">
-                            <div class="col-md-3 text-one ">
-                                <h6 class="mb-0 fw-bold">livraison a :</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
+                        <div class="col-md-12">
+                            {{produit.description}}
                         </div>
                     </div>
                 </div>

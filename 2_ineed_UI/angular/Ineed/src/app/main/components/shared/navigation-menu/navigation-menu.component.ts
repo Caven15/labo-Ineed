@@ -19,6 +19,8 @@ export class NavigationMenuComponent implements OnInit {
   public resultat : FormGroup
   public recherche : recherche = new recherche()
   public categories : categorie[] = []
+  public nbProduitPanier : number = 0
+  public nbNotif : number = 0
 
   constructor(
     private _authService : AuthService, 

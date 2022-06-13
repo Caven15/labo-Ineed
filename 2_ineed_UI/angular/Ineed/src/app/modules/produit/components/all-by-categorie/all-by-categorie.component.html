@@ -1,5 +1,5 @@
 <div class="h-auto ovh">
-    <div class="row ">
+    <div class="row">
         <div *ngIf="produits.length == 0 ; else dataOk">
             <div class="d-flex justify-content-center">
                 <p class="text-danger mt-5 fs-3">aucun produit disponible pour cette catégorie actuellement . . .</p>
@@ -8,7 +8,7 @@
         <ng-template #dataOk>
             <div *ngIf="produits.length > 0">
                 <div class="container">
-                    <div class="row ovh mt-5 mb-5">
+                    <div class="row ovh mt-5 mb-5 d-flex justify-content-center">
                         <app-produit-item *ngFor="let produit of produits" [produitItem]="produit" class="col-3 col-lg-3 col-md-4 col-sm-6">
                         </app-produit-item>
                     </div>

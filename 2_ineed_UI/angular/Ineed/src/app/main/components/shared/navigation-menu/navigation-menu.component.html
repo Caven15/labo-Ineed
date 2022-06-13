@@ -45,131 +45,116 @@
                 </g>
             </svg>
         </a>
-        <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        <button class="navbar-toggler shadow-none" type="button" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
-            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
-                class="bi bi-list shadow-none d-flex justify-content-center" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-            </svg>
+            <a class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                    class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
+            </a>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="col-lg-11 col-md-11 col-sm-11">
+                
                 <form class="d-flex" role="search" [formGroup]="resultat" (ngSubmit)="onSubmit()">
-                    <input class="form-control me-3 shadow-none" formControlName="recherche" type="search"
-                        placeholder="encoder un produit, une entreprise...">
-                    <button class="btn btn-outline-dark shadow-none" type="submit">Rechercher</button>
+                    <div class="col-11">
+                        <input class="form-control me-3 shadow-none" formControlName="recherche" type="search"placeholder="encoder un produit, une entreprise...">
+                    </div>
+                    <div class="col-1 d-flex justify-content-center">
+                        <button class="btn btn-outline-dark shadow-none" type="submit">
+                        <img src="./../../../../../assets//svg/search.svg" alt="svg" class="d-flex justify-content-center">
+                        </button>
+                    </div>
                 </form>
             </div>
-            <div class="col-sm-1 d-flex justify-content-center">
-                <div class="flex-shrink-0 dropdown">
-                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                            class="bi bi-list" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end text-small shadow bg-two"
-                        aria-labelledby="dropdownUser2">
-                        <div *ngIf="isConnected">
-                            <div *ngIf="roleId >= 1">
-                                <li>
-                                    <div class="d-flex justify-content-center mt-1 mb-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
-                                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                        </svg>
-                                    </div>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item text-one d-flex justify-content-center"
-                                        (click)="chargerRouteProfil()">Profil</button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item text-one d-flex justify-content-center"
-                                        (click)="ChargerRoutePanier()">Mon panier</button>
-                                </li>
-                                <div *ngIf="roleId == 1">
-                                    <li>
-                                        <button class="dropdown-item text-success d-flex justify-content-center"
-                                            (click)="ChargerRouteRegisterEntrepreneur()">Devenir vendeur !</button>
-                                    </li>
-                                </div>
-                                <hr class="dropdown-divider text-one m-3">
-                            </div>
-                            <div *ngIf="roleId == 2">
-                                <li>
-                                    <div class="d-flex justify-content-center mt-2 mb-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
-                                            class="bi bi-building" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
-                                            <path
-                                                d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
-                                        </svg>
-                                    </div>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item text-one d-flex justify-content-center"
-                                        (click)="chargerRouteProfilVente()">Profil de vente</button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item text-one d-flex justify-content-center"
-                                        (click)="chargeRouteProduits()">Mes produits</button>
-                                </li>
-                                <hr class="dropdown-divider text-one m-3">
-                            </div>
-                            <div *ngIf="roleId == 3">
-                                <li>
-                                    <div class="d-flex justify-content-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
-                                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                        </svg>
-                                    </div>
-                                </li>
-                                <hr class="dropdown-divider">
-                            </div>
-                            <div *ngIf="roleId == 4">
-                                <li>
-                                    <div class="d-flex justify-content-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
-                                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                        </svg>
-                                    </div>
-                                </li>
-                                <hr class="dropdown-divider">
-                            </div>
-                            <li>
-                                <button class="dropdown-item text-danger d-flex justify-content-center mb-2"
-                                    (click)="logout()">Déconnexion</button>
-                            </li>
-                        </div>
-                        <div *ngIf="!isConnected">
-                            <li>
-                                <button class="dropdown-item text-one d-flex justify-content-center"
-                                    (click)="chargerRouteConnexion()">Connexion</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item text-one d-flex justify-content-center"
-                                    (click)="chargeRouteInscription()">Inscription</button>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
+            <div class="col-lg-1 col-sm-1 d-flex justify-content-center">
+                <a class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </a>
             </div>
         </div>
     </div>
 </nav>
 <div class="bg-one">
     <ul class="nav d-flex justify-content-center">
-        <li *ngFor="let categorie of categories" class="nav-item" ><a [routerLink]="" (click)="chargerAllProduitsByCategorie(categorie.id)" class="nav-link text-two mb-3 fw-bold link-warning">{{categorie.nom}}</a></li>
+        <li *ngFor="let categorie of categories" class="nav-item"><a [routerLink]=""
+                (click)="chargerAllProduitsByCategorie(categorie.id)"
+                class="nav-link text-two mb-3 fw-bold link-warning">{{categorie.nom}}</a></li>
     </ul>
+</div>
+<div class="offcanvas offcanvas-end bg-two" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close btn-warning text-one bg-one" data-bs-dismiss="offcanvas"
+            aria-label="Close">
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <div *ngIf="isConnected">
+            <div *ngIf="roleId >= 1">
+                <div class="d-flex justify-content-center mt-1 mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
+                        class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                </div>
+                <button class="dropdown-item text-one d-flex justify-content-center"
+                    (click)="chargerRouteProfil()">Profil</button>
+                <button class="dropdown-item text-one d-flex justify-content-center" (click)="ChargerRoutePanier()">Mon
+                    panier</button>
+                <div *ngIf="roleId == 1">
+                    <button class="dropdown-item text-success d-flex justify-content-center"(click)="ChargerRouteRegisterEntrepreneur()">Devenir vendeur !</button>
+                </div>
+                <hr class="dropdown-divider text-one m-3">
+            </div>
+            <div *ngIf="roleId == 2">
+                <div class="d-flex justify-content-center mt-2 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange" class="bi bi-building"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+                        <path
+                            d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+                    </svg>
+                </div>
+                <button class="dropdown-item text-one d-flex justify-content-center"
+                    (click)="chargerRouteProfilVente()">Profil de vente</button>
+                <button class="dropdown-item text-one d-flex justify-content-center" (click)="chargeRouteProduits()">Mes produits</button>
+                <hr class="dropdown-divider text-one m-3">
+            </div>
+            <div *ngIf="roleId == 3">
+                <div class="d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
+                        class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                </div>
+                <hr class="dropdown-divider">
+            </div>
+            <div *ngIf="roleId == 4">
+                <div class="d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange"
+                        class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                </div>
+                <hr class="dropdown-divider">
+            </div>
+            <button class="dropdown-item text-danger d-flex justify-content-center mb-2"
+                (click)="logout()">Déconnexion</button>
+        </div>
+        <div *ngIf="!isConnected">
+            <button class="dropdown-item text-one d-flex justify-content-center"
+                (click)="chargerRouteConnexion()">Connexion</button>
+            <button class="dropdown-item text-one d-flex justify-content-center"
+                (click)="chargeRouteInscription()">Inscription</button>
+        </div>
+    </div>
 </div>

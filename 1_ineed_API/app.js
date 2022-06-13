@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
     ) 
     next();
 })
-// utilisation du cors pour autoriser toute les origine de connexionx au serveur
+// utilisation du cors pour autoriser toute les origine de connexion au serveur
 app.use(cors())
 
 // ici j'importe tout mes routeurs pour la redirection...

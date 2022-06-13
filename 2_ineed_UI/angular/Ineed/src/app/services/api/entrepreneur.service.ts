@@ -18,27 +18,27 @@ export class EntrepreneurService {
 
   // récupère tout les entrepreneurs
   getAll(): Observable<entrepreneur[]>{
-    var entrepreneur = this._client.get<entrepreneur[]>(`${environment.apiUrl}/entrepreneur/getAll`)
-    return entrepreneur
+    let entrepreneurs = this._client.get<entrepreneur[]>(`${environment.apiUrl}/entrepreneur/getAll`)
+    return entrepreneurs
   }
 
   // récupère un entrepreneur par son id
   getById(id : number) : Observable<entrepreneur>{
     let headers = this._headers.headersReturn()
-    var entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getById/${id}`,{'headers' : headers})
+    let entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getById/${id}`,{'headers' : headers})
     return entrepreneur;
   }
 
     // récupère un entrepreneur par son id
     getByName(name : string) : Observable<entrepreneur[]>{
-      var entrepreneur = this._client.get<entrepreneur[]>(`${environment.apiUrl}/entrepreneur/getByName/${name}`)
+      let entrepreneur = this._client.get<entrepreneur[]>(`${environment.apiUrl}/entrepreneur/getByName/${name}`)
       return entrepreneur;
     }
 
   // récupère un entrepreneur par son id utilisateur
   getByUtilisateurId(id : number) : Observable<entrepreneur>{
     let headers = this._headers.headersReturn()
-    var entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getByUtilisateurId/${id}`,{'headers' : headers})
+    let entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getByUtilisateurId/${id}`,{'headers' : headers})
     return entrepreneur;
   }
 

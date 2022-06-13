@@ -52,6 +52,7 @@ exports.refreshToken = async (req, res, next) => {
         console.log(err)
         console.log("refresh token invalide !")
         res.status(410).json({error: "erreur d'authentification du refresh token"})
+        next()
     }
     console.log("jwtControl ok je passe a la suite")
     

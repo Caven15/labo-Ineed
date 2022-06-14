@@ -52,5 +52,5 @@ export class LigneComandeService {
   delete(id: number){
     let headers = this._headers.headersReturn()
     return this._client.delete(`${environment.apiUrl}/ligneCommande/delete/${id}`,{'headers' : headers});
-}
+  }
 }

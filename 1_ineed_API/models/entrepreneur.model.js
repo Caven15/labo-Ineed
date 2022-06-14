@@ -19,6 +19,10 @@ const entrepreneurModel = (sequelize, DataTypes) => {
         codePostalE: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        imageId: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     },
     {

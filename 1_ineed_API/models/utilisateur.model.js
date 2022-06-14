@@ -36,6 +36,10 @@ const utilisateurModel = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        imageId: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     },
     {

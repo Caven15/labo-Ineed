@@ -19,6 +19,10 @@ const produitModel = (sequelize, DataTypes) => {
         estDisponible: {
             type: DataTypes.BOOLEAN,
             allowNull: false
+        },
+        imageId: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     },
     {

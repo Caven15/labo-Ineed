@@ -11,6 +11,10 @@ const commandeModel = require("../models/commande.model")
 const ligneCommandeModel = require("../models/ligneCommande.model")
 const produitModel = require("../models/produit.model")
 const roleModel = require("../models/role.model")
+const imageCategorieModel = require("../models/imageCategorie.model")
+const imageEntrepreneurModel = require("../models/imageEntrepreneur.model")
+const imageProduitModel = require("../models/imageProduit.model")
+const imageUtilisateurModel = require("../models/imageUtilisateur.model")
 
 let dbConnector
 
@@ -38,48 +42,68 @@ module.exports = {
                 commande: commandeModel(sequelize,DataTypes),
                 ligneCommande: ligneCommandeModel(sequelize,DataTypes),
                 produit: produitModel(sequelize,DataTypes),
-                role: roleModel(sequelize,DataTypes)
+                role: roleModel(sequelize,DataTypes),
+                imageCategorie: imageCategorieModel(sequelize,DataTypes),
+                imageEntrepreneur: imageEntrepreneurModel(sequelize,DataTypes),
+                imageProduit: imageProduitModel(sequelize,DataTypes),
+                imageUtilisateur: imageUtilisateurModel(sequelize,DataTypes)
             }
 
-            // ici je définis tout les règles concernant les tables
-            // entrepreneur a un utilisateur
-                dbConnector.utilisateur.hasOne(dbConnector.entrepreneur);
-                dbConnector.entrepreneur.belongsTo(dbConnector.utilisateur);
+            // ici je définis toutes les règles de liaison entre les tables
 
-            // client a un utilisateur
-                dbConnector.utilisateur.hasOne(dbConnector.client);
-                dbConnector.client.belongsTo(dbConnector.utilisateur);
+                // entrepreneur a un utilisateur
+                    dbConnector.utilisateur.hasOne(dbConnector.entrepreneur);
+                    dbConnector.entrepreneur.belongsTo(dbConnector.utilisateur);
 
-            // un role a plusieurs clients
-                dbConnector.role.hasMany(dbConnector.client);
-                dbConnector.client.belongsTo(dbConnector.role);
+                // client a un utilisateur
+                    dbConnector.utilisateur.hasOne(dbConnector.client);
+                    dbConnector.client.belongsTo(dbConnector.utilisateur);
 
-            // un client a plusieur commandes
-                dbConnector.client.hasMany(dbConnector.commande);
-                dbConnector.commande.belongsTo(dbConnector.client);
+                // un role a plusieurs clients
+                    dbConnector.role.hasMany(dbConnector.client);
+                    dbConnector.client.belongsTo(dbConnector.role);
 
-            // livraison a une commande
-                dbConnector.commande.hasOne(dbConnector.livraison);
-                dbConnector.livraison.belongsTo(dbConnector.commande);
+                // un client a plusieur commandes
+                    dbConnector.client.hasMany(dbConnector.commande);
+                    dbConnector.commande.belongsTo(dbConnector.client);
 
-            // un commande a plusieur ligne commandes
-                dbConnector.commande.hasMany(dbConnector.ligneCommande);
-                dbConnector.ligneCommande.belongsTo(dbConnector.commande);
+                // livraison a une commande
+                    dbConnector.commande.hasOne(dbConnector.livraison);
+                    dbConnector.livraison.belongsTo(dbConnector.commande);
 
-            // un produit a plusieurs ligne de commandes
-                dbConnector.produit.hasMany(dbConnector.ligneCommande);
-                dbConnector.ligneCommande.belongsTo(dbConnector.produit);
+                // un commande a plusieur ligne commandes
+                    dbConnector.commande.hasMany(dbConnector.ligneCommande);
+                    dbConnector.ligneCommande.belongsTo(dbConnector.commande);
 
-            // une catégorie a plusieurs produits
-                dbConnector.categorie.hasMany(dbConnector.produit);
-                dbConnector.produit.belongsTo(dbConnector.categorie);
-            
-            // un entrepreneur a plusieur produits
-                dbConnector.entrepreneur.hasMany(dbConnector.produit);
-                dbConnector.produit.belongsTo(dbConnector.entrepreneur);
+                // un produit a plusieurs ligne de commandes
+                    dbConnector.produit.hasMany(dbConnector.ligneCommande);
+                    dbConnector.ligneCommande.belongsTo(dbConnector.produit);
 
+                // une catégorie a plusieurs produits
+                    dbConnector.categorie.hasMany(dbConnector.produit);
+                    dbConnector.produit.belongsTo(dbConnector.categorie);
+                
+                // un entrepreneur a plusieur produits
+                    dbConnector.entrepreneur.hasMany(dbConnector.produit);
+                    dbConnector.produit.belongsTo(dbConnector.entrepreneur);
 
-            // dbConnector.sequelize.sync({force : true})    //sync({force : true}) pour reiniatiliser la db
+                // un utilisateur a une image
+                    dbConnector.utilisateur.hasOne(dbConnector.imageUtilisateur);
+                    dbConnector.imageUtilisateur.belongsTo(dbConnector.utilisateur);
+
+                // un entrepreneur a une image
+                    dbConnector.entrepreneur.hasOne(dbConnector.imageEntrepreneur);
+                    dbConnector.imageEntrepreneur.belongsTo(dbConnector.entrepreneur);
+
+                // un produit a plusieurs images
+                    dbConnector.produit.hasMany(dbConnector.imageProduit);
+                    dbConnector.imageProduit.belongsTo(dbConnector.produit);
+
+                // une catégorie a une image
+                    dbConnector.categorie.hasMany(dbConnector.imageCategorie);
+                    dbConnector.imageCategorie.belongsTo(dbConnector.categorie);
+
+                // dbConnector.sequelize.sync({force : true})    //sync({force : true}) pour reiniatiliser la db
         }
     },
 

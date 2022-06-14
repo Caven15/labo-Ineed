@@ -3,6 +3,10 @@ const categorieModel = (sequelize, DataTypes) => {
         nom: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        imageId: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     },
     {

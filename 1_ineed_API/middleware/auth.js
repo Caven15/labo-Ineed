@@ -47,6 +47,19 @@ exports.clientControl = async (req, res, next) => {
     }
 }
 
+// entrepreneurControl
+exports.entrepreneurControl = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    var decoded = jwt.decode(token, {complete: true});
+    client = await dbConnector.client.findByPk(decoded.payload.id)
+    entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : client.id}})
+    if (!entrepreneur) {
+        res.status(403).json({"error" : "vous devez etre entrepreneur pour acceder a cette zone !"})
+    }
+    next()
+}
+
 // moderateurControl
 exports.moderateurControl = async (req, res, next) => {
     try {
@@ -79,15 +92,3 @@ exports.administrateurControl = async (req, res, next) => {
     }
 }
 
-// entrepreneurControl
-exports.entrepreneurControl = async (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    const token = authHeader.split(' ')[1];
-    var decoded = jwt.decode(token, {complete: true});
-    client = await dbConnector.client.findByPk(decoded.payload.id)
-    entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : client.id}})
-    if (!entrepreneur) {
-        res.status(403).json({"error" : "vous devez etre entrepreneur pour acceder a cette zone !"})
-    }
-    next()
-}

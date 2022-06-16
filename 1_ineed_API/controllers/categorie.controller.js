@@ -2,6 +2,8 @@ const dbConnector = require("../tools/dbConnect").get()
 
 // ajoute une nouvelle catégorie
 exports.addCategorie = async (req, res, next) => {
+    console.log("req.body : ", req.body)
+
     try {
         const categorie = await dbConnector.categorie.findOne({where: {'categorie' :req.body.categorie}})
         if (categorie) {
@@ -89,4 +91,3 @@ exports.deleteCategorie = async (req, res, next) => {
         res.json(error)
     }
 }
-

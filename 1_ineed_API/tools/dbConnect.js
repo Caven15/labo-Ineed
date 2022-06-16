@@ -82,7 +82,7 @@ module.exports = {
                 // une catégorie a plusieurs produits
                     dbConnector.categorie.hasMany(dbConnector.produit);
                     dbConnector.produit.belongsTo(dbConnector.categorie);
-                
+
                 // un entrepreneur a plusieur produits
                     dbConnector.entrepreneur.hasMany(dbConnector.produit);
                     dbConnector.produit.belongsTo(dbConnector.entrepreneur);

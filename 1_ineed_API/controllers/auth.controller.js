@@ -133,8 +133,7 @@ exports.registerUtilisateur = async (req, res, next) => {
             dbConnector.utilisateur.create(newUtilisateur)
             .then((response)=> {
                 next()
-                })
-                console.log("test")
+            })
         }
     } catch (error) {
         console.log(error)
@@ -181,6 +180,5 @@ exports.registerEntrepreneur = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error)
-        console.log("erreur ici")
     }
 }

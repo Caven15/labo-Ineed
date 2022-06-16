@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const categorieController = require("../controllers/categorie.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
+const { addImage } = require("../middleware/gestionImage")
 
 // route libre
     router.get("/getAll", categorieController.getAllCategorie)
@@ -18,7 +19,7 @@ const {jwtControl, clientControl, moderateurControl} = require("../middleware/au
 
 
 // route administration
-    router.post("/add", jwtControl, moderateurControl, categorieController.addCategorie)
+    router.post("/add", addImage, categorieController.addCategorie)
     router.get("/getByCategorie/:categorie", jwtControl, moderateurControl, categorieController.getCategorieByName)
 
 module.exports = router

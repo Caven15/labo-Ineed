@@ -1,5 +1,10 @@
 const categorieModel = (sequelize, DataTypes) => {
     const categorie = sequelize.define("categorie", {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         nom: {
             type: DataTypes.STRING,
             allowNull: false

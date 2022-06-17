@@ -1,7 +1,5 @@
 const express = require("express")
 const app = express()
-var multer = require('multer');
-var upload = multer();
 const PORT = process.env.PORT || 3000
 const cors = require("cors")
 const db = require("./tools/dbConnect")
@@ -10,8 +8,8 @@ const db = require("./tools/dbConnect")
 db.connect()
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
-app.use(upload.array()); 
-app.use(express.static('public'));
+// utilisation du cors pour autoriser toute les origine de connexion au serveur
+app.use(cors())
 app.use(function (req, res, next) {
     res.header(
         "Access-Control-Allow-Headers",
@@ -19,8 +17,6 @@ app.use(function (req, res, next) {
     ) 
     next();
 })
-// utilisation du cors pour autoriser toute les origine de connexion au serveur
-    app.use(cors())
 
 // ici j'importe tout mes routeurs pour la redirection...
     const authRouter = require("./routers/auth.router")
@@ -51,6 +47,7 @@ app.use(function (req, res, next) {
     app.use("/livraison", livraisonRouter)
 
     const ligneCommandeRouter = require("./routers/ligneCommande.router")
+const { upload } = require("./middleware/gestionImage")
     app.use("/ligneCommande", ligneCommandeRouter)
 
 // si aucune route n'est trouvée

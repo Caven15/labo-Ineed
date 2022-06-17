@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const categorieController = require("../controllers/categorie.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
-const { addImage } = require("../middleware/gestionImage")
+const { upload } = require("../middleware/gestionImage")
 
 // route libre
     router.get("/getAll", categorieController.getAllCategorie)
@@ -10,8 +10,8 @@ const { addImage } = require("../middleware/gestionImage")
     
 // route utilisateur connecté
     router.get("/getById/:id", categorieController.getCategorieById)
-    router.patch("/:id", jwtControl, categorieController.updateCategorie)
-    router.delete("/:id", jwtControl, categorieController.deleteCategorie)
+    router.patch("/:id", upload.single("image"), categorieController.updateCategorie)
+    router.delete("/:id", categorieController.deleteCategorie)
 
 
 // route entrepreneur
@@ -19,7 +19,7 @@ const { addImage } = require("../middleware/gestionImage")
 
 
 // route administration
-    router.post("/add", addImage, categorieController.addCategorie)
+    router.post("/add", upload.single("image"), categorieController.addCategorie)
     router.get("/getByCategorie/:categorie", jwtControl, moderateurControl, categorieController.getCategorieByName)
 
 module.exports = router

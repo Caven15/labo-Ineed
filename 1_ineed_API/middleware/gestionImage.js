@@ -25,10 +25,3 @@ const fileFilter = (req, file, cb) => {
     cb(null, true)
 }
 exports.upload = multer({storage : storage, fileFilter : fileFilter })
-
-exports.addImage = (req, res, next) => {
-    console.log("je rentre dans mon upload d'image")
-    console.log("req.body : ", req.body.test)
-}
-
-

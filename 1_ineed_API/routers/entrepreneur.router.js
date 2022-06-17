@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const entrepreneurController = require("../controllers/entrepreneur.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
+const { upload } = require("../middleware/gestionImage")
 
 // route libre
     router.get("/getByName/:name", entrepreneurController.getByName)
@@ -10,8 +11,8 @@ const {jwtControl, clientControl, moderateurControl} = require("../middleware/au
 // route utilisateur connecté
     router.get("/getById/:id", jwtControl, clientControl, entrepreneurController.getById)
     router.get("/getByUtilisateurId/:id", jwtControl, clientControl, entrepreneurController.getByUtilisateurId)
-    router.patch("/updateById/:id", jwtControl, clientControl, entrepreneurController.updateById)
-    router.delete("/delete/:id", jwtControl, clientControl, entrepreneurController.delete)
+    router.patch("/updateById/:id", upload.single("image"), entrepreneurController.updateById)
+    router.delete("/delete/:id", entrepreneurController.delete)
 
 
 // route entrepreneur

@@ -1,5 +1,6 @@
 const dbConnector = require("../tools/dbConnect").get()
 const { Op } = require("sequelize");
+const fs = require('fs')
 
 // récupère tout les entrepreneurs
 exports.getAll = async (req, res, next) => {
@@ -21,7 +22,7 @@ exports.getById = async (req, res, next) => {
     }
 }
 
-// récupère un entrepreneur par son id
+// récupère un entrepreneur par son id utilisateur
 exports.getByUtilisateurId = async (req, res, next) => {
     try {
         const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})
@@ -56,28 +57,119 @@ exports.getByName = async (req, res, next) => {
 
 // met a jour un entrepreneur par son id
 exports.updateById = async (req, res, next) => {
-    const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})
-    if (entrepreneur == null) {
-        res.json(`entrepreneur nr : ${req.params.id} n'existe pas !`)
-    }
-    else{
-        entrepreneur.update(req.body.entrepreneur)
-        res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} mis a jour avec succès !` }))
-        res.end()
+    try {
+        if (req.body.nomE && req.file) {
+            console.log("req.body.nom && req.file")
+            const entrepreneur = await dbConnector.entrepreneur.findByPk(req.params.id)
+            if (entrepreneur) {
+                console.log("entrepreneur")
+                const imageEntrepreneur = await dbConnector.imageEntrepreneur.findOne({ where: { entrepreneurId: entrepreneur.id } })
+                console.log("imageEntrepreneur : ", imageEntrepreneur)
+                let updateImageEntrepreneur = {
+                    nomE : req.file.originalname,
+                    uid : req.file.filename,
+                    entrepreneurId : entrepreneur.id
+                }
+                if (!imageEntrepreneur) {
+                    dbConnector.imageEntrepreneur.create(updateImageEntrepreneur)
+                }
+                else{
+                    let nomFichier = imageEntrepreneur.uid
+                    fs.unlink(`./uploads/${nomFichier}`, (err) => {
+                        if (err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('image supprimé avec succès')
+                        }
+                        
+                    })
+                    imageEntrepreneur.update(updateImageEntrepreneur)
+                }
+                entrepreneur.update(req.body)
+                res.write(JSON.stringify({message : "entrepreneur et image mis a jour avec succès"}))
+                res.end()
+            }
+            else{
+                res.write(JSON.stringify({message : "cette entrepreneur n'existe pas"}))
+                res.end()
+            }
+        }
+        else{
+            if (req.body.nomE) {
+                const entrepreneur = await dbConnector.entrepreneur.findByPk(req.params.id)
+                if (entrepreneur) {
+                    categorie.update(req.body)
+                    res.write(JSON.stringify({message : "entrepreneur mis a jour avec succès"}))
+                    res.end()
+                }
+                else{
+                    res.write(JSON.stringify({message : "l'entrepreneur n'existe pas"}))
+                    res.end()
+                }
+            }
+            if (req.file) {
+                const imageEntrepreneur = await dbConnector.imageEntrepreneur.findOne({ where: { entrepreneurId: req.params.id } })
+                let updateImageEntrepreneur = {
+                    nomE : req.file.originalname,
+                    uid : req.file.filename,
+                    entrepreneurId : entrepreneur.id
+                }
+                if (!imageEntrepreneur) {
+                    dbConnector.imageEntrepreneur.create(updateImageEntrepreneur).then(() => {
+                        res.status(201).json({message: "image ajouté avec succès !"})
+                    })
+                }
+                else{
+                    let nomFichier = imageEntrepreneur.uid
+                    fs.unlink(`./uploads/${nomFichier}`, (err) => {
+                        if (err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('image supprimé avec succès')
+                        }
+                        
+                    })
+                    imageEntrepreneur.update(updateImageEntrepreneur)
+                    res.write(JSON.stringify({message : "image mise a jour avec succès !"}))
+                    res.end()
+                }
+            }
+        }
+    } catch (error) {
+        res.json(error)
     }
 }
 
 // supprime un entrepreneur par son id
 exports.delete = async (req, res, next) => {
     try {
-        const entrepreneur = await dbConnector.entrepreneur.destroy({where : {utilisateurId : req.params.id}})
+        const entrepreneur = await dbConnector.entrepreneur.findOne({where : {id : req.params.id}})
         if (entrepreneur) {
+            const imageEntrepreneur = await dbConnector.imageEntrepreneur.findByPk(entrepreneur.imageId)
+            if (imageEntrepreneur) {
+                console.log(imageEntrepreneur.uid)
+                fs.unlink(`./uploads/${imageEntrepreneur.uid}`, (err) => {
+                    if (err){
+                        console.log(err)
+                    }
+                    else{
+                        console.log(`image supprimé avec succès`)
+                    }
+                    
+                })
+                dbConnector.imageEntrepreneur.destroy({where : {id : entrepreneur.imageId}})
+            }
+            dbConnector.entrepreneur.destroy({where : {id : req.params.id}})
             res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} a été suprimer avec succès !` }))
             res.end()
-        }else{
+        }
+        else{
             res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} n'existe pas` }))
             res.end()
         }
+
     } catch (error) {
         res.json(error)
     }

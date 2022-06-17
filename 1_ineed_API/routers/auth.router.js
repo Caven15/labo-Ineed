@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const authController = require("../controllers/auth.controller")
 const {jwtControl, clientControl} = require("../middleware/auth")
+const { upload } = require("../middleware/gestionImage")
 
 // route libre
     router.post("/registerClient", authController.registerUtilisateur, authController.registerClient)
@@ -9,7 +10,7 @@ const {jwtControl, clientControl} = require("../middleware/auth")
 
 
 // route utilisateur connecté
-    router.post("/registerEntrepreneur", jwtControl, clientControl, authController.registerEntrepreneur)
+    router.post("/registerEntrepreneur", upload.single("image"), authController.registerEntrepreneur)
     router.post("/refreshToken", authController.refreshToken)
 
 

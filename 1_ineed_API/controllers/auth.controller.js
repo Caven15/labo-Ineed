@@ -1,6 +1,7 @@
 const dbConnector = require("../tools/dbConnect").get()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const fs = require('fs')
 var email = ""
 
 // login d'un utilisateur
@@ -160,21 +161,67 @@ exports.registerClient = async (req, res, next) => {
 // register d'un entrepreneur
 exports.registerEntrepreneur = async (req, res, next) => {
     try {
-        const entrepreneur = await dbConnector.entrepreneur.findOne({where: {'utilisateurId' :req.body.utilisateurId}})
-        if (entrepreneur) {
-            return res.status(403).json({message: "le compte entrepreneur existe déja !"})
-        }
-        else{
-            let newEntrepreneur = {
-                nomE : req.body.nomE,
-                numeroRueE : req.body.numeroRueE,
-                rueE : req.body.rueE,
-                villeE : req.body.villeE,
-                codePostalE : req.body.codePostalE,
-                utilisateurId : req.body.utilisateurId
+        // si la requete contient un body et un fichier
+        if (req.body.nomE && req.file) {
+            console.log()
+            const entrepreneur = await dbConnector.entrepreneur.findOne({where: {'nomE' :req.body.nomE}})
+            if (entrepreneur) {
+                fs.unlink(`./uploads/${req.file.filename}`, (err) => {
+                    if (err){
+                        console.log(err)
+                    }
+                    else{
+                        console.log('image supprimé avec succès')
+                    }
+                    
+                })
+                return res.status(403).json({message: "le compte entrepreneur existe déja !"})
             }
-            dbConnector.entrepreneur.create(newEntrepreneur)
-                .then(()=> {
+            else{
+                // enregistrement d'un nouvel entrepreneur
+                    let newEntrepreneur = {
+                        nomE : req.body.nomE,
+                        numeroRueE : req.body.numeroRueE,
+                        rueE : req.body.rueE,
+                        villeE : req.body.villeE,
+                        codePostalE : req.body.codePostalE,
+                        utilisateurId : req.body.utilisateurId
+                    }
+                    dbConnector.entrepreneur.create(newEntrepreneur).then((result)=> {
+                        // création d'un image entrepreneur
+                            let newImageEntrepreneur = {
+                                nomC : req.file.originalname,
+                                uid : req.file.filename,
+                                entrepreneurId : result.id
+                            }
+                            dbConnector.imageEntrepreneur.create(newImageEntrepreneur).then((result) => {
+                                // update de l'entrepreneur pour lié l'id de l'image
+                                    dbConnector.entrepreneur.update(
+                                        {
+                                            imageId: result.id,
+                                        },
+                                        {
+                                            where: { id: result.entrepreneurId },
+                                        }
+                                    ).then(() => {
+                                        res.status(201).json({message : 'entrepreneur et image ajouté avec succès !'})
+                                    })
+                            })
+                })
+            }
+        }
+        // si la requete ne contient que le body
+        else{
+            // enregistrement d'un nouvel entrepreneur
+                let newEntrepreneur = {
+                    nomE : req.body.nomE,
+                    numeroRueE : req.body.numeroRueE,
+                    rueE : req.body.rueE,
+                    villeE : req.body.villeE,
+                    codePostalE : req.body.codePostalE,
+                    utilisateurId : req.body.utilisateurId
+                }
+                dbConnector.entrepreneur.create(newEntrepreneur).then(() => {
                     res.status(201).json({message : 'entrepreneur ajouté avec succès !'})
                 })
         }

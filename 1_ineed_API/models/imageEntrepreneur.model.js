@@ -1,5 +1,5 @@
-const imageEntrepriseModel = (sequelize, DataTypes) => {
-    const imageEntrepriseModel = sequelize.define("imageEntreprise", {
+const imageEntrepreneurModel = (sequelize, DataTypes) => {
+    const imageEntrepreneurModel = sequelize.define("imageEntrepreneur", {
         nomC: {
             type: DataTypes.STRING,
             allowNull: false
@@ -15,7 +15,7 @@ const imageEntrepriseModel = (sequelize, DataTypes) => {
         updatedAt: false,
     })
 
-    return imageEntrepriseModel
+    return imageEntrepreneurModel
 }
 
-module.exports = imageEntrepriseModel
+module.exports = imageEntrepreneurModel

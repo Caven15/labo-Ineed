@@ -10,6 +10,15 @@ exports.addCategorie = async (req, res, next) => {
             if (req.body.nom && req.file) {
                 const newCategorie = await dbConnector.categorie.findOne({where: {'nom' :req.body.nom}})
                 if (newCategorie) {
+                    fs.unlink(`./uploads/${req.file.filename}`, (err) => {
+                        if (err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('image supprimé avec succès')
+                        }
+                        
+                    })
                     return res.status(403).json({message: "la catégorie existe déja dans le système !"})
                 }
                 else{
@@ -17,7 +26,6 @@ exports.addCategorie = async (req, res, next) => {
                         let newCategorieModel = {
                             nom : req.body.nom
                         }
-                        let categorieId = 0
                         dbConnector.categorie.create(newCategorieModel).then((result) => {
                             // création d'une image catégorie
                                 let newImageCategorie = {
@@ -102,7 +110,6 @@ exports.getCategorieByName = async (req, res, next) => {
 
 // met a jour une catégorie par son id
 exports.updateCategorie = async (req, res, next) => {
-    console.log("j'entre dans mon update catégorie")
     try {
         if (req.body.nom && req.file) {
             const categorie = await dbConnector.categorie.findByPk(req.params.id)
@@ -111,8 +118,9 @@ exports.updateCategorie = async (req, res, next) => {
                 let updateImageCategorie = {
                     nomC : req.file.originalname,
                     uid : req.file.filename,
-                    categorieId : req.body.idCategorie
+                    categorieId : categorie.id
                 }
+                console.log("updateImageCategorie : ", updateImageCategorie)
                 if (!imageCategorie) {
                     dbConnector.imageCategorie.create(updateImageCategorie)
                 }
@@ -159,8 +167,7 @@ exports.updateCategorie = async (req, res, next) => {
                     categorieId : req.params.id
                 }
                 if (!imageCategorie) {
-                    dbConnector.imageCategorie.create(updateImageCategorie)
-                    .then(() => {
+                    dbConnector.imageCategorie.create(updateImageCategorie).then(() => {
                         res.status(201).json({message: "image ajouté avec succès !"})
                     })
                 }
@@ -176,7 +183,6 @@ exports.updateCategorie = async (req, res, next) => {
                         
                     })
                     imageCategorie.update(updateImageCategorie)
-                    console.log('image mise a jour avec succès !')
                     res.write(JSON.stringify({message : "image mise a jour avec succès !"}))
                     res.end()
                 }
@@ -195,16 +201,16 @@ exports.deleteCategorie = async (req, res, next) => {
         if (categorie) {
             const imageCategorie = await dbConnector.imageCategorie.findByPk(categorie.imageId)
             if (imageCategorie) {
-                dbConnector.imageCategorie.destroy({where : {id : categorie.imageId}})
                 fs.unlink(`./uploads/${imageCategorie.uid}`, (err) => {
                     if (err){
                         console.log(err)
                     }
                     else{
-                        console.log(`image ${imageCategorie.nom} supprimé avec succès`)
+                        console.log(`image supprimé avec succès`)
                     }
                     
                 })
+                dbConnector.imageCategorie.destroy({where : {id : categorie.imageId}})
             }
             dbConnector.categorie.destroy({where : {id : req.params.id}})
             res.write(JSON.stringify({Message :  `catégorie nr : ${req.params.id} a été suprimer avec succès !` }))

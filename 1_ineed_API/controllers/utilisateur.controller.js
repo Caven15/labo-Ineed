@@ -1,13 +1,26 @@
 const dbConnector = require("../tools/dbConnect").get()
 const bcrypt = require("bcrypt")
+const fs = require('fs')
 
 // delete utilisateur + client + entrepreneur
 exports.delete = async (req, res, next) => {
     try {
-        const utilisateur = await dbConnector.utilisateur.destroy({where : {id : req.params.id}})
+        const utilisateur = await dbConnector.utilisateur.findOne({where : {id : req.params.id}})
         if (utilisateur) {
-            dbConnector.client.destroy({where : {id : req.params.id}})
-            dbConnector.entrepreneur.destroy({where : {id : req.params.id}})
+            const imageUtilisateur = await dbConnector.imageUtilisateur.findByPk(utilisateur.imageId)
+            if (imageUtilisateur) {
+                fs.unlink(`./uploads/${imageUtilisateur.uid}`, (err) => {
+                    if (err){
+                        console.log(err)
+                    }
+                    else{
+                        console.log(`image supprimé avec succès`)
+                    }
+                    
+                })
+                dbConnector.imageUtilisateur.destroy({where : {id : utilisateur.imageId}})
+            }
+            dbConnector.utilisateur.destroy({where : {id : req.params.id}})
             res.write(JSON.stringify({Message :  `utilisateur nr : ${req.params.id} a été suprimer avec succès !` }))
             res.end()
         }else{

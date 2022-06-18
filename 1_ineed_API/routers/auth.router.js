@@ -5,7 +5,7 @@ const {jwtControl, clientControl} = require("../middleware/auth")
 const { upload } = require("../middleware/gestionImage")
 
 // route libre
-    router.post("/registerClient", authController.registerUtilisateur, authController.registerClient)
+    router.post("/registerClient", upload.single("image"), authController.registerUtilisateur, authController.registerClient)
     router.post("/login", authController.login)
 
 

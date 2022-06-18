@@ -111,31 +111,88 @@ exports.refreshToken = async (req, res, next) => {
 // register d'un utilisateur
 exports.registerUtilisateur = async (req, res, next) => {
     try {
-        // je férifie si le client n'existe pas déja dans la db
-        let utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})
-        console.log(utilisateur)
-        if (utilisateur) {
-            return res.status(403).json({message: "l'adresse e-mail existe déja dans le système"})
+        if (req.body.nom && req.file) {
+            // je férifie si le client n'existe pas déja dans la db
+                let utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})
+                console.log(utilisateur)
+                if (utilisateur) {
+                    fs.unlink(`./uploads/${req.file.filename}`, (err) => {
+                        if (err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('image supprimé avec succès')
+                        }
+                        
+                    })
+                    return res.status(403).json({message: "l'adresse e-mail existe déja dans le système"})
+                }
+                else{
+                    // création d'un nouvel utilisateur
+                        let newUtilisateur = {
+                            nom : req.body.nom,
+                            prenom : req.body.prenom,
+                            dateNaissance : req.body.dateNaissance,
+                            numeroRue : req.body.numeroRue,
+                            rue : req.body.rue,
+                            ville : req.body.ville,
+                            codePostal : req.body.codePostal,
+                            email : req.body.email,
+                            password : bcrypt.hashSync(req.body.password.trim(), 10),
+                            roleId : 1
+                        }
+                        dbConnector.utilisateur.create(newUtilisateur).then((result) => {
+                            // création d'une image utilisateur
+                                let newImageUtilisateur = {
+                                    nomC : req.file.originalname,
+                                    uid : req.file.filename,
+                                    utilisateurId : result.id
+                                }
+                                dbConnector.imageUtilisateur.create(newImageUtilisateur).then((result) => {
+                                    // update de l'utilisateur pour lié l'id de l'image
+                                        dbConnector.utilisateur.update(
+                                            {
+                                                imageId: result.id,
+                                            },
+                                            {
+                                                where: { id: result.utilisateurId },
+                                            }
+                                        ).then(() => {
+                                            next()
+                                        })
+                                })
+                        })
+                }
         }
-        // sinon je stock mes valeur et j'envoie a la db
-        else {
-            let newUtilisateur = {
-                nom : req.body.nom,
-                prenom : req.body.prenom,
-                dateNaissance : req.body.dateNaissance,
-                numeroRue : req.body.numeroRue,
-                rue : req.body.rue,
-                ville : req.body.ville,
-                codePostal : req.body.codePostal,
-                email : req.body.email,
-                password : bcrypt.hashSync(req.body.password.trim(), 10),
-                roleId : 1
-            }
-            dbConnector.utilisateur.create(newUtilisateur)
-            .then((response)=> {
-                next()
-            })
+        // la requette ne contient que le body
+        else{
+            // je férifie si le client n'existe pas déja dans la db
+                let utilisateur = await dbConnector.utilisateur.findOne({where: {'email' :req.body.email}})
+                console.log(utilisateur)
+                if (utilisateur) {
+                    return res.status(403).json({message: "l'adresse e-mail existe déja dans le système"})
+                }
+                // sinon je stock mes valeur et j'envoie a la db
+                else {
+                    let newUtilisateur = {
+                        nom : req.body.nom,
+                        prenom : req.body.prenom,
+                        dateNaissance : req.body.dateNaissance,
+                        numeroRue : req.body.numeroRue,
+                        rue : req.body.rue,
+                        ville : req.body.ville,
+                        codePostal : req.body.codePostal,
+                        email : req.body.email,
+                        password : bcrypt.hashSync(req.body.password.trim(), 10),
+                        roleId : 1
+                    }
+                    dbConnector.utilisateur.create(newUtilisateur)
+                    .then((response)=> {
+                        next()
+                    })
+                }
         }
+            
     } catch (error) {
         console.log(error)
     }

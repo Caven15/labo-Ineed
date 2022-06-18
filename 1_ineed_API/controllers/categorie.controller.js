@@ -1,5 +1,4 @@
 const { uid } = require("uid")
-
 const dbConnector = require("../tools/dbConnect").get()
 const fs = require('fs')
 
@@ -120,7 +119,6 @@ exports.updateCategorie = async (req, res, next) => {
                     uid : req.file.filename,
                     categorieId : categorie.id
                 }
-                console.log("updateImageCategorie : ", updateImageCategorie)
                 if (!imageCategorie) {
                     dbConnector.imageCategorie.create(updateImageCategorie)
                 }

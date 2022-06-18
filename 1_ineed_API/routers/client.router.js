@@ -2,14 +2,15 @@ const express = require("express")
 const router = express.Router()
 const clientController = require("../controllers/client.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
+const { upload } = require("../middleware/gestionImage")
 
 // route libre
     //...
 
 
 // route utilisateur connecté
-    router.get("/getById/:id", clientControl, jwtControl, clientController.getById)
-    router.patch("/updateById/:id", clientControl, jwtControl, clientController.update)
+    router.get("/getById/:id", jwtControl, clientControl, clientController.getById)
+    router.patch("/updateById/:id", upload.single("image"), clientController.update)
 
 
 // route entrepreneur

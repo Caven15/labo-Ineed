@@ -47,7 +47,6 @@ app.use(function (req, res, next) {
     app.use("/livraison", livraisonRouter)
 
     const ligneCommandeRouter = require("./routers/ligneCommande.router")
-const { upload } = require("./middleware/gestionImage")
     app.use("/ligneCommande", ligneCommandeRouter)
 
 // si aucune route n'est trouvée

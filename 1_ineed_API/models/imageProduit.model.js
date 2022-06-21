@@ -1,6 +1,6 @@
 const imageProduitModel = (sequelize, DataTypes) => {
     const imageProduitModel = sequelize.define("imageProduit", {
-        nomC: {
+        nomP: {
             type: DataTypes.STRING,
             allowNull: false
         },

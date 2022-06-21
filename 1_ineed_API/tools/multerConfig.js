@@ -10,7 +10,8 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) 
     {
         let extensionOrigin = path.extname(file.originalname)
-        cb(null, uuid() + '.' + extensionOrigin)
+        console.log(extensionOrigin)
+        cb(null, uuid() + extensionOrigin)
     }
 })
 
@@ -24,4 +25,5 @@ const fileFilter = (req, file, cb) => {
 
     cb(null, true)
 }
+
 exports.upload = multer({storage : storage, fileFilter : fileFilter })

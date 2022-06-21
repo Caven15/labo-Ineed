@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const produitController = require("../controllers/produit.controller")
 const {jwtControl, clientControl, entrepreneurControl} = require("../middleware/auth")
+const { upload } = require("../tools/multerConfig")
 
 // route libre
     router.get("/getByName/:name", produitController.getByName)
@@ -15,9 +16,9 @@ const {jwtControl, clientControl, entrepreneurControl} = require("../middleware/
 
 
 // route entrepreneur
-    router.post("/add", jwtControl, entrepreneurControl, produitController.add)
+    router.post("/add", upload.array('images', 6), produitController.add)
     router.patch("/updateById/:id", jwtControl,  entrepreneurControl, produitController.update)
-    router.delete("/delete/:id", jwtControl,  entrepreneurControl, produitController.delete)
+    router.delete("/delete/:id", produitController.delete)
 
 
 // route administration

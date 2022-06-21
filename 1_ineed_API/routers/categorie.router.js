@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const categorieController = require("../controllers/categorie.controller")
 const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
-const { upload } = require("../middleware/gestionImage")
+const { upload } = require("../tools/multerConfig")
 
 // route libre
     router.get("/getAll", categorieController.getAllCategorie)

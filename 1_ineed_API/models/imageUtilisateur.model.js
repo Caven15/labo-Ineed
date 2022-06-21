@@ -1,6 +1,6 @@
 const imageUtilisateurModel = (sequelize, DataTypes) => {
     const imageUtilisateurModel = sequelize.define("imageUtilisateur", {
-        nomC: {
+        nomU: {
             type: DataTypes.STRING,
             allowNull: false
         },

@@ -28,7 +28,7 @@ module.exports = {
                 {
                     host: process.env.DB_HOST,
                     dialect: "mysql",
-                    port: 3308,
+                    port: 3306,
                     timezone: "+02:00"
                 })
             dbConnector = {
@@ -100,10 +100,10 @@ module.exports = {
                     dbConnector.imageProduit.belongsTo(dbConnector.produit);
 
                 // une catégorie a une image
-                    dbConnector.categorie.hasMany(dbConnector.imageCategorie);
+                    dbConnector.categorie.hasOne(dbConnector.imageCategorie);
                     dbConnector.imageCategorie.belongsTo(dbConnector.categorie);
 
-                // dbConnector.sequelize.sync({force : true})    //sync({force : true}) pour reiniatiliser la db
+                //  dbConnector.sequelize.sync({force : true})
         }
     },
 

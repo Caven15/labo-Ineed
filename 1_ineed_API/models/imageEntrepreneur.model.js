@@ -1,6 +1,6 @@
 const imageEntrepreneurModel = (sequelize, DataTypes) => {
     const imageEntrepreneurModel = sequelize.define("imageEntrepreneur", {
-        nomC: {
+        nomE: {
             type: DataTypes.STRING,
             allowNull: false
         },

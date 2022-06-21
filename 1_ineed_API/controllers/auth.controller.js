@@ -144,7 +144,7 @@ exports.registerUtilisateur = async (req, res, next) => {
                         dbConnector.utilisateur.create(newUtilisateur).then((result) => {
                             // création d'une image utilisateur
                                 let newImageUtilisateur = {
-                                    nomC : req.file.originalname,
+                                    nomE : req.file.originalname,
                                     uid : req.file.filename,
                                     utilisateurId : result.id
                                 }
@@ -247,7 +247,7 @@ exports.registerEntrepreneur = async (req, res, next) => {
                     dbConnector.entrepreneur.create(newEntrepreneur).then((result)=> {
                         // création d'un image entrepreneur
                             let newImageEntrepreneur = {
-                                nomC : req.file.originalname,
+                                nomE : req.file.originalname,
                                 uid : req.file.filename,
                                 entrepreneurId : result.id
                             }

@@ -72,7 +72,7 @@ exports.addCategorie = async (req, res, next) => {
     }
 }
 
-// récupère toute les catégorie
+// récupère toute les catégories
 exports.getAllCategorie = async (req, res, next) => {
     try {
         allCategories = await dbConnector.categorie.findAll()
@@ -90,7 +90,20 @@ exports.getAllCategorie = async (req, res, next) => {
 // récupère une catégorie par son id 
 exports.getCategorieById = async (req, res, next) => {
     try {
-        let categorie = await dbConnector.categorie.findByPk(req.params.id)
+        let categorie = await dbConnector.categorie.findOne({
+            where : {
+                id : req.params.id
+            },
+            attributes: {
+                exclude: ['imageId']
+            },
+            include : [{
+                model : dbConnector.imageCategorie,
+                attributes: {
+                    exclude: ['categorieId']
+                },
+            }]
+        })
         res.json(categorie)
     } catch (error) {
         res.json(error)

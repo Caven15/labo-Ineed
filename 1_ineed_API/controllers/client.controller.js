@@ -34,26 +34,25 @@ exports.getAll = async (req, res, next) => {
 exports.getById = async (req, res, next) => {
     console.log("je passe dans mon get by id")
     try {
-        const client = await dbConnector.client.findOne({
+        const client = await dbConnector.utilisateur.findOne({
             where: {
                 id: req.params.id
             },
             attributes: {
-                exclude: ['utilisateurId']
+                exclude: ['imageId']
             },
             include: [
                 {
-                    model : dbConnector.utilisateur,
-                    attributes: [
-                        'nom', 
-                        'prenom', 
-                        'dateNaissance', 
-                        'numeroRue', 
-                        'rue',
-                        'ville',
-                        'codePostal',
-                        'email'
-                    ]
+                    model : dbConnector.client,
+                    attributes: {
+                        exclude: ['utilisateurId']
+                    },
+                },
+                {
+                    model : dbConnector.imageUtilisateur,
+                    attributes: {
+                        exclude: ['utilisateurId']
+                    },
                 }
             ]
         })

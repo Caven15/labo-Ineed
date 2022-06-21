@@ -90,10 +90,17 @@ exports.getAll = async (req, res, next) => {
     }
 }
 
-// récupère tout les produit par leurs id de catégorie
+// récupère récupère un produit par son id
 exports.getById = async (req, res, next) => {
     try {
-        produit = await dbConnector.produit.findByPk(req.params.id)
+        produit = await dbConnector.produit.findOne({
+            where : {
+                id : req.params.id
+            },
+            include : [{
+                model : dbConnector.imageProduit
+            }]
+        })
         if (!produit) {
             res.status(200).json("le produit n'existe pas...")
         }

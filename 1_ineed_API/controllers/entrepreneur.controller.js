@@ -15,7 +15,22 @@ exports.getAll = async (req, res, next) => {
 // récupère un entrepreneur par son id
 exports.getById = async (req, res, next) => {
     try {
-        const entrepreneur = await dbConnector.entrepreneur.findByPk(req.params.id)
+        const entrepreneur = await dbConnector.entrepreneur.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: {
+                exclude: ['imageId']
+            },
+            include: [
+                {
+                    model : dbConnector.imageEntrepreneur,
+                    attributes: {
+                        exclude: ['entrepreneurId']
+                    },
+                }
+            ]
+        })
         res.status(200).json(entrepreneur)
     } catch (error) {
         res.json(error)

@@ -144,7 +144,7 @@ exports.registerUtilisateur = async (req, res, next) => {
                         dbConnector.utilisateur.create(newUtilisateur).then((result) => {
                             // création d'une image utilisateur
                                 let newImageUtilisateur = {
-                                    nomE : req.file.originalname,
+                                    nomU : req.file.originalname,
                                     uid : req.file.filename,
                                     utilisateurId : result.id
                                 }

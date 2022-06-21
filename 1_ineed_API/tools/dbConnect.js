@@ -103,7 +103,7 @@ module.exports = {
                     dbConnector.categorie.hasOne(dbConnector.imageCategorie);
                     dbConnector.imageCategorie.belongsTo(dbConnector.categorie);
 
-                //  dbConnector.sequelize.sync({force : true})
+                // dbConnector.sequelize.sync({force : true})
         }
     },
 

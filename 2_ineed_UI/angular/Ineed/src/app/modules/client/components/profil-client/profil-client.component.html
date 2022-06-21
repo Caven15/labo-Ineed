@@ -14,7 +14,7 @@
                                 <h6 class="mb-0 text-one fw-bold">Nom :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].nom}}
+                                {{client.nom}}
                             </div>
                         </div>
                     <hr>
@@ -23,7 +23,7 @@
                                 <h6 class="mb-0 text-one fw-bold">Prenom :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].prenom}}
+                                {{client.prenom}}
                             </div>
                         </div>
                     <hr>
@@ -32,7 +32,7 @@
                                 <h6 class="mb-0 text-one fw-bold">J.naissance :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].dateNaissance | date: 'dd-MM-yyyy'}}
+                                {{client.dateNaissance | date: 'dd-MM-yyyy'}}
                             </div>
                         </div>
                     <hr>
@@ -41,7 +41,7 @@
                                 <h6 class="mb-0 text-one fw-bold">E-mail :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].email}}
+                                {{client.email}}
                             </div>
                         </div>
                     <hr>
@@ -72,7 +72,7 @@
                                 <h6 class="mb-0 text-one fw-bold ">Rue :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].rue}}
+                                {{client.rue}}
                             </div>
                         </div>
                     <hr>
@@ -81,7 +81,7 @@
                                 <h6 class="mb-0 text-one fw-bold">Numéro :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].numeroRue}}
+                                {{client.numeroRue}}
                             </div>
                         </div>
                     <hr>
@@ -90,7 +90,7 @@
                                 <h6 class="mb-0 text-one fw-bold">Ville :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].ville}}
+                                {{client.ville}}
                             </div>
                         </div>
                     <hr>
@@ -99,7 +99,7 @@
                                 <h6 class="mb-0 text-one fw-bold">Code Postal :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].codePostal}}
+                                {{client.codePostal}}
                             </div>
                         </div>
                     <hr>
@@ -108,7 +108,7 @@
                                 <h6 class="mb-0 fw-bold">livraison a :</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{client['utilisateur'].rue}} {{client['utilisateur'].numeroRue}} {{client['utilisateur'].codePostal}} {{client['utilisateur'].ville}}
+                                {{client.rue}} {{client.numeroRue}} {{client.codePostal}} {{client.ville}}
                             </div>
                         </div>
                     </div>

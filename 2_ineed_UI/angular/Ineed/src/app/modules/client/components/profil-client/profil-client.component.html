@@ -1,4 +1,18 @@
 <div class="container mt-5 mb-5 bg-one h-auto">
+    <!-- <div class="row d-flex justify-content-center">
+        <div class="col-md-5">
+            <div class="p-3 bg-two mt-3 rounded-3">
+                <button type="button" class="btn position-relative shadow-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <img class="img-fluid" src="{{apiUrl + client['imageUtilisateur'].uid}}" alt="{{apiUrl + client['imageUtilisateur'].nom}}">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="d-flex justify-content-center modal-dialog modal-dialog-centered">
+            <img class="img-fuild" src="{{apiUrl + client['imageUtilisateur'].uid}}" alt="{{apiUrl + client['imageUtilisateur'].nom}}">
+        </div>
+    </div> -->
     <div class="row">
         <div class="col-md-6 p-3">
             <div class="col-md-12 ">
@@ -124,6 +138,9 @@
                 </div>
                 <div class="d-grid gap-2 mb-1">
                     <a class="btn btn-dark" (click)="chargerRouteUpdateInfos()">Modifier mes infos</a>
+                </div>
+                <div class="d-grid gap-2 mb-1">
+                    <a class="btn btn-dark" (click)="chargerRouteUpdateImageProfil()">Modifier mon image de profil</a>
                 </div>
                 <div class="d-grid gap-2 mb-1">
                     <a class="btn btn-danger" (click)="chargerRouteUpdatePassword()">Modifier mon mot de passe</a>

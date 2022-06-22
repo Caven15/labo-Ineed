@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/api/auth.service';
 import { ClientService } from 'src/app/services/api/client.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 import { tokenService } from 'src/app/services/other/token-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profil-client',
@@ -17,6 +18,7 @@ import { tokenService } from 'src/app/services/other/token-service.service';
 })
 export class ProfilClientComponent implements OnInit {
 
+  public apiUrl = environment.apiUrl + "/" 
   public client : client = new client;
   public estEntrepreneur : boolean = true;
   public entrepreneur : entrepreneur
@@ -42,8 +44,9 @@ export class ProfilClientComponent implements OnInit {
 
   chargerClient(): void{
     if (this._authService.isConnected()) {
-      let client : client = this._activatedRoute.snapshot.data['datas']
-      this.client = client
+      let utilisateur : client = this._activatedRoute.snapshot.data['datas']
+      console.log(utilisateur['imageUtilisateur'])
+      this.client = utilisateur
         // configuration du pipe pour avoir la date au format dd/MM/yyyy
       var dateEN = this.client.dateNaissance
       this.datepipe.transform(dateEN, 'dd-MM-yyyy')
@@ -64,6 +67,10 @@ export class ProfilClientComponent implements OnInit {
 
   chargerRouteUpdateInfos(): void {
     this._route.navigate(['updateInfos'])
+  }
+
+  chargerRouteUpdateImageProfil(): void {
+    this._route.navigate(['updateImageProfil'])
   }
 
   chargerRouteUpdateAdresse(): void {

@@ -8,6 +8,7 @@ const db = require("./tools/dbConnect")
 db.connect()
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
+app.use(express.static("uploads"))
 // utilisation du cors pour autoriser toute les origine de connexion au serveur
 app.use(cors())
 app.use(function (req, res, next) {

@@ -9,6 +9,7 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
 import { DeleteProfilComponent } from './components/delete-profil/delete-profil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UpdateImageProfilComponent } from './components/update-image-profil/update-image-profil.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     UpdateAdresseComponent,
     UpdateInfosComponent,
     UpdatePasswordComponent,
-    DeleteProfilComponent
+    DeleteProfilComponent,
+    UpdateImageProfilComponent
   ],
   imports: [
     CommonModule,

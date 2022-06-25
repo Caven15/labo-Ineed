@@ -62,6 +62,13 @@ export class ClientService {
     )
   }
 
+    // mis a jour des donnée d'un client
+    updateImageClient(id: number, image : any){
+      console.log("je passe dans mon update d'image client !")
+      let headers = this._headers.headersReturn()
+      return this._client.patch(`${environment.apiUrl}/client/updateById/${id}`,image )
+    }
+
   // supression d'un profil client
     // le delete se fait sur le service utilisateur (supression automatique du client lié)
 }

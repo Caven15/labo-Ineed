@@ -45,7 +45,6 @@ export class ProfilClientComponent implements OnInit {
   chargerClient(): void{
     if (this._authService.isConnected()) {
       let utilisateur : client = this._activatedRoute.snapshot.data['datas']
-      console.log(utilisateur['imageUtilisateur'])
       this.client = utilisateur
         // configuration du pipe pour avoir la date au format dd/MM/yyyy
       var dateEN = this.client.dateNaissance

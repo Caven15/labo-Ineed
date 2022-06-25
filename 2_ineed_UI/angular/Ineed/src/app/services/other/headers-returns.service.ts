@@ -21,7 +21,6 @@ export class HeadersReturnsService {
     // construit et renvoi le token dans le headers
     const headers = new HttpHeaders({
       'content-type': 'application/json',
-      
       'Authorization': token
     }) 
     return headers

@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
           currentUser = client;
           if (currentUser != null){
             this._route.navigate(["home"]);
+            this._route.routeReuseStrategy.shouldReuseRoute = () => false
+            this._route.onSameUrlNavigation = 'reload'
           }
         },
         error: (error) => {

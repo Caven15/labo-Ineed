@@ -12,6 +12,11 @@ body{
     background-color: rgb(25, 25, 25);
 }
 
+input[type="file"] {
+
+    cursor: pointer;
+}
+
 .bg-one{
     background-color: rgb(242, 169, 0);
 }

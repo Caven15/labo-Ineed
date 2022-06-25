@@ -1,1 +1,56 @@
-<h1 class="d-flex justify-content-center text-secondary">update-image-profil works!</h1>
+<form [formGroup]="ajoutImage" (ngSubmit)="onSubmit()">
+    <div class="container mt-5 mb-5 bg-one h-auto">
+        <div class="row">
+            <div class="col-md-5 p-3">
+                <div class="col-md-12 ">
+                    <h5 class="fw-bold text-two d-flex justify-content-center mt-3">Avant</h5>
+                    <div class="card bg-two">
+                        <div class="d-flex justify-content-center mt-3 mb-3">
+                            <img class="img-fluid" src="{{apiUrl + client['imageUtilisateur'].uid}}" alt="{{apiUrl + client['imageUtilisateur'].nom}}">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <div class="container-fluid">
+                    <div class="row mt-5">
+                        <label for="img" class="btn btn-dark">Parcourir</label>
+                        <input type="file" id="img" placeholder="Select Image" formControlName="image" enctype="multipart/form-data" (change)="changeImage($event)" style="visibility:hidden" style="display:none"/>
+                    </div>
+                    <div class="row mt-5 mb-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="black" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                    </div>
+                    <div class="row">
+                        <button class="d-flex-justify-content-center btn btn-dark shadow-none" (click)="resetImage()">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 p-3">
+                <div class="col-md-12 ">
+                    <h5 class="fw-bold text-two d-flex justify-content-center mt-3">Après</h5>
+                    <div class="card bg-two">
+                        <div class="d-flex justify-content-center mt-3 mb-3">
+                            <div class="image-preview" >
+                                <img [src]="img" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center mt-3 mb-3">
+                <div class="col-md-12">
+                    <div class="d-grid gap-2 mb-1">
+                        <input class="btn w-100 btn-success" type="submit" value="Confirmer">
+                    </div>
+                    <div class="d-grid gap-2 mb-1">
+                        <a class="btn btn-danger" (click)="chargerRouteProfil()">Annuler</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form> 

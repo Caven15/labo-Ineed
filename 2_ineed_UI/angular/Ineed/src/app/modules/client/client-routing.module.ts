@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:'updateAdresse', resolve:{datas: GetByIdClientResolver}, component: UpdateAdresseComponent},
   {path:'updatePassword', component: UpdatePasswordComponent},
   {path:'deleteProfil', component: DeleteProfilComponent},
-  {path:'updateImageProfil', component: UpdateImageProfilComponent}
+  {path:'updateImageProfil',resolve:{datas: GetByIdClientResolver}, component: UpdateImageProfilComponent}
   
 ];
 

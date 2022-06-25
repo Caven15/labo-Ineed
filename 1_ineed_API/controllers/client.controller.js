@@ -96,12 +96,14 @@ exports.getByRoleId = async (req, res, next) => {
 
 // met a jour un client par son id
 exports.update = async (req, res, next) => {
+    console.log("-------------------------")
     console.log("je rentre dans mon update")
+    console.log("-------------------------")
     try {
         if (req.body.nom && req.file) {
+            console.log("req.body.nom && req.file")
             const utilisateur = await dbConnector.utilisateur.findByPk(req.params.id)
             if (utilisateur) {
-                console.log("utilisateur true ")
                 const imageUtilisateur = await dbConnector.imageUtilisateur.findOne({ where: { utilisateurId: utilisateur.id } })
                 let updateImageUtilisateur = {
                     nomU : req.file.originalname,
@@ -135,6 +137,7 @@ exports.update = async (req, res, next) => {
         }
         else{
             if (req.body.nom) {
+                console.log("req.body.nom")
                 const utilisateur = await dbConnector.utilisateur.findByPk(req.params.id)
                 if (utilisateur) {
                     utilisateur.update(req.body)
@@ -147,30 +150,40 @@ exports.update = async (req, res, next) => {
                 }
             }
             if (req.file) {
-                const imageUtilisateur = await dbConnector.imageUtilisateur.findOne({ where : { utilisateurId : req.params.id}})
-                let updateImageUtilisateur = {
-                    nomU : req.file.originalname,
-                    uid : req.file.filename,
-                    utilisateurId : utilisateur.id
-                }
-                if (!imageUtilisateur) {
-                    dbConnector.imageUtilisateur.create(updateImageUtilisateur)
+                console.log("je rentre dans mon file uniquement")
+                const utilisateur = await dbConnector.utilisateur.findByPk(req.params.id)
+                if (utilisateur) {
+                    const imageUtilisateur = await dbConnector.imageUtilisateur.findOne({ where: { utilisateurId: utilisateur.id } })
+                    let updateImageUtilisateur = {
+                        nomU : req.file.originalname,
+                        uid : req.file.filename,
+                        utilisateurId : utilisateur.id
+                    }
+                    console.log(updateImageUtilisateur)
+                    if (!imageUtilisateur) {
+                        dbConnector.imageUtilisateur.create(updateImageUtilisateur)
+                    }
+                    else{
+                        let nomFichier = imageUtilisateur.uid
+                        fs.unlink(`./uploads/${nomFichier}`, (err) => {
+                            if (err){
+                                console.log(err)
+                            }
+                            else{
+                                console.log('image supprimé avec succès')
+                            }
+                            
+                        })
+                        imageUtilisateur.update(updateImageUtilisateur)
+                        res.write(JSON.stringify({message : "image mise a jour avec succès !"}))
+                        res.end()
+                    }
                 }
                 else{
-                    let nomFichier = imageUtilisateur.uid
-                    fs.unlink(`./uploads/${nomFichier}`, (err) => {
-                        if (err){
-                            console.log(err)
-                        }
-                        else{
-                            console.log('image supprimé avec succès')
-                        }
-                        
-                    })
-                    imageUtilisateur.update(updateImageUtilisateur)
-                    res.write(JSON.stringify({message : "image mise a jour avec succès !"}))
+                    res.write(JSON.stringify({message : "cette utilisateur n'existe pas"}))
                     res.end()
                 }
+                
             }
         }
         

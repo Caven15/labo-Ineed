@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 app.use(express.static("uploads"))
 // utilisation du cors pour autoriser toute les origine de connexion au serveur
-app.use(cors())
+
 app.use(function (req, res, next) {
     res.header(
         "Access-Control-Allow-Headers",
@@ -18,6 +18,7 @@ app.use(function (req, res, next) {
     ) 
     next();
 })
+app.use(cors())
 
 // ici j'importe tout mes routeurs pour la redirection...
     const authRouter = require("./routers/auth.router")

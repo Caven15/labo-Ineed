@@ -4,6 +4,7 @@ import { entrepreneur } from 'src/app/models/entrepreneur/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 import { tokenService } from 'src/app/services/other/token-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profil-entrepreneur',
@@ -18,6 +19,7 @@ export class ProfilEntrepreneurComponent implements OnInit {
   public nbVentes : number = 0;
   public nomProduitMeilleurVente : string = "";
   public nomProduitPasVendu : string = "";
+  public apiUrl = environment.apiUrl + "/" 
 
   constructor(
     private _route : Router,

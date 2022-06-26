@@ -4,13 +4,13 @@
             <div class="col-md-5 p-3">
                 <div class="col-md-12 ">
                     <h5 class="fw-bold text-two d-flex justify-content-center mt-3">Avant</h5>
-                    <div class="card bg-two">
+                    <div>
                         <div class="d-flex justify-content-center mt-3 mb-3">
                             <div *ngIf="client['imageUtilisateur'] != undefined ; else notImage">
-                                <img class="img-fluid" src="{{apiUrl + client['imageUtilisateur'].uid}}" alt="{{apiUrl + client['imageUtilisateur'].nom}}">
+                                <img width="300" height="300" class="rounded-circle" src="{{apiUrl + client['imageUtilisateur'].uid}}" alt="{{apiUrl + client['imageUtilisateur'].nom}}">
                             </div>
                             <ng-template #notImage>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" fill="orange" class="bi bi-person-video" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="orange" width="300" height="300" class="rounded-circle"viewBox="0 0 16 16">
                                     <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                                     <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm10.798 11c-.453-1.27-1.76-3-4.798-3-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1.202Z"/>
                                 </svg>
@@ -38,10 +38,10 @@
             <div class="col-md-5 p-3">
                 <div class="col-md-12 ">
                     <h5 class="fw-bold text-two d-flex justify-content-center mt-3">Après</h5>
-                    <div class="card bg-two">
+                    <div>
                         <div class="d-flex justify-content-center mt-3 mb-3">
                             <div class="image-preview" >
-                                <img [src]="img" alt="" class="img-fluid">
+                                <img [src]="img" alt="" width="300" height="300" class="rounded-circle">
                             </div>
                         </div>
                     </div>

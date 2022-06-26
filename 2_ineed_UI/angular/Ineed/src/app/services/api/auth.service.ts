@@ -52,9 +52,9 @@ export class AuthService {
   }
 
   // enregistrement d'un nouvel entrepreneur
-  RegisterEntrepreneur(entrepreneur:registerEntrepreneurForm) : Observable<any>{
+  RegisterEntrepreneur(entrepreneur:any) : Observable<any>{
     let headers = this._headers.headersReturn()
-    return this._client.post(`${environment.apiUrl}/Auth/registerEntrepreneur`,entrepreneur,{'headers' : headers});
+    return this._client.post(`${environment.apiUrl}/Auth/registerEntrepreneur`,entrepreneur);
   }
 
   // refresh token 

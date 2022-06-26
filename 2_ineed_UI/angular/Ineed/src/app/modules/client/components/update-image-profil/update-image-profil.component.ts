@@ -14,7 +14,7 @@ import { ClientService } from 'src/app/services/api/client.service';
 })
 export class UpdateImageProfilComponent implements OnInit {
 
-  public img : SafeUrl = 'assets/svg/person-video.svg';
+  public img : SafeUrl = 'assets/svg/person-fill.svg';
   public client : client = new client()
   public apiUrl = environment.apiUrl + "/" 
   public ajoutImage : FormGroup
@@ -47,7 +47,7 @@ export class UpdateImageProfilComponent implements OnInit {
   }
   
   resetImage(){
-    this.img = 'assets/svg/person-video.svg';
+    this.img = 'assets/svg/person-fill.svg';
   }
 
   chargerClient(): void{

@@ -6,4 +6,5 @@ export class registerEntrepreneurForm {
     codePostalE : number
     email : string
     utilisateurId : number
+    image : File
 }

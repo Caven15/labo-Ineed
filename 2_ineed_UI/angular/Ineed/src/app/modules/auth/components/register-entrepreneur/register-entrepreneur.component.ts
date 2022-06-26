@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { registerEntrepreneurForm } from 'src/app/models//auth/registerEntrepreneurForm.model';
 import { AuthService } from 'src/app/services/api/auth.service';
@@ -14,6 +15,8 @@ import { tokenService } from 'src/app/services/other/token-service.service';
 })
 export class RegisterEntrepreneurComponent implements OnInit {
 
+  public img : SafeUrl = 'assets/svg/person-video.svg';
+  public imageTemp: File
   public entrepreneur: registerEntrepreneurForm
   public registerEntrepreneur : FormGroup
 
@@ -23,11 +26,21 @@ export class RegisterEntrepreneurComponent implements OnInit {
     private _authService : AuthService,
     private _formBuilder : FormBuilder,
     private _clientService : ClientService,
-    private _tokenService : tokenService
+    private _tokenService : tokenService,
+    private _sanitization : DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.refresh()
+  }
+
+  changeImage(event: any){
+    // Récupérer le fichier
+    this.imageTemp = event.target.files[0];
+    // Créer un URL lisible par la balise img
+    const objectUrl = URL.createObjectURL(this.imageTemp);
+    // Update de l'attribut par la nouvelle URL
+    this.img = this._sanitization.bypassSecurityTrustUrl(objectUrl); // bypassSecurityTrustUrl évite d'avoir un warning
   }
 
   refresh(): void{
@@ -42,6 +55,7 @@ export class RegisterEntrepreneurComponent implements OnInit {
       numeroRue : [null,[Validators.required]],
       ville : [null, [Validators.required]],
       codePostal : [null, [Validators.required]],
+      image : [null, [Validators.required]]
     })
   }
 
@@ -50,15 +64,17 @@ export class RegisterEntrepreneurComponent implements OnInit {
       return;
     }
     else{
-      this.entrepreneur = new registerEntrepreneurForm();
-      this.entrepreneur.nomE = this.registerEntrepreneur.value["nom"]
-      this.entrepreneur.rueE = this.registerEntrepreneur.value["rue"]
-      this.entrepreneur.numeroRueE = this.registerEntrepreneur.value["numeroRue"]
-      this.entrepreneur.villeE = this.registerEntrepreneur.value["ville"]
-      this.entrepreneur.codePostalE = this.registerEntrepreneur.value["codePostal"]
-      this.entrepreneur.utilisateurId = parseInt(this._tokenService.getIdFromToken())
+      const formulaireEntrepreneur = new FormData();
+      formulaireEntrepreneur.append('nomE', this.registerEntrepreneur.value["nom"])
+      formulaireEntrepreneur.append('rueE', this.registerEntrepreneur.value["rue"])
+      formulaireEntrepreneur.append('numeroRueE', this.registerEntrepreneur.value["numeroRue"])
+      formulaireEntrepreneur.append('villeE', this.registerEntrepreneur.value["ville"])
+      formulaireEntrepreneur.append('codePostalE', this.registerEntrepreneur.value["codePostal"])
+      formulaireEntrepreneur.append('utilisateurId', this._tokenService.getIdFromToken())
+      formulaireEntrepreneur.append('image', this.imageTemp)
+
       console.log(this.entrepreneur)
-      this._authService.RegisterEntrepreneur(this.entrepreneur).subscribe({
+      this._authService.RegisterEntrepreneur(formulaireEntrepreneur).subscribe({
         next : (data) => {
           
           this._route.navigate(["entrepreneur", "profil"])

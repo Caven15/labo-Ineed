@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-one">
+<nav class="navbar navbar-expand-sm bg-one">
     <div class="container-fluid">
         <a class="navbar-brand shadow-none text-decoration-none" href="home">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1394.18 617.33" width="120px">
@@ -43,30 +43,26 @@
                 </g>
             </svg>
         </a>
-
         <button class="navbar-toggler shadow-none" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                 </svg>
         </button>
-        
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="col-lg-11 col-md-11 col-sm-11">
                 <form class="d-flex" role="search" [formGroup]="resultat" (ngSubmit)="onSubmit()">
-                    <div class="col-11">
-                        <input class="form-control me-3 shadow-none" formControlName="recherche" type="search"
-                            placeholder="encoder un produit, une entreprise...">
-                    </div>
-                    <div class="col-1 d-flex justify-content-center">
-                        <button class="btn btn-outline-dark shadow-none" type="button">
-                            <img src="./../../../../../assets//svg/search.svg" alt="svg"
-                                class="d-flex justify-content-center">
-                        </button>
+                    <div class="input-group">
+                        <input class="form-control shadow-none" formControlName="recherche" type="text" placeholder="encoder un produit, une entreprise...">
+                        <span class="input-group-text">
+                            <button class="btn shadow-none" type="submit">
+                                <img src="./../../../../../assets//svg/search.svg" alt="svg"
+                                    class="d-flex justify-content-center">
+                            </button>
+                        </span>
                     </div>
                 </form>
             </div>
-            <div class="col-lg-1 col-sm-1 d-flex justify-content-center">
+            <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-center">
                 <button type="button" class="btn btn-dark position-relative shadow-none"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"class="bi bi-list" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />

@@ -40,7 +40,22 @@ exports.getById = async (req, res, next) => {
 // récupère un entrepreneur par son id utilisateur
 exports.getByUtilisateurId = async (req, res, next) => {
     try {
-        const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})
+        const entrepreneur = await dbConnector.entrepreneur.findOne({
+            where : {
+                utilisateurId : req.params.id
+            },
+            attributes: {
+                exclude: ['imageId']
+            },
+            include: [
+                {
+                    model : dbConnector.imageEntrepreneur,
+                    attributes: {
+                        exclude: ['entrepreneurId']
+                    },
+                }
+            ]
+        })
         res.status(200).json(entrepreneur)
     } catch (error) {
         res.json(error)
@@ -159,8 +174,9 @@ exports.updateById = async (req, res, next) => {
 
 // supprime un entrepreneur par son id
 exports.delete = async (req, res, next) => {
+    console.log(req.params.id)
     try {
-        const entrepreneur = await dbConnector.entrepreneur.findOne({where : {id : req.params.id}})
+        const entrepreneur = await dbConnector.entrepreneur.findOne({where : {utilisateurId : req.params.id}})
         if (entrepreneur) {
             const imageEntrepreneur = await dbConnector.imageEntrepreneur.findByPk(entrepreneur.imageId)
             if (imageEntrepreneur) {
@@ -176,12 +192,13 @@ exports.delete = async (req, res, next) => {
                 })
                 dbConnector.imageEntrepreneur.destroy({where : {id : entrepreneur.imageId}})
             }
-            dbConnector.entrepreneur.destroy({where : {id : req.params.id}})
-            res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} a été suprimer avec succès !` }))
+            dbConnector.entrepreneur.destroy({where : {utilisateurId : req.params.id}})
+            client.update({roleId : 1}, {id : req.params.id})
+            res.write(JSON.stringify({Message :  `entrepreneur  a été suprimer avec succès !` }))
             res.end()
         }
         else{
-            res.write(JSON.stringify({Message :  `entrepreneur nr : ${req.params.id} n'existe pas` }))
+            res.write(JSON.stringify({Message :  `L'entrepreneur n'existe pas` }))
             res.end()
         }
 

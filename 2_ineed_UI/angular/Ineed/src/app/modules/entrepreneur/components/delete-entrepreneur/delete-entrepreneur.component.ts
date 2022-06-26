@@ -31,7 +31,8 @@ export class DeleteEntrepreneurComponent implements OnInit {
           console.log(errors)
         },
         complete: () => {
-          this._route.navigate(['client', 'profil'])
+          this._authService.logout()
+          this._route.navigate(['auth', 'login'])
         }
       });
     // redirigé vers le profil client

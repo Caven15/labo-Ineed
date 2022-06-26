@@ -14,7 +14,7 @@ import { ClientService } from 'src/app/services/api/client.service';
 })
 export class UpdateImageProfilComponent implements OnInit {
 
-  public img : SafeUrl = 'https://via.placeholder.com/150';
+  public img : SafeUrl = 'assets/svg/person-video.svg';
   public client : client = new client()
   public apiUrl = environment.apiUrl + "/" 
   public ajoutImage : FormGroup
@@ -39,14 +39,15 @@ export class UpdateImageProfilComponent implements OnInit {
 
   changeImage(event: any){
     // Récupérer le fichier
-    this.imageTemp = <File>event.target.files[0];
+    this.imageTemp = event.target.files[0];
     // Créer un URL lisible par la balise img
     const objectUrl = URL.createObjectURL(this.imageTemp);
     // Update de l'attribut par la nouvelle URL
     this.img = this._sanitization.bypassSecurityTrustUrl(objectUrl); // bypassSecurityTrustUrl évite d'avoir un warning
   }
+  
   resetImage(){
-    this.img = 'https://via.placeholder.com/150';
+    this.img = 'assets/svg/person-video.svg';
   }
 
   chargerClient(): void{
@@ -64,15 +65,8 @@ export class UpdateImageProfilComponent implements OnInit {
   }
 
   onSubmit(): void {
-
-    // j'initialise un form data a posté
     const formulaireImage = new FormData();
-    // j'ajoute l'image de mon formulaire
     formulaireImage.append('image', this.imageTemp);
-    console.log(this.imageTemp)
-    // // log du fichier ajouter
-    // console.log(formulaireImage.get('file'))
-    // renvoi du formData avec la méthode post
     this._clientService.updateImageClient(this.client.id, formulaireImage).subscribe({
       error : (error) => {
         console.log(error)

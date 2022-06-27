@@ -62,4 +62,8 @@ export class ProfilEntrepreneurComponent implements OnInit {
   chargerRouteDelete(): void {
     this._route.navigate(['delete'])
   }
+
+  chargerRouteUpdateImageEntrepreneur(): void {
+    this._route.navigate(['updateImageEntrepreneur'])
+  }
 }

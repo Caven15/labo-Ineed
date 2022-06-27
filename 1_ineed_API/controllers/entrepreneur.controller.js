@@ -87,6 +87,9 @@ exports.getByName = async (req, res, next) => {
 
 // met a jour un entrepreneur par son id
 exports.updateById = async (req, res, next) => {
+    console.log("--------------------------------------------")
+    console.log("je rentre dans mon update by id entrepreneur")
+    console.log("--------------------------------------------")
     try {
         if (req.body.nomE && req.file) {
             console.log("req.body.nom && req.file")
@@ -140,18 +143,20 @@ exports.updateById = async (req, res, next) => {
             }
             if (req.file) {
                 const imageEntrepreneur = await dbConnector.imageEntrepreneur.findOne({ where: { entrepreneurId: req.params.id } })
+                const entrepreneur = await dbConnector.entrepreneur.findOne({ where: { id: req.params.id } })
                 let updateImageEntrepreneur = {
                     nomE : req.file.originalname,
                     uid : req.file.filename,
                     entrepreneurId : entrepreneur.id
                 }
                 if (!imageEntrepreneur) {
-                    dbConnector.imageEntrepreneur.create(updateImageEntrepreneur).then(() => {
-                        res.status(201).json({message: "image ajouté avec succès !"})
-                    })
+                    console.log("création d'une image entrepreneur")
+                    dbConnector.imageEntrepreneur.create(updateImageEntrepreneur)
                 }
                 else{
+                    console.log("remplacement de l'image existante")
                     let nomFichier = imageEntrepreneur.uid
+                    console.log(imageEntrepreneur.uid)
                     fs.unlink(`./uploads/${nomFichier}`, (err) => {
                         if (err){
                             console.log(err)

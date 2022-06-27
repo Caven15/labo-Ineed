@@ -100,7 +100,7 @@ exports.update = async (req, res, next) => {
     console.log("je rentre dans mon update")
     console.log("-------------------------")
     try {
-        if (req.body&& req.file) {
+        if (req.body.nom && req.file) {
             console.log("req.body.nom && req.file")
             const utilisateur = await dbConnector.utilisateur.findByPk(req.params.id)
             if (utilisateur) {
@@ -136,7 +136,7 @@ exports.update = async (req, res, next) => {
             }
         }
         else{
-            if (req.body) {
+            if (req.body.nom) {
                 console.log("req.body.nom")
                 const utilisateur = await dbConnector.utilisateur.findByPk(req.params.id)
                 if (utilisateur) {

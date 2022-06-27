@@ -13,6 +13,7 @@ import { DetailProduitEntrepreneurComponent } from './components/detail-produit-
 import { AddProduitComponent } from './components/add-produit/add-produit.component';
 import { DeleteProduitComponent } from './components/delete-produit/delete-produit.component';
 import { EntrepreneurItemComponent } from './components/entrepreneur-item/entrepreneur-item.component';
+import { UpdateImageEntrepreneurComponent } from './components/update-image-entrepreneur/update-image-entrepreneur.component';
 
 
 
@@ -26,7 +27,8 @@ import { EntrepreneurItemComponent } from './components/entrepreneur-item/entrep
     DetailProduitEntrepreneurComponent,
     AddProduitComponent,
     DeleteProduitComponent,
-    EntrepreneurItemComponent
+    EntrepreneurItemComponent,
+    UpdateImageEntrepreneurComponent
   ],
   imports: [
     CommonModule,

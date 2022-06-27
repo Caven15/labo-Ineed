@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { client } from 'src/app/models/client/client.model';
+import { entrepreneur } from 'src/app/models/entrepreneur/entrepreneur.model';
 import { AuthService } from 'src/app/services/api/auth.service';
+import { EntrepreneurService } from 'src/app/services/api/entrepreneur.service';
 import { environment } from 'src/environments/environment';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import { ClientService } from 'src/app/services/api/client.service';
 
 @Component({
-  selector: 'app-update-image-profil',
-  templateUrl: './update-image-profil.component.html',
-  styleUrls: ['./update-image-profil.component.scss']
+  selector: 'app-update-image-entrepreneur',
+  templateUrl: './update-image-entrepreneur.component.html',
+  styleUrls: ['./update-image-entrepreneur.component.scss']
 })
-export class UpdateImageProfilComponent implements OnInit {
+export class UpdateImageEntrepreneurComponent implements OnInit {
 
-  public img : SafeUrl = 'assets/svg/person-fill.svg';
-  public client : client = new client()
+  public img : SafeUrl = 'assets/svg/building.svg';
+  public entrepreneur : entrepreneur = new entrepreneur()
   public apiUrl = environment.apiUrl + "/" 
   public ajoutImage : FormGroup
   public imageTemp: File 
@@ -24,16 +24,22 @@ export class UpdateImageProfilComponent implements OnInit {
     private _authService : AuthService,
     private _route : Router,
     private _activatedRoute : ActivatedRoute,
-    private _clientService : ClientService,
     private _formBuilder : FormBuilder,
-    private _sanitization : DomSanitizer
+    private _sanitization : DomSanitizer,
+    private _entrepreneurService : EntrepreneurService
   ) { }
 
   ngOnInit(): void {
     this.ajoutImage = this._formBuilder.group({
       image : [null, [Validators.required]]
     })
-    this.chargerClient()
+    this.chargerEntrepreneur()
+
+    
+  }
+
+  resetImage(){
+    this.img = 'assets/svg/building.svg';
   }
 
   changeImage(event: any){
@@ -44,15 +50,11 @@ export class UpdateImageProfilComponent implements OnInit {
     // Update de l'attribut par la nouvelle URL
     this.img = this._sanitization.bypassSecurityTrustUrl(objectUrl); // bypassSecurityTrustUrl évite d'avoir un warning
   }
-  
-  resetImage(){
-    this.img = 'assets/svg/person-fill.svg';
-  }
 
-  chargerClient(): void{
+  chargerEntrepreneur(): void{
     if (this._authService.isConnected()) {
-      let utilisateur : client = this._activatedRoute.snapshot.data['datas']
-      this.client = utilisateur
+      let entrepreneur : entrepreneur = this._activatedRoute.snapshot.data['datas']
+      this.entrepreneur = entrepreneur
     }
     else{
       this._route.navigate(['login'])
@@ -66,13 +68,13 @@ export class UpdateImageProfilComponent implements OnInit {
   onSubmit(): void {
     const formulaireImage = new FormData();
     formulaireImage.append('image', this.imageTemp);
-    this._clientService.updateImageClient(this.client.id, formulaireImage).subscribe({
+    this._entrepreneurService.updateImageEntrepreneur(this.entrepreneur.id, formulaireImage).subscribe({
       error : (error) => {
         console.log(error)
       },
       complete: () => {
         console.log("image mis a jour avec succès !")
-        this._route.navigate(['profil'])
+        this._route.navigate(['entrepreneur','profil'])
       }
     })
   }

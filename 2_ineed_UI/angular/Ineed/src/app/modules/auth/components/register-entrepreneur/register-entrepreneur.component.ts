@@ -72,8 +72,6 @@ export class RegisterEntrepreneurComponent implements OnInit {
       formulaireEntrepreneur.append('codePostalE', this.registerEntrepreneur.value["codePostal"])
       formulaireEntrepreneur.append('utilisateurId', this._tokenService.getIdFromToken())
       formulaireEntrepreneur.append('image', this.imageTemp)
-
-      console.log(this.entrepreneur)
       this._authService.RegisterEntrepreneur(formulaireEntrepreneur).subscribe({
         next : (data) => {
           

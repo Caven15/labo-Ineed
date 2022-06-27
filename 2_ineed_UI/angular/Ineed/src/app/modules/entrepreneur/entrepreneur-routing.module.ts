@@ -10,6 +10,7 @@ import { DetailProduitEntrepreneurComponent } from './components/detail-produit-
 import { EntrepreneurItemComponent } from './components/entrepreneur-item/entrepreneur-item.component';
 import { ProfilEntrepreneurComponent } from './components/profil-entrepreneur/profil-entrepreneur.component';
 import { UpdateEntrepreneurComponent } from './components/update-entrepreneur/update-entrepreneur.component';
+import { UpdateImageEntrepreneurComponent } from './components/update-image-entrepreneur/update-image-entrepreneur.component';
 import { UpdateProduitEntrepreneurComponent } from './components/update-produit-entrepreneur/update-produit-entrepreneur.component';
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path:'detail/:id', component: DetailProduitEntrepreneurComponent},
   {path:'updateProduit/:id', resolve:{datas: GetByIdProduitResolver}, component: UpdateProduitEntrepreneurComponent},
   {path:'add/:entrepreneurId', component: AddProduitComponent},
-  {path: 'entrepreneurItem/:id', component: EntrepreneurItemComponent}
+  {path: 'entrepreneurItem/:id', component: EntrepreneurItemComponent},
+  {path: 'updateImageEntrepreneur', resolve:{datas: GetByIdUtilisateurResolver}, component: UpdateImageEntrepreneurComponent}
 ];
 
 @NgModule({

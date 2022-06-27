@@ -48,6 +48,12 @@ export class EntrepreneurService {
     return this._client.patch(`${environment.apiUrl}/entrepreneur/updateById/${id}`,{ entrepreneur : entrepreneur},{'headers' : headers})
   }
 
+  // mis a jour des donnée d'un client
+  updateImageEntrepreneur(id: number, image : any){
+    let headers = this._headers.headersReturn()
+    return this._client.patch(`${environment.apiUrl}/entrepreneur/updateById/${id}`,image )
+  }
+
   // supprime un entrepreneur par son id
   delete(id:number){
     let headers = this._headers.headersReturn()

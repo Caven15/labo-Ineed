@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { client } from '../../models/client/client.model';
-import { HeadersReturnsService } from '../other/headers-returns.service';
+import { HeadersReturnsService } from '../other/headers-json-returns.service';
 import { tokenService } from '../other/token-service.service';
 import { AuthService } from './auth.service';
 

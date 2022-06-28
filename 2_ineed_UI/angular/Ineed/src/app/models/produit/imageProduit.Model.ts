@@ -1,4 +1,4 @@
-export class imagePRoduit {
+export class imageProduit {
     name : any
     htmlObj : any
     fileImg : any

@@ -7,7 +7,7 @@ import { registerClientForm } from '../../models/auth/registerClientForm.model';
 import { registerEntrepreneurForm } from '../../models/auth/registerEntrepreneurForm.model';
 import { client } from '../../models/client/client.model';
 import { loginForm } from '../../models/auth/loginForm.model';
-import { HeadersReturnsService } from '../other/headers-returns.service';
+import { HeadersReturnsService } from '../other/headers-json-returns.service';
 import { tokenService } from '../other/token-service.service';
 import { refreshToken } from 'src/app/models/auth/refreshToken.model';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { imagePRoduit } from 'src/app/models/produit/imagePRoduit';
+import { imageProduit } from 'src/app/models/produit/imageProduit.Model';
 import { produit } from 'src/app/models/produit/produit.model';
 import { AuthService } from 'src/app/services/api/auth.service';
 import { ProduitService } from 'src/app/services/api/produit.service';
@@ -16,7 +16,7 @@ export class AddProduitComponent implements OnInit {
 
   public img : SafeUrl = 'assets/svg/card-image.svg';
   public imageTemp: File
-  public tabImages : imagePRoduit[] = new Array<imagePRoduit>()
+  public tabImages : imageProduit[] = new Array<imageProduit>()
   public addProduit : FormGroup
   public produit : produit = new produit()
 

@@ -5,10 +5,9 @@ import { tokenService } from './token-service.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HeadersReturnsService {
+export class HeadersFormDataReturnService {
 
   constructor(
-    private _client : HttpClient,
     private _tokenService : tokenService
   ) { }
   headersReturn(){
@@ -20,7 +19,7 @@ export class HeadersReturnsService {
 
     // construit et renvoi le token dans le headers
     const headers = new HttpHeaders({
-      'content-type': 'application/json',
+      'Content-type': 'multipart/form-data; boundary=addProduct',
       'Authorization': token
     }) 
     return headers

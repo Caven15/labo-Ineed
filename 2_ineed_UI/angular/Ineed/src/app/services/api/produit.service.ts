@@ -16,9 +16,9 @@ export class ProduitService {
   ) { }
 
   // ajoute un produit
-  add(produit : produit) : Observable<any>{
+  add(produit : any) : Observable<any>{
     let headers = this._headers.headersReturn()
-    return this._client.post(`${environment.apiUrl}/produit/add`, produit, {'headers' : headers});
+    return this._client.post(`${environment.apiUrl}/produit/add`, produit);
   }
 
   // récupère tout les produits

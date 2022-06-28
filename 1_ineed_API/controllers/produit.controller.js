@@ -4,6 +4,11 @@ const fs = require("fs")
 
 // ajoute un nouveau produit
 exports.add = async (req, res, next) => {
+    console.log("----------------------")
+    console.log("je rentre dans add produit")
+    console.log("----------------------")
+    console.log(req.files)
+    console.log(req.body)
     try {
         // si la requete contient un bpdy et un fichier
             if (req.body.nom && req.files) {

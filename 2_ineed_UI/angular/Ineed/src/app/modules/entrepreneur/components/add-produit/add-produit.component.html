@@ -2,14 +2,62 @@
     <form [formGroup]="addProduit" (ngSubmit)="onSubmit()">
         <div class="container p-3 mt-5 mb-5  bg-one rounded-3">
             <div class="container bg-two rounded-3">
+                <h2 class="text-secondary fw-bold d-flex justify-content-center mt-3 mb-3">Ajout produit</h2>
                 <div class="d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="orange" class="bi bi-plus-square-fill mt-3" viewBox="0 0 16 16">
-                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-                    </svg>
+                    <div class="image-preview position-relative">
+                        <img [src]="img" alt="" width="300" height="300" class="rounded-circle m-3">
+                        
+                        <span class="position-absolute top-50 start-100 translate-middle p-2">
+                            <span class="d-flex align-items-center justify-content-center">
+                                <label for="img">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                    </svg>
+                                </label>
+                                <input type="file" id="img" placeholder="Select Image" formControlName="image" enctype="multipart/form-data" multiple="multiple" (change)="loadImage($event)" style="visibility:hidden" style="display:none"/>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <div class= "col-md-6">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button text-dark shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Images secondaire(s)
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div *ngIf="imageTemp ; else notImage">
+                                        <div class="container d-felx justify-content-center">
+                                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                                                <div *ngFor="let img of tabImages" class="col d-flex justify-content-center mt-3 mb-3">
+                                                    <div class="image-preview- position-relative">
+                                                        <img [src]="img.htmlObj" alt="" width="130" height="130" class="p-1">
+                                                        <span class="position-absolute top-0 start-100 translate-middle rounded-circle bg-black border-light">
+                                                            <a (click)="deleteImage(img)">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="orange" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                                                </svg>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #notImage>
+                                        <div class="accordion-body">aucunes image inserée pour le moment...</div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="container d-flex justify-content-center">
                     <div class="col-md-6">
-                        <h2 class="text-secondary fw-bold d-flex justify-content-center mt-3">Ajout produit</h2>
                         <div>
                             <label class="labels text-one fw-bold ">Nom :</label>
                             <input type="text" formControlName="nom" class="form-control">

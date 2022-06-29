@@ -39,7 +39,7 @@ export class ProfilClientComponent implements OnInit {
       return;
     }
     this.chargerClient()
-    this.chargerEntrepreneur()
+    // this.chargerEntrepreneur()
   }
 
   chargerClient(): void{

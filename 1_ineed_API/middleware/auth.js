@@ -6,6 +6,8 @@ require("dotenv").config()
 // jwtControl
 exports.jwtControl = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    console.log("req.headers : ", req.headers)
+    console.log("req.headers.authorization : ", req.headers.authorization)
     if (authHeader) {
         const token = authHeader.split(' ')[1];
         jwt.verify(token, process.env.TOKEN_SECRET, (err) => {

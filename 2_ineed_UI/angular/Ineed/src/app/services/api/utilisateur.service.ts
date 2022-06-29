@@ -8,25 +8,20 @@ providedIn: 'root'
 })
 export class UtilisateurService {
 
-constructor(
-    private _client: HttpClient,
-    private _headers: HeadersReturnsService
-    ) { }
+constructor(private _client: HttpClient) { }
 
 // suprimmer un utilisateur
     delete(id: number){
-        let headers = this._headers.headersReturn()
-        return this._client.delete(`${environment.apiUrl}/utilisateur/delete/${id}`,{'headers' : headers});
+        return this._client.delete(`${environment.apiUrl}/utilisateur/delete/${id}`);
     }
 
 // update Password
     updatePassword(id: number, oldPassword: string, newPassword: string, confirmNewPassword: string){
-        let headers = this._headers.headersReturn() 
         return this._client.patch(`${environment.apiUrl}/utilisateur/updatePassword/${id}`,
             {
                 oldPassword: oldPassword,
                 newPassword: newPassword,
                 confirmNewPassword: confirmNewPassword
             },
-            {'headers' : headers})}
+        )}
     }

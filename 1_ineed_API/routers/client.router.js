@@ -10,7 +10,7 @@ const { upload } = require("../tools/multerConfig")
 
 // route utilisateur connecté
     router.get("/getById/:id", jwtControl, clientControl, clientController.getById)
-    router.patch("/updateById/:id", upload.single("image"), clientController.update)
+    router.patch("/updateById/:id", jwtControl, clientControl, upload.single("image"), clientController.update)
 
 
 // route entrepreneur

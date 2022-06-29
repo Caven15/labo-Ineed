@@ -27,10 +27,12 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
           if(datas.status == 401)
           {
             this._autService.refreshToken().subscribe( tokenData => {
-            this._tokenService.saveToken(tokenData.accessToken)
-            this._tokenService.saveRefreshToken(tokenData.refreshToken)
-            console.log("token refresh avec succès !")
-            this._router.navigate(['client', 'profil'])
+
+              this._tokenService.saveToken(tokenData.accessToken)
+              this._tokenService.saveRefreshToken(tokenData.refreshToken)
+              this._autService.setToken(tokenData.accessToken)
+              console.log("token refresh avec succès !")
+              this._router.navigate(['client', 'profil'])
             })
           }
           else if(datas.status == 410){

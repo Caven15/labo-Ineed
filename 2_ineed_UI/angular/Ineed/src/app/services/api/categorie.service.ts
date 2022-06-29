@@ -10,10 +10,7 @@ import { HeadersReturnsService } from '../other/headers-json-returns.service';
 })
 export class CategorieService {
 
-  constructor(
-    private _client: HttpClient,
-    private _headers: HeadersReturnsService
-  ) { }
+  constructor(private _client: HttpClient) { }
 
   // récupère toutes les catégories
   getAll(): Observable<categorie[]>{

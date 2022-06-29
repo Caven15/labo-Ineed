@@ -11,10 +11,7 @@ import { HeadersReturnsService } from '../other/headers-json-returns.service';
 export class EntrepreneurService {
 
 
-  constructor(
-    private _client: HttpClient,
-    private _headers: HeadersReturnsService
-    ) { }
+  constructor(private _client: HttpClient) { }
 
   // récupère tout les entrepreneurs
   getAll(): Observable<entrepreneur[]>{
@@ -24,8 +21,7 @@ export class EntrepreneurService {
 
   // récupère un entrepreneur par son id
   getById(id : number) : Observable<entrepreneur>{
-    let headers = this._headers.headersReturn()
-    let entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getById/${id}`,{'headers' : headers})
+    let entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getById/${id}`)
     return entrepreneur;
   }
 
@@ -37,26 +33,22 @@ export class EntrepreneurService {
 
   // récupère un entrepreneur par son id utilisateur
   getByUtilisateurId(id : number) : Observable<entrepreneur>{
-    let headers = this._headers.headersReturn()
-    let entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getByUtilisateurId/${id}`,{'headers' : headers})
+    let entrepreneur = this._client.get<entrepreneur>(`${environment.apiUrl}/entrepreneur/getByUtilisateurId/${id}`)
     return entrepreneur;
   }
 
   // met a jour un entrepreneur par son id
   update(id: number, entrepreneur: entrepreneur){
-    let headers = this._headers.headersReturn()
-    return this._client.patch(`${environment.apiUrl}/entrepreneur/updateById/${id}`,{ entrepreneur : entrepreneur},{'headers' : headers})
+    return this._client.patch(`${environment.apiUrl}/entrepreneur/updateById/${id}`,{ entrepreneur : entrepreneur})
   }
 
   // mis a jour des donnée d'un client
   updateImageEntrepreneur(id: number, image : any){
-    let headers = this._headers.headersReturn()
     return this._client.patch(`${environment.apiUrl}/entrepreneur/updateById/${id}`,image )
   }
 
   // supprime un entrepreneur par son id
   delete(id:number){
-    let headers = this._headers.headersReturn()
-    return this._client.delete(`${environment.apiUrl}/entrepreneur/delete/${id}`,{'headers' : headers})
+    return this._client.delete(`${environment.apiUrl}/entrepreneur/delete/${id}`)
   }
 }

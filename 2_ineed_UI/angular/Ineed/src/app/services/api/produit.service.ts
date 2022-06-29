@@ -19,7 +19,6 @@ export class ProduitService {
 
   // ajoute un produit
   add(produit : FormData) : Observable<any>{
-    let headers = this._headersJson.headersReturn()
     console.log(produit)
     return this._client.post(`${environment.apiUrl}/produit/add`, produit);
   }
@@ -32,8 +31,7 @@ export class ProduitService {
 
   // récupère un produit par son id
   GetById(id : number) : Observable<produit>{
-    let headers = this._headersJson.headersReturn()
-    var produit = this._client.get<produit>(`${environment.apiUrl}/produit/getById/${id}`, {'headers' : headers});
+    var produit = this._client.get<produit>(`${environment.apiUrl}/produit/getById/${id}`);
     return produit;
   }
 
@@ -45,28 +43,24 @@ export class ProduitService {
 
   // récupère tout les produits par son catégorieId
   GetByCategorieId(id : number) : Observable<produit[]>{
-    let headers = this._headersJson.headersReturn()
-    var produits = this._client.get<produit[]>(`${environment.apiUrl}/produit/getByCategorieId/${id}`, {'headers' : headers});
+    var produits = this._client.get<produit[]>(`${environment.apiUrl}/produit/getByCategorieId/${id}`);
     return produits;
   }
 
   // récupère tout les produits par son entrepreneneurId
   GetByEntrepreneurId(id : number) : Observable<produit[]>{
-    let headers = this._headersJson.headersReturn()
-    var produits = this._client.get<produit[]>(`${environment.apiUrl}/produit/getByEntrepreneurId/${id}`, {'headers' : headers});
+    var produits = this._client.get<produit[]>(`${environment.apiUrl}/produit/getByEntrepreneurId/${id}`);
     return produits;
   }
 
   // met a jour un produits par son id
   update(id: number,produit: produit){
     console.log("je passe dans mon update !")
-    let headers = this._headersJson.headersReturn()
-    return this._client.patch(`${environment.apiUrl}/produit/updateById/${id}`,{produit: produit}, {'headers' : headers})
+    return this._client.patch(`${environment.apiUrl}/produit/updateById/${id}`,{produit: produit})
   }
 
   // supprime un produit par son id
   delete(id: number){
-    let headers = this._headersJson.headersReturn()
-    return this._client.delete(`${environment.apiUrl}/produit/delete/${id}`, {'headers' : headers});
+    return this._client.delete(`${environment.apiUrl}/produit/delete/${id}`);
 }
 }

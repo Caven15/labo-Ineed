@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const entrepreneurController = require("../controllers/entrepreneur.controller")
-const {jwtControl, clientControl, moderateurControl} = require("../middleware/auth")
+const {jwtControl, clientControl, moderateurControl, entrepreneurControl} = require("../middleware/auth")
 const { upload } = require("../tools/multerConfig")
 
 // route libre
@@ -9,14 +9,14 @@ const { upload } = require("../tools/multerConfig")
 
 
 // route utilisateur connecté
-    router.get("/getById/:id", jwtControl, clientControl, entrepreneurController.getById)
-    router.get("/getByUtilisateurId/:id", jwtControl, clientControl, entrepreneurController.getByUtilisateurId)
-    router.patch("/updateById/:id", upload.single("image"), entrepreneurController.updateById)
-    router.delete("/delete/:id", entrepreneurController.delete)
+    //...
 
 
 // route entrepreneur
-    //...
+    router.get("/getById/:id", jwtControl, entrepreneurControl, entrepreneurController.getById)
+    router.get("/getByUtilisateurId/:id", jwtControl, entrepreneurControl, entrepreneurController.getByUtilisateurId)
+    router.patch("/updateById/:id", jwtControl, entrepreneurControl, upload.single("image"), entrepreneurController.updateById)
+    router.delete("/delete/:id", jwtControl, entrepreneurControl, entrepreneurController.delete)
 
 
 // route administration

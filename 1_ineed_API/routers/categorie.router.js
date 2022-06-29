@@ -6,12 +6,10 @@ const { upload } = require("../tools/multerConfig")
 
 // route libre
     router.get("/getAll", categorieController.getAllCategorie)
-
+    router.get("/getById/:id", categorieController.getCategorieById)
     
 // route utilisateur connecté
-    router.get("/getById/:id", categorieController.getCategorieById)
-    router.patch("/:id", upload.single("image"), categorieController.updateCategorie)
-    router.delete("/:id", categorieController.deleteCategorie)
+    //...
 
 
 // route entrepreneur
@@ -19,7 +17,9 @@ const { upload } = require("../tools/multerConfig")
 
 
 // route administration
-    router.post("/add", upload.single("image"), categorieController.addCategorie)
+    router.post("/add", upload.single("image"), jwtControl, moderateurControl, categorieController.addCategorie)
     router.get("/getByCategorie/:categorie", jwtControl, moderateurControl, categorieController.getCategorieByName)
+    router.patch("/:id", upload.single("image"), jwtControl, moderateurControl, categorieController.updateCategorie)
+    router.delete("/:id", jwtControl, moderateurControl, categorieController.deleteCategorie)
 
 module.exports = router

@@ -1,13 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { registerClientForm } from '../../models/auth/registerClientForm.model';
-import { registerEntrepreneurForm } from '../../models/auth/registerEntrepreneurForm.model';
 import { client } from '../../models/client/client.model';
 import { loginForm } from '../../models/auth/loginForm.model';
-import { HeadersReturnsService } from '../other/headers-json-returns.service';
 import { tokenService } from '../other/token-service.service';
 import { refreshToken } from 'src/app/models/auth/refreshToken.model';
 
@@ -27,11 +25,14 @@ export class AuthService {
   constructor(
     private _client: HttpClient, 
     private _route: Router,
-    private _headers: HeadersReturnsService,
     private _tokenService : tokenService
     ) { 
     this._currentUserSubject = new BehaviorSubject<client>(JSON.parse(this._tokenService.getToken()));
     this.currentUser = this._currentUserSubject.asObservable();
+  }
+
+  setToken(token): void{
+    this._currentUserSubject.next(token)
   }
 
     // login d'un utilisateur
@@ -41,7 +42,7 @@ export class AuthService {
       // Enregistrement du token + refreshToken
       this._tokenService.saveToken(client.accessToken)
       this._tokenService.saveRefreshToken(client.refreshToken)
-      this._currentUserSubject.next(client);
+      this._currentUserSubject.next(client.accessToken);
       return client;
       }));
     }
@@ -53,21 +54,17 @@ export class AuthService {
 
   // enregistrement d'un nouvel entrepreneur
   RegisterEntrepreneur(entrepreneur:any) : Observable<any>{
-    let headers = this._headers.headersReturn()
     return this._client.post(`${environment.apiUrl}/Auth/registerEntrepreneur`,entrepreneur);
   }
 
   // refresh token 
   refreshToken() : Observable<any>{
-    console.log("------------------------------------")
-    console.log("j'entre dans mon refresh mon token !")
-    console.log("------------------------------------")
-
     let token : string = this._tokenService.getRefreshToken()
     for (let i = 0; i < token.length; i++) {
       token = token.replace('"', '')
     }
     this.tokenRefresh.refreshToken = token
+    console.log("envoi du refreshToken ver le serveur !")
     return this._client.post(`${environment.apiUrl}/Auth/refreshToken`,this.tokenRefresh);
   }
 

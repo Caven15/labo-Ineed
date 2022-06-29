@@ -16,9 +16,9 @@ const { upload } = require("../tools/multerConfig")
 
 
 // route entrepreneur
-    router.post("/add", upload.array('images', 6), produitController.add)
+    router.post("/add", jwtControl,  entrepreneurControl, upload.array('images', 6), produitController.add)
     router.patch("/updateById/:id", jwtControl,  entrepreneurControl, produitController.update)
-    router.delete("/delete/:id", produitController.delete)
+    router.delete("/delete/:id", jwtControl,  entrepreneurControl, produitController.delete)
 
 
 // route administration

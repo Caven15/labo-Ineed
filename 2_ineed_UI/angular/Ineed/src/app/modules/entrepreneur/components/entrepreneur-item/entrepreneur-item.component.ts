@@ -15,6 +15,6 @@ export class EntrepreneurItemComponent implements OnInit {
   }
 
   chargerDetailEntrepreneur(id): void {
-
+    console.log("redirection a mettre en place !")
   }
 }

@@ -3,19 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { produit } from 'src/app/models/produit/produit.model';
 import { environment } from 'src/environments/environment';
-import { HeadersReturnsService } from '../other/headers-json-returns.service';
-import { HeadersFormDataReturnService } from '../other/headers-form-data-return.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProduitService {
 
-  constructor(
-    private _client: HttpClient,
-    private _headersJson: HeadersReturnsService,
-    private _headersFromData : HeadersFormDataReturnService
-  ) { }
+  constructor(private _client: HttpClient) { }
 
   // ajoute un produit
   add(produit : FormData) : Observable<any>{

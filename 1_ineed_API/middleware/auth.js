@@ -6,14 +6,10 @@ require("dotenv").config()
 // jwtControl
 exports.jwtControl = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    console.log("req.headers : ", req.headers)
-    console.log("req.headers.authorization : ", req.headers.authorization)
     if (authHeader) {
         const token = authHeader.split(' ')[1];
         jwt.verify(token, process.env.TOKEN_SECRET, (err) => {
             if (err) {
-                console.log(err)
-                console.log("token invalide !")
                 return res.sendStatus(401).json({error: "erreur d'authentification"})
             }
             console.log("jwtControl ok je passe a la suite")
@@ -21,10 +17,6 @@ exports.jwtControl = (req, res, next) => {
         });
     } 
     else {
-        console.log("---------------------")
-        console.log("aucun token reconnu !")
-        console.log("---------------------")
-
         res.sendStatus(403).json({error: "vous n'avez pas inserer de token"})
     }
 }

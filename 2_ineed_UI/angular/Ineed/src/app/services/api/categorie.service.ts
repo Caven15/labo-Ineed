@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { categorie } from 'src/app/models/categorie/categorie.model';
 import { environment } from 'src/environments/environment';
-import { HeadersReturnsService } from '../other/headers-json-returns.service';
 
 @Injectable({
   providedIn: 'root'
